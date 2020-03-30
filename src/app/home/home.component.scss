@@ -1,5 +1,15 @@
-.search-form {
+.search {
     width: 100%;
     height: 100%;
     background: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .search-card {
+        background: lightgray;
+        max-width: 500px;
+        width: 50%;
+        height: 50%;
+    }
 }
