@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
@@ -16,8 +16,6 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToSearch = (formData) => {
-    
-
     this.router.navigate(['search'], {queryParams: Object.assign({}, formData), skipLocationChange: true});
   }
 
