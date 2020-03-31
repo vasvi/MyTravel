@@ -9,12 +9,8 @@ import {SearchCriteria} from '../../model/search-criteria';
 })
 export class SearchFormComponent implements OnInit {
   @Output() formData: EventEmitter<SearchCriteria> = new EventEmitter();
+  searchForm: FormGroup;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-  
   // Form properties
   person = new FormControl('', Validators.required);
   budget = new FormControl('', Validators.required);
@@ -22,14 +18,22 @@ export class SearchFormComponent implements OnInit {
   travelmode = new FormControl('', Validators.required);
   hoteltype = new FormControl('', Validators.required);
 
-  // Form Group
-  searchForm = new FormGroup({
-    persons: this.person,
-    budget: this.budget,
-    duration: this.duration,
-    travelmode: this.travelmode,
-    hoteltype: this.hoteltype
-  });
+  constructor() {
+    this.searchForm = this.createFormGroup();
+   }
+
+  ngOnInit() {
+  }
+
+  createFormGroup = () => {
+    return new FormGroup({
+      person: this.person,
+      budget: this.budget,
+      duration: this.duration,
+      travelmode: this.travelmode,
+      hoteltype: this.hoteltype
+    });
+  }
 
   onSubmit = () => {
     const formData: SearchCriteria = Object.assign({}, this.searchForm.value);
