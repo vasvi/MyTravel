@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,26 +8,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
-
-  // Form properties
-  persons = new FormControl('', Validators.required);
-  budget = new FormControl('', Validators.required);
-  daysOfStay = new FormControl('', Validators.required);
-  travelMode = new FormControl('', Validators.required);
-  hotelRating = new FormControl('', Validators.required);
-
-  // Form Group
-  searchForm = new FormGroup({
-    persons: this.persons,
-    budget: this.budget,
-    daysOfStay: this.daysOfStay,
-    travelMode: this.travelMode,
-    hotelRating: this.hotelRating
-  });
-
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+
+  navigateToSearch = (formData) => {
+    this.router.navigate(['search'], {queryParams: {data: formData}});
   }
 
 }

@@ -1,15 +1,4 @@
-$form-field-color: rgb(0,0,0,0.87);
 
-::ng-deep {
-    .mat-form-field-appearance-legacy {
-        .mat-form-field-label {
-            color: $form-field-color;
-        }
-        .mat-form-field-underline {
-            background-color: $form-field-color;
-        }
-    }
-}
 .search {
     width: 100%;
     height: 100%;
@@ -17,25 +6,8 @@ $form-field-color: rgb(0,0,0,0.87);
     display: flex;
     align-items: center;
     justify-content: center;
-   
-    .search-card {
-        background: lightgray;
-        color: #333333;
-        height: 50%;
-        max-width: 500px;
+
+    search-form {
         width: 50%;
-
-        mat-card-content {
-            margin-left: 15px;
-
-            form {
-                display: flex;
-                flex-direction: column;
-
-                mat-form-field {
-                    width: 40%;
-                }
-            }
-        }
     }
 }
