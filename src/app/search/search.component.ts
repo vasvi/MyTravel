@@ -110,7 +110,7 @@ export class SearchComponent implements AfterViewInit {
    * @param remainingBudget
    * @returns {any}
    */
-  getHotelExpenses(params, remainingBudget) {
+  getHotelExpenses(params:UserParameters , remainingBudget) {
     let hotelBudget;
     hotelBudget = (Math.ceil(params.numberOfTravelers / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].hotelPrice * (params.durationOfTravel-1);
     if (this.budgetValidations(remainingBudget - hotelBudget)) {
@@ -129,7 +129,7 @@ export class SearchComponent implements AfterViewInit {
    * @param remainingBudget
    * @returns {any}
    */
-  getFoodExpenses(params, remainingBudget) {
+  getFoodExpenses(params: UserParameters, remainingBudget) {
     let foodBudget;
     foodBudget = params.numberOfTravelers * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].foodPrice * (params.durationOfTravel);
     if (this.budgetValidations(remainingBudget - foodBudget)) {
@@ -149,7 +149,7 @@ export class SearchComponent implements AfterViewInit {
    * @param remainingBudget
    * @returns {any}
    */
-  calculateRadius(params, remainingBudget) {
+  calculateRadius(params:UserParameters , remainingBudget) {
     let radius;
     let numberOfVehicles;
     const travelConst = constant.searchConstants.modeOfTravelPrices;
@@ -173,7 +173,7 @@ export class SearchComponent implements AfterViewInit {
         break;
       }
       case 'train': {
-        radius = remainingBudget / (params.numberOfTravelers * travelConst.train[params.travel[params.travel.modeOfTravel].class ? params.travel[params.travel.modeOfTravel].class : 1]);
+        radius = remainingBudget / (params.numberOfTravelers * travelConst.train[params.travel[params.travel.modeOfTravel].trainClass ? params.travel[params.travel.modeOfTravel].trainClass : 1]);
         break;
       }
       default: {
