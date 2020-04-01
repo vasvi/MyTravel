@@ -46,8 +46,8 @@ export class SearchComponent implements AfterViewInit {
     let byRoad = false;
 
     const userParameters:UserParameters = {
+      durationOfTravel: 2,
       hotel: {
-        numberOfNights: 2,
         starRating: 4
       },
       travel: {
@@ -83,10 +83,10 @@ export class SearchComponent implements AfterViewInit {
       budget = budget - this.calculatedExpenditure.foodExpenditure;
       this.radius = this.calculateRadius(userParameters, budget);
       navigator.geolocation.getCurrentPosition((position) => {
-        this.getApplicableLocations(this.radius, position, userParameters.hotel.numberOfNights + 1, byRoad);
+        this.getApplicableLocations(this.radius, position, userParameters.durationOfTravel, byRoad);
       }, (error) => {
         console.log('No Location Available :: ' + error);
-        this.getApplicableLocations(this.radius, defaultPosition, userParameters.hotel.numberOfNights + 1, byRoad);
+        this.getApplicableLocations(this.radius, defaultPosition, userParameters.durationOfTravel, byRoad);
       });
     } catch (e) {
       this.snackBar.open(e, '', {duration: 5000});
@@ -112,7 +112,7 @@ export class SearchComponent implements AfterViewInit {
    */
   getHotelExpenses(params, remainingBudget) {
     let hotelBudget;
-    hotelBudget = (Math.ceil(params.numberOfTravelers / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].hotelPrice * params.hotel.numberOfNights;
+    hotelBudget = (Math.ceil(params.numberOfTravelers / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].hotelPrice * (params.durationOfTravel-1);
     if (this.budgetValidations(remainingBudget - hotelBudget)) {
       return hotelBudget;
     } else {
@@ -131,7 +131,7 @@ export class SearchComponent implements AfterViewInit {
    */
   getFoodExpenses(params, remainingBudget) {
     let foodBudget;
-    foodBudget = params.numberOfTravelers * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].foodPrice * (params.hotel.numberOfNights + 1);
+    foodBudget = params.numberOfTravelers * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].foodPrice * (params.durationOfTravel);
     if (this.budgetValidations(remainingBudget - foodBudget)) {
       return foodBudget;
     } else {
