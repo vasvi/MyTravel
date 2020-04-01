@@ -1,0 +1,36 @@
+<mat-card class="search-card">
+    <mat-card-header>
+      <mat-card-title>
+        Find your perfect vacation
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>      
+      <form class="search-form" id="searchForm" [formGroup]="searchForm" (ngSubmit)="onSubmit()" novalidate>
+        <mat-form-field>
+          <mat-label id="person">No. of Persons</mat-label>
+          <input [formControl]="person" matInput required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label id="budget">Budget</mat-label>
+          <input [formControl]="budget" matInput required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label id="duration">Duration</mat-label>
+          <input [formControl]="duration" matInput required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label id="travelmode">Travel mode</mat-label>
+          <input [formControl]="travelmode" matInput required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label id="hoteltype">Hotel</mat-label>
+          <mat-select [formControl]="hoteltype" required>
+            <mat-option value="test">test</mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+        <button class="search-btn" mat-raised-button [disabled]="!searchForm.valid">Search</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
