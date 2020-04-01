@@ -1,43 +1,22 @@
-$form-field-color: rgb(0,0,0,0.87);
-
-::ng-deep {
-    .mat-raised-button[disabled][disabled] {
-        color: $form-field-color;
-        background-color: #424242;
-        opacity: 0.8;
+.search-form {
+    mat-form-field {
+        margin: 10px 20px 10px 10px;
     }
-    .mat-form-field-appearance-legacy {
-        .mat-form-field-label {
-            color: $form-field-color;
+    
+    .mat-button.mat-button-base {
+        margin-top: 20px;
+    }
+
+    .travel-type {
+        display: flex;
+        mat-label {
+            color: rgb(0,0,0,0.54);
+            margin-right: 10px;
         }
-        .mat-form-field-underline {
-            background-color: $form-field-color;
-        }
-    }
-    .mat-select-arrow {
-        color: $form-field-color;
-    }
-}
-.search-card {
-    background: lightgray;
-    color: #333333;
-    height: auto;
-    max-width: 600px;
-
-    mat-card-content {
-        margin-left: 15px;
-
-        form {
+        mat-radio-group {
             display: flex;
             flex-direction: column;
-
-            mat-form-field {
-                width: 40%;
-            }
-
-            button.search-btn {
-                margin-top: 30px;
-            }
+            font-size: 14px;
         }
     }
 }

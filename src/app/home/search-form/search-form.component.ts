@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter, Output} from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {SearchCriteria} from '../../model/search-criteria';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
+import {FormGroup, FormControl, Validators, AbstractControl, FormBuilder} from '@angular/forms';
+import {UserParameters} from '../../model/search-criteria';
 
 @Component({
   selector: 'search-form',
@@ -8,37 +8,55 @@ import {SearchCriteria} from '../../model/search-criteria';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent implements OnInit {
-  @Output() formData: EventEmitter<SearchCriteria> = new EventEmitter();
+  @Output() formData: EventEmitter<UserParameters> = new EventEmitter();
   searchForm: FormGroup;
 
-  // Form properties
-  person = new FormControl('', Validators.required);
-  budget = new FormControl('', Validators.required);
-  duration = new FormControl('', Validators.required);
-  travelmode = new FormControl('', Validators.required);
-  hoteltype = new FormControl('', Validators.required);
+   /** Returns a FormArray with the name 'formArray'. */
+   get formArray(): AbstractControl | null { return this.searchForm.get('formArray'); };
 
-  constructor() {
-    this.searchForm = this.createFormGroup();
-   }
+   hotelRatingOptions = [
+      {value: '2 star'},
+      {value: '3 star'},
+      {value: '4 star'},
+      {value: '5 star'},
+    ];
+
+    travelTypeOptions = [
+      {value: '2-wheeler'},
+      {value: '4-wheeler'},
+      {value: 'bus'},
+      {value: 'train'},
+      {value: 'flight'}      
+    ]
+
+  constructor(private _formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
+    this.searchForm = this.createFormGroup();
   }
 
   createFormGroup = () => {
-    return new FormGroup({
-      person: this.person,
-      budget: this.budget,
-      duration: this.duration,
-      travelmode: this.travelmode,
-      hoteltype: this.hoteltype
+    return this._formBuilder.group({
+      formArray: this._formBuilder.array([
+        this._formBuilder.group({
+          person: ['', Validators.required],
+          budget: ['', Validators.required],
+          duration: ['', Validators.required],
+        }),
+        this._formBuilder.group({
+          hotel: ['', Validators.required],
+        }),
+        this._formBuilder.group({
+          travel: ['', [Validators.required]]
+        })
+      ])
     });
   }
 
   onSubmit = () => {
-    const formData: SearchCriteria = Object.assign({}, this.searchForm.value);
+    const formData: UserParameters = Object.assign({}, this.searchForm.value);
     // TODO: Validate data if required
     this.formData.emit(formData);
   }
-
 }

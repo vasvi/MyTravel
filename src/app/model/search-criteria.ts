@@ -1,11 +1,3 @@
-export class SearchCriteria {
-    person: number;
-    budget: number;
-    duration: number;
-    travelmode: string;
-    hoteltype: string;
-}
-
 export interface GlobalDestinationsObject {
     location: string;
     latitude: number;
@@ -29,7 +21,7 @@ export interface TravelDetails {
         typeOfVehicle?: string;
     };
     bus?: {
-        busClass?: string;
+        typeOfBus?: string;
     };
     train?: {
         trainClass?: string;
@@ -37,9 +29,9 @@ export interface TravelDetails {
 }
 
 export interface UserParameters {
-    budgetPerPerson: number;
-    numberOfTravelers: number;
-    durationOfTravel: number;
+    budget: number;
+    person: number;
+    duration: number;
     hotel: Hotel;
     travel: TravelDetails;
 
