@@ -1,6 +1,9 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import * as constant from '../searchConstants';
 import {MatSnackBar} from '@angular/material';
+import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../search.interface';
+import LocationData from './location.json';
+
 
 @Component({
   selector: 'app-search',
@@ -11,30 +14,15 @@ export class SearchComponent implements AfterViewInit {
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
-  calculatedExpenditure: any = {
+
+  calculatedExpenditure: CalculatedExpenditure = {
     hotelExpenditure: 0,
     foodExpenditure: 0,
     travelExpenditure: 0
   };
   radius: any;
 
-  globalDestinationsObject = [{
-    location: 'Manali',
-    latitude: 32.2432,
-    longitude: 77.1892
-  }, {
-    location: 'Jaipur',
-    latitude: 26.9124,
-    longitude: 75.7873
-  }, {
-    location: 'Leh',
-    latitude: 34.152588,
-    longitude: 77.577049
-  }, {
-    location: 'Goa',
-    latitude: 15.2993,
-    longitude: 74.1240
-  }];
+  globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
 
   constructor(private snackBar: MatSnackBar) {
 
@@ -57,7 +45,7 @@ export class SearchComponent implements AfterViewInit {
     let budget;
     let byRoad = false;
 
-    const userParameters = {
+    const userParameters:UserParameters = {
       hotel: {
         numberOfNights: 2,
         starRating: 4
