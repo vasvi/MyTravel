@@ -11,8 +11,8 @@ export class SearchFormComponent implements OnInit {
   @Output() formData: EventEmitter<UserParameters> = new EventEmitter();
   searchForm: FormGroup;
 
-   /** Returns a FormArray with the name 'formArray'. */
    get formArray(): AbstractControl | null { return this.searchForm.get('formArray'); };
+   get travelmode(): string { return this.formArray.get('2').get('travel') && this.formArray.get('2').get('travel').value }; 
 
    hotelRatingOptions = [
       {value: '2 star'},
@@ -22,8 +22,8 @@ export class SearchFormComponent implements OnInit {
     ];
 
     travelTypeOptions = [
-      {value: '2-wheeler'},
-      {value: '4-wheeler'},
+      {value: 'two wheeler'},
+      {value: 'four wheeler'},
       {value: 'bus'},
       {value: 'train'},
       {value: 'flight'}      
@@ -34,6 +34,7 @@ export class SearchFormComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm = this.createFormGroup();
+    console.log(this.searchForm);
   }
 
   createFormGroup = () => {
@@ -48,7 +49,11 @@ export class SearchFormComponent implements OnInit {
           hotel: ['', Validators.required],
         }),
         this._formBuilder.group({
-          travel: ['', [Validators.required]]
+          travel: ['', [Validators.required]],
+          vehicletype: [''],
+          enginetype: [''],
+          bustype: [''],
+          trainclass: ['']          
         })
       ])
     });
@@ -58,5 +63,39 @@ export class SearchFormComponent implements OnInit {
     const formData: UserParameters = Object.assign({}, this.searchForm.value);
     // TODO: Validate data if required
     this.formData.emit(formData);
+  }
+
+  optionChanged = (event) => {
+    let travelFormGroup = this.formArray.get('2').get('bustype') && this.formArray.get('2');
+    console.log(event.value); // bus
+    if (travelFormGroup) {
+      // Clear validators
+      this.clearValidations(travelFormGroup);
+
+      // Set new validation
+      switch (event.value) {
+        case 'bus':
+          travelFormGroup.get('bustype').setValidators(Validators.required);
+          break;
+        case 'train':
+          travelFormGroup.get('trainclass').setValidators(Validators.required);
+          break;
+        case 'two wheeler':
+        case 'four wheeler':
+          travelFormGroup.get('vehicletype').setValidators(Validators.required);
+          travelFormGroup.get('enginetype').setValidators(Validators.required);
+          break;
+        default:
+          this.clearValidations(travelFormGroup);
+          break;
+      }
+    }
+  }
+
+  clearValidations = (travelFormGroup) => {
+    travelFormGroup.get('bustype').clearValidators();
+    travelFormGroup.get('trainclass').clearValidators();
+    travelFormGroup.get('vehicletype').clearValidators();
+    travelFormGroup.get('enginetype').clearValidators();
   }
 }

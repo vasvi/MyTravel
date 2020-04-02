@@ -9,6 +9,7 @@
 
     .travel-type {
         display: flex;
+        flex-direction: column;
         mat-label {
             color: rgb(0,0,0,0.54);
             margin-right: 10px;
