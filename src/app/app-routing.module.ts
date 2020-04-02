@@ -10,7 +10,7 @@ const routes: Routes = [{
   component: HomeComponent
 }, {
   path: 'search',
-  component: SearchComponent
+  component: SearchComponent,
 }, {
   path: 'location',
   component: LocationComponent
