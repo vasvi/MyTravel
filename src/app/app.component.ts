@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'My Travel';
+
+  onLocationChange(event){
+    console.log(event);
+  }
 }
