@@ -36,3 +36,14 @@ export interface UserParameters {
     travel: TravelDetails;
 
 }
+
+
+export interface Location {
+    formatted_address: string;
+    photos: Array<string>;
+    id: string;
+    name: string;
+    place_id: string;
+    reference: string;
+    geometry: Array<any>; // [lat, long]
+}

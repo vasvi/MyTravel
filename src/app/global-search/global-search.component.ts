@@ -15,11 +15,13 @@ export class GlobalSearchComponent implements OnInit {
   }
 
   initAutoComplete(){
-    let autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
-    google.maps.event.addListener(autoComplete, 'place_changed', () => {
-      let place = autoComplete.getPlace();
-      this.onLocationChange.emit(place);
-    })
+    setTimeout(() => {
+      let autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
+      google.maps.event.addListener(autoComplete, 'place_changed', () => {
+        let place = autoComplete.getPlace();
+        this.onLocationChange.emit(place);
+      })
+    }, 300);
   }
 
   ngOnInit() {}
