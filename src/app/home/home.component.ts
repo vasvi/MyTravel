@@ -15,8 +15,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  navigateToSearch = (formData) => {
-    this.router.navigate(['search'], {queryParams: Object.assign({}, formData), skipLocationChange: true});
+  navigateToSearch = () => {
+    this.router.navigate(['search']);
   }
-
 }
