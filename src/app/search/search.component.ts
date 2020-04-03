@@ -48,22 +48,20 @@ export class SearchComponent implements AfterViewInit {
     const userParameters:UserParameters = {
       duration: 2,
       hotel: {
-        starRating: 4
+        starrating: 4
       },
       travel: {
-        modeOfTravel: 'driving',
-        driving: {
-          typeOfEngine: 'petrol',
-          typeOfVehicle: 'sedan'
-        }
+        travelmode: 'driving',
+        enginetype: 'petrol',
+        vehicletype: 'sedan'
       },
       budget: 10000,
       person: 2
     };
 
-    if (userParameters.travel.modeOfTravel === 'twoWheeler' ||
-      userParameters.travel.modeOfTravel === 'bus' ||
-      userParameters.travel.modeOfTravel === 'driving') {
+    if (userParameters.travel.travelmode === 'twoWheeler' ||
+      userParameters.travel.travelmode === 'bus' ||
+      userParameters.travel.travelmode === 'driving') {
       byRoad = true;
     }
 
@@ -112,7 +110,7 @@ export class SearchComponent implements AfterViewInit {
    */
   getHotelExpenses(params:UserParameters , remainingBudget) {
     let hotelBudget;
-    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].hotelPrice * (params.duration-1);
+    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].hotelPrice * (params.duration-1);
     if (this.budgetValidations(remainingBudget - hotelBudget)) {
       return hotelBudget;
     } else {
@@ -131,7 +129,7 @@ export class SearchComponent implements AfterViewInit {
    */
   getFoodExpenses(params: UserParameters, remainingBudget) {
     let foodBudget;
-    foodBudget = params.person * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].foodPrice * (params.duration);
+    foodBudget = params.person * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].foodPrice * (params.duration);
     if (this.budgetValidations(remainingBudget - foodBudget)) {
       return foodBudget;
     } else {
@@ -156,11 +154,11 @@ export class SearchComponent implements AfterViewInit {
 
     this.calculatedExpenditure.travelExpenditure = remainingBudget;
 
-    switch (params.travel.modeOfTravel) {
+    switch (params.travel.travelmode) {
 
       case 'driving': {
-        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel[params.travel.modeOfTravel].typeOfVehicle]);
-        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel[params.travel.modeOfTravel].typeOfEngine]));
+        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.vehicletype]);
+        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype]));
         break;
       }
       case 'twoWheeler': {
@@ -169,11 +167,11 @@ export class SearchComponent implements AfterViewInit {
         break;
       }
       case 'bus': {
-        radius = remainingBudget / (params.person * travelConst.bus[params.travel[params.travel.modeOfTravel].typeOfBus ? params.travel[params.travel.modeOfTravel].typeOfBus : 'nonAc']);
+        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype : 'nonAc']);
         break;
       }
       case 'train': {
-        radius = remainingBudget / (params.person * travelConst.train[params.travel[params.travel.modeOfTravel].trainClass ? params.travel[params.travel.modeOfTravel].trainClass : 1]);
+        radius = remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]);
         break;
       }
       default: {

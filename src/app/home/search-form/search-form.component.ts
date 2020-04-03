@@ -12,7 +12,7 @@ export class SearchFormComponent implements OnInit {
   searchForm: FormGroup;
 
    get formArray(): AbstractControl | null { return this.searchForm.get('formArray'); };
-   get travelmode(): string { return this.formArray.get('2').get('travel') && this.formArray.get('2').get('travel').value }; 
+   get travelmode(): string { return this.formArray.get('2').get('travelmode') && this.formArray.get('2').get('travelmode').value }; 
 
    hotelRatingOptions = [
       {value: '2 star'},
@@ -46,10 +46,10 @@ export class SearchFormComponent implements OnInit {
           duration: ['', Validators.required],
         }),
         this._formBuilder.group({
-          hotel: ['', Validators.required],
+          starrating: ['', Validators.required],
         }),
         this._formBuilder.group({
-          travel: ['', [Validators.required]],
+          travelmode: ['', [Validators.required]],
           vehicletype: [''],
           enginetype: [''],
           bustype: [''],
