@@ -3,6 +3,7 @@ import * as constant from '../searchConstants';
 import {MatSnackBar} from '@angular/material';
 import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
+import { ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -10,11 +11,11 @@ import LocationData from './location.json';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements AfterViewInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
-
+  userParameters:UserParameters;
   calculatedExpenditure: CalculatedExpenditure = {
     hotelExpenditure: 0,
     foodExpenditure: 0,
@@ -24,7 +25,8 @@ export class SearchComponent implements AfterViewInit {
 
   globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(private snackBar: MatSnackBar,
+              private activatedRoute: ActivatedRoute) {
 
   }
 
@@ -35,6 +37,13 @@ export class SearchComponent implements AfterViewInit {
     this.initSearch();
   }
 
+  ngOnInit(){
+    this.activatedRoute.queryParams.subscribe(params => {
+      const userData = params['formArray'];
+      console.log(userData);
+      this.userParameters = userData;
+    });
+  }
 
   initSearch() {
 
@@ -45,22 +54,22 @@ export class SearchComponent implements AfterViewInit {
     let budget;
     let byRoad = false;
 
-    const userParameters:UserParameters = {
-      duration: 2,
-      hotel: {
-        starRating: 4
-      },
-      travel: {
-        modeOfTravel: 'driving',
-        driving: {
-          typeOfEngine: 'petrol',
-          typeOfVehicle: 'sedan'
-        }
-      },
-      budget: 10000,
-      person: 2
-    };
-
+    // const userParameters:UserParameters = {
+    //   duration: 2,
+    //   hotel: {
+    //     starRating: 4
+    //   },
+    //   travel: {
+    //     modeOfTravel: 'driving',
+    //     driving: {
+    //       typeOfEngine: 'petrol',
+    //       typeOfVehicle: 'sedan'
+    //     }
+    //   },
+    //   budget: 10000,
+    //   person: 2
+    // };
+    const userParameters = this.userParameters;
     if (userParameters.travel.modeOfTravel === 'twoWheeler' ||
       userParameters.travel.modeOfTravel === 'bus' ||
       userParameters.travel.modeOfTravel === 'driving') {
