@@ -157,8 +157,8 @@ export class SearchComponent implements AfterViewInit {
     switch (params.travel.travelmode) {
 
       case 'driving': {
-        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel[params.travel.travelmode].vehicletype]);
-        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel[params.travel.travelmode].enginetype]));
+        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.vehicletype]);
+        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype]));
         break;
       }
       case 'twoWheeler': {
@@ -167,11 +167,11 @@ export class SearchComponent implements AfterViewInit {
         break;
       }
       case 'bus': {
-        radius = remainingBudget / (params.person * travelConst.bus[params.travel[params.travel.travelmode].typeOfBus ? params.travel[params.travel.travelmode].typeOfBus : 'nonAc']);
+        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype : 'nonAc']);
         break;
       }
       case 'train': {
-        radius = remainingBudget / (params.person * travelConst.train[params.travel[params.travel.travelmode].trainClass ? params.travel[params.travel.travelmode].trainClass : 1]);
+        radius = remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]);
         break;
       }
       default: {
