@@ -29,7 +29,7 @@ export interface TravelDetails {
         typeOfVehicle?: string;
     };
     bus?: {
-        busClass?: string;
+        typeOfBus?: string;
     };
     train?: {
         trainClass?: string;

@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import * as constant from '../searchConstants';
 import {MatSnackBar} from '@angular/material';
-import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../search.interface';
+import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
 
 
