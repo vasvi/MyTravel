@@ -30,7 +30,7 @@
       </ng-template>
       <mat-form-field>
         <mat-label>Hotel type</mat-label>
-        <mat-select formControlName="hotel">
+        <mat-select formControlName="starrating">
           <mat-option *ngFor="let rating of hotelRatingOptions" [value]="rating.value">
             {{rating.value}}
           </mat-option>
@@ -47,7 +47,7 @@
       <ng-template matStepLabel>Tell us how you would be travelling?</ng-template>
       <div class="travel-type">
         <mat-label>Travel by</mat-label>
-        <mat-radio-group aria-label="Select an Option" formControlName="travel" required>
+        <mat-radio-group aria-label="Select an Option" formControlName="travelmode" required>
           <mat-radio-button *ngFor="let travel of travelTypeOptions" [value]="travel.value" (change)="optionChanged($event)">
             {{travel.value}}
           </mat-radio-button>
