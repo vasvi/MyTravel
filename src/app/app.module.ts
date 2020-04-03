@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 
@@ -34,6 +36,8 @@ import { MatRadioModule } from '@angular/material/radio';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
+    MatSnackBarModule,
+    // MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
