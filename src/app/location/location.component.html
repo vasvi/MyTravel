@@ -9,9 +9,14 @@
             <div #mapContainer id="map" class="map-container"></div>
 
             <div class="images">
-                <div class="box" *ngFor="let image of targetLocation.photos">
+                <ngx-masonry [useImagesLoaded]="true">
+                    <div ngxMasonryItem class="masonry-item" *ngFor="let image of targetLocation.photos">
+                        <img [src]="image" alt="">
+                    </div>
+                </ngx-masonry>
+                <!-- <div class="box" >
                     <img  [src]="image" alt="">
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '../model/search-criteria';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-location',
@@ -10,19 +11,23 @@ import { Location } from '../model/search-criteria';
 export class LocationComponent implements OnInit {
   @ViewChild('mapContainer', { static: false }) mapContainerViewChild: ElementRef;
   map: google.maps.Map;
+  routerEventSubscription: Subscription;
+  targetLocation: Location;
 
   constructor(
     private activatedRoute: ActivatedRoute
   ) { }
 
-  targetLocation: Location;
+  ngOnDestroy() {
+    this.routerEventSubscription.unsubscribe();
+  }
 
   ngAfterViewInit() {
     this.initializeGoogleMap();
   }
 
   subscribeToRouterEvents() {
-    this.activatedRoute.queryParams.subscribe((params: Location) => {
+    this.routerEventSubscription = this.activatedRoute.queryParams.subscribe((params: Location) => {
       if (params) {
         this.targetLocation = params;
         this.targetLocation.geometry[0] = parseFloat(this.targetLocation.geometry[0]);
@@ -40,24 +45,33 @@ export class LocationComponent implements OnInit {
       radius: 12000
     }, (results, status) => {
       results.forEach((item) => {
-        this.createMarker(item);
+        let markerOptions = {
+          map: this.map,
+          draggable: false,
+          animation: google.maps.Animation.DROP,
+          position: {
+            lat: item.geometry.location.lat(),
+            lng: item.geometry.location.lng()
+          },
+          icon: {
+            url: item.icon,
+            scaledSize: new google.maps.Size(30, 30)
+          },
+          title: item.name
+        }
+        this.createMarker(markerOptions);
       })
     });
   }
 
-  createMarker(data) {
-    let marker = new google.maps.Marker({
-      map: this.map,
-      draggable: true,
-      animation: google.maps.Animation.DROP,
-      position: {
-        lat: data.geometry.location.lat(),
-        lng: data.geometry.location.lng()
-      },
-      icon: {
-        url: data.icon,
-        scaledSize: new google.maps.Size(30, 30)
-      }
+  createMarker(options) {
+    let marker = new google.maps.Marker(options);
+    let self = this;
+    var infowindow = new google.maps.InfoWindow({
+      content: '<div>' + options.title + '</div>'
+    });
+    marker.addListener('click', function () {
+      infowindow.open(self.map, marker);
     });
   }
 

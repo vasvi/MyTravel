@@ -1,6 +1,6 @@
 .wrapper {
     .container{
-        width: 70%;
+        width: 80%;
         margin: auto;
     }
     .images{
@@ -11,6 +11,13 @@
             display: inline-block;
             vertical-align: top;
             max-width: 30%;
+        }
+    }
+    .masonry-item{
+        img{
+            max-width: 17rem;
+            cursor: pointer;
+            border: 2px solid #fff;
         }
     }
 }

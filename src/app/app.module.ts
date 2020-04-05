@@ -21,6 +21,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatStepperModule,
     MatRadioModule,
+    NgxMasonryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
