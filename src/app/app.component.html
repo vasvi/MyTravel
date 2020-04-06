@@ -14,11 +14,9 @@
   <span class="footerElements">Contact Us</span>
   <span class="footerElements">Careers</span>
 
-  <span class="footerElements">
-    Location <span
-      [style.color]="this.currentLocationEnabled ? 'green': 'red'">{{this.currentLocationEnabled ? 'Enabled' : 'Disabled'}}
-    </span> <a *ngIf="!this.currentLocationEnabled" href="#" (click)="enableLocation(true)"> Enable</a>
-  </span>
+<span class="footerElements">
+  Location <span [style.color]="this.currentLocation ? 'green': 'red'">{{this.currentLocation ? ' : '+ this.currentLocation : ' : '+'Disabled'}} </span> <a *ngIf="!this.currentLocation" href="#" (click)="enableLocation(true)"> Enable</a>
+</span>
 </div>
 
 <div class="main">

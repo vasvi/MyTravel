@@ -25,6 +25,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgxMasonryModule } from 'ngx-masonry';
+import { SearchListComponent } from './search/search-list/search-list.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { NgxMasonryModule } from 'ngx-masonry';
     MatSelectModule,
     MatStepperModule,
     MatRadioModule,
+    MatIconModule,
+    HttpClientModule
     MatIconModule,
     MatCardModule,
     NgxMasonryModule

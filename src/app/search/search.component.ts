@@ -17,8 +17,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
-  userParameters:UserParameters;
-  applicableLocations= [];
+  userParameters: UserParameters;
+  applicableLocations = [];
   applicableDestinations: any;
   searchDataSubs: Subscription;
   availableLocationsSubs: Subscription;
@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   };
   radius: any;
 
-  globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
+  globalDestinationsObject: GlobalDestinationsObject[] = LocationData;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
      * Init search here
      */
     this.searchDataSubs = this.searchDataService.getUserSearchData().subscribe((data) => {
-      this.initSearch(data)
+      this.initSearch(data);
     });
   }
 
@@ -193,8 +193,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
    * @param byRoad
    */
   getApplicableLocations(radius, position, totalDays, byRoad) {
-    
-      this.searchDataService.getApplicableLocations(radius, 
+
+      this.searchDataService.getApplicableLocations(radius,
         position, totalDays, byRoad,this.calculatedExpenditure);
       this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
         if(data){

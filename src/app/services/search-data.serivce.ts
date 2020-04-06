@@ -32,10 +32,10 @@ export class SearchDataService {
         this.globalDestinationsObject.forEach((ele) => {
           destinationsArray.push(ele.location);
         });
-    
+
         let currentUserLocation;
         let destinationIndex = 0;
-    
+
         currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
         const service = new google.maps.DistanceMatrixService();
         service.getDistanceMatrix(
@@ -47,14 +47,14 @@ export class SearchDataService {
             avoidTolls: false,
             unitSystem: google.maps.UnitSystem.METRIC
           }, (data) => {
-    
+
             console.log(data);
             data.rows[0].elements.forEach((ele) => {
               if (ele.distance && ele.distance.value < (radius * 1000)) {
                 /**
                  * Check for travel time also
                  */
-    
+
                 if (!byRoad || ele.duration.value * 2 < (totalDays * 24 * 60 * 60)) {
                   applicableLocations.push({
                     location: data.destinationAddresses[destinationIndex],
@@ -74,3 +74,4 @@ export class SearchDataService {
         return this.subject.asObservable();
     }
 }
+
