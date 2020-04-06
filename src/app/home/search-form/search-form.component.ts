@@ -1,6 +1,8 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import {FormGroup, FormControl, Validators, AbstractControl, FormBuilder} from '@angular/forms';
+import {FormGroup, FormControl, Validators, AbstractControl, FormBuilder, FormArray} from '@angular/forms';
 import {UserParameters} from '../../model/search-criteria';
+import {SearchDataService} from '../../services/search-data.serivce';
+import * as Constants from '../../searchConstants';
 
 @Component({
   selector: 'search-form',
@@ -8,28 +10,72 @@ import {UserParameters} from '../../model/search-criteria';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent implements OnInit {
-  @Output() formData: EventEmitter<UserParameters> = new EventEmitter();
+  @Output() formData: EventEmitter<any> = new EventEmitter();
   searchForm: FormGroup;
 
-   get formArray(): AbstractControl | null { return this.searchForm.get('formArray'); };
-   get travelmode(): string { return this.formArray.get('2').get('travel') && this.formArray.get('2').get('travel').value }; 
+  /**Form getters */
+  get formArray(): AbstractControl | null {
+    return this.searchForm.get('formArray');
+  }
 
-   hotelRatingOptions = [
-      {value: '2 star'},
-      {value: '3 star'},
-      {value: '4 star'},
-      {value: '5 star'},
-    ];
+  get travelmode(): string {
+    return this.formArray.get('2').get('travelmode') && this.formArray.get('2').get('travelmode').value;
+  }
 
-    travelTypeOptions = [
-      {value: 'two wheeler'},
-      {value: 'four wheeler'},
-      {value: 'bus'},
-      {value: 'train'},
-      {value: 'flight'}      
-    ]
+  get hotelData(): Object {
+    return this.formArray.get('1') && this.formArray.get('1').value;
+  }
 
-  constructor(private _formBuilder: FormBuilder) {
+  get generalDetails(): Object {
+    return this.formArray.get('0') && this.formArray.get('0').value;
+  }
+
+  get travelDetails(): Object {
+    return this.formArray.get('2') && this.formArray.get('2').value;
+  }
+
+  hotelRatingOptions = [
+    {value: Constants.hotelRatingType.twostar},
+    {value: Constants.hotelRatingType.threestar},
+    {value: Constants.hotelRatingType.fourstar},
+    {value: Constants.hotelRatingType.fivestar},
+  ];
+
+  travelTypeOptions = [
+    {value: Constants.travelMode.twowheeler},
+    {value: Constants.travelMode.fourwheeler},
+    {value: Constants.travelMode.bus},
+    {value: Constants.travelMode.train},
+    {value: Constants.travelMode.flight}
+  ];
+
+  busTypeOptions = [
+    {value: Constants.busType.ac},
+    {value: Constants.busType.nonac},
+    {value: Constants.busType.volvo}
+  ];
+
+  engineTypeOptions = [
+    {value: Constants.engineType.petrol},
+    {value: Constants.engineType.diesel}
+  ];
+
+  trainTypeOptions = [
+    {value: Constants.trainType.firstclass},
+    {value: Constants.trainType.secondclass},
+    {value: Constants.trainType.thirdclass},
+    {value: Constants.trainType.fourthclass}
+  ];
+
+  carTypeOptions = [
+    {value: Constants.carType.hatchback},
+    {value: Constants.carType.sedan},
+    {value: Constants.carType.suv},
+  ];
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private searchDataService: SearchDataService) {
   }
 
   ngOnInit() {
@@ -46,23 +92,43 @@ export class SearchFormComponent implements OnInit {
           duration: ['', Validators.required],
         }),
         this._formBuilder.group({
-          hotel: ['', Validators.required],
+          starrating: ['', Validators.required],
         }),
         this._formBuilder.group({
-          travel: ['', [Validators.required]],
+          travelmode: ['', [Validators.required]],
           vehicletype: [''],
+          cartype: [''],
           enginetype: [''],
           bustype: [''],
-          trainclass: ['']          
+          trainclass: ['']
         })
       ])
     });
   }
 
   onSubmit = () => {
-    const formData: UserParameters = Object.assign({}, this.searchForm.value);
+    const formData: FormArray[] = this.searchForm.value;
+    console.log(this.hotelData);
+    console.log(this.generalDetails);
+    console.log(this.travelDetails);
+
+    let obj = {};
+    Object.assign(obj, this.generalDetails);
+
+    Object.assign(obj, {
+      hotel: Object.assign({}, this.hotelData)
+    });
+
+    Object.assign(obj, {
+      travel: Object.assign({}, this.travelDetails)
+    });
+
+    console.log(obj);
+
+    this.searchDataService.setUserSearchData(obj as UserParameters);
+
     // TODO: Validate data if required
-    this.formData.emit(formData);
+    this.formData.emit();
   }
 
   optionChanged = (event) => {
@@ -74,14 +140,14 @@ export class SearchFormComponent implements OnInit {
 
       // Set new validation
       switch (event.value) {
-        case 'bus':
+        case Constants.travelMode.bus:
           travelFormGroup.get('bustype').setValidators(Validators.required);
           break;
-        case 'train':
+        case Constants.travelMode.train:
           travelFormGroup.get('trainclass').setValidators(Validators.required);
           break;
-        case 'two wheeler':
-        case 'four wheeler':
+        case Constants.travelMode.twowheeler:
+        case Constants.travelMode.fourwheeler:
           travelFormGroup.get('vehicletype').setValidators(Validators.required);
           travelFormGroup.get('enginetype').setValidators(Validators.required);
           break;

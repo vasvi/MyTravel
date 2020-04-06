@@ -11,21 +11,15 @@ export interface CalculatedExpenditure {
 }
 
 export interface Hotel {
-    starRating: number;
+    starrating: number;
 }
 
 export interface TravelDetails {
-    modeOfTravel: string;
-    driving?: {
-        typeOfEngine?: string;
-        typeOfVehicle?: string;
-    };
-    bus?: {
-        typeOfBus?: string;
-    };
-    train?: {
-        trainClass?: string;
-    };
+    travelmode: string;
+    enginetype?: string;
+    vehicletype?: string;
+    bustype?: string;
+    trainclass?: string;
 }
 
 export interface UserParameters {
