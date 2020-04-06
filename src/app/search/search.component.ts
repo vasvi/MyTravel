@@ -5,6 +5,7 @@ import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../
 import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
 import {Subscription} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 
 
 @Component({
@@ -12,13 +13,14 @@ import {Subscription} from 'rxjs';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements AfterViewInit, OnInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
-  userParameters: UserParameters;
+  userParameters:UserParameters;
+  applicableLocations= [];
+  applicableDestinations: any;
   searchDataSubs: Subscription;
-
   calculatedExpenditure: CalculatedExpenditure = {
     hotelExpenditure: 0,
     foodExpenditure: 0,
@@ -37,6 +39,7 @@ export class SearchComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     // Check why we need to initSearch in afterviewinit
     //this.userParameters = this.searchDataService.getUserSearchData();
+    this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
   }
 
   ngAfterViewInit() {
@@ -48,6 +51,14 @@ export class SearchComponent implements AfterViewInit, OnInit {
     });
   }
 
+  // ngOnInit(){
+  //   // this.activatedRoute.queryParams.subscribe(params => {
+  //   //   const userData = params['formArray'];
+  //   //   console.log(userData);
+  //   //   this.userParameters = userData;
+  //   // });
+  //   this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
+  // }
 
   initSearch(userParameters: UserParameters) {
 
@@ -70,11 +81,16 @@ export class SearchComponent implements AfterViewInit, OnInit {
       },
       budget: 10000,
       person: 2
+    };
+    // const userParameters = this.userParameters;
+    if (userParameters.travel.modeOfTravel === 'twoWheeler' ||
+      userParameters.travel.modeOfTravel === 'bus' ||
+      userParameters.travel.modeOfTravel === 'driving') {
     };*/
 
-    if (userParameters.travel.travelmode === 'twoWheeler' ||
-      userParameters.travel.travelmode === 'bus' ||
-      userParameters.travel.travelmode === 'driving') {
+    if (userParameters.travel.travelmode === constant.travelMode.twowheeler ||
+      userParameters.travel.travelmode === constant.travelMode.bus ||
+      userParameters.travel.travelmode === constant.travelMode.fourwheeler) {
       byRoad = true;
     }
 
@@ -169,21 +185,21 @@ export class SearchComponent implements AfterViewInit, OnInit {
 
     switch (params.travel.travelmode) {
 
-      case 'driving': {
-        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.vehicletype]);
-        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype]));
+      case constant.travelMode.fourwheeler: {
+        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.cartype]);
+        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype.toLowerCase()]));
         break;
       }
-      case 'twoWheeler': {
+      case constant.travelMode.twowheeler: {
         numberOfVehicles = Math.ceil(params.person / travelConst.twoWheeler.seatingCapacity);
         radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.twoWheeler.petrol));
         break;
       }
-      case 'bus': {
-        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype : 'nonAc']);
+      case constant.travelMode.bus: {
+        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype.toLowerCase() : 'nonAc']);
         break;
       }
-      case 'train': {
+      case constant.travelMode.train: {
         radius = remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]);
         break;
       }
@@ -208,15 +224,13 @@ export class SearchComponent implements AfterViewInit, OnInit {
     /**
      * Configure to get the data from Database
      */
-
-
     const destinationsArray = [];
     this.globalDestinationsObject.forEach((ele) => {
       destinationsArray.push(ele.location);
     });
 
     let currentUserLocation;
-    const applicableLocations = [];
+    // const applicableLocations = [];
     let destinationIndex = 0;
 
     currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
@@ -239,16 +253,19 @@ export class SearchComponent implements AfterViewInit, OnInit {
              */
 
             if (!byRoad || ele.duration.value * 2 < (totalDays * 24 * 60 * 60)) {
-              applicableLocations.push({
+              this.applicableLocations.push({
                 location: data.destinationAddresses[destinationIndex],
                 details: ele,
                 latitude: this.globalDestinationsObject[destinationIndex].latitude,
-                longitude: this.globalDestinationsObject[destinationIndex++].longitude
+                longitude: this.globalDestinationsObject[destinationIndex++].longitude,
+                expenditure: this.calculatedExpenditure
               });
             }
           }
         });
-        this.mapInitializer(applicableLocations, position);
+        this.mapInitializer(this.applicableLocations, position);
+        this.applicableDestinations.next(this.applicableLocations);
+        console.log('destinations set in parent');
       });
   }
 

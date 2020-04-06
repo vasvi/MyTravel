@@ -21,6 +21,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { SearchListComponent } from './search/search-list/search-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { MatRadioModule } from '@angular/material/radio';
     LocationComponent,
     SearchFormComponent,
     GlobalSearchComponent,
+    SearchListComponent
   ],
   imports: [
     BrowserModule,

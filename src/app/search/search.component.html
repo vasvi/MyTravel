@@ -1,1 +1,8 @@
 <div #mapContainer id="map"></div>
+<div class="container">
+  {{this.calculatedExpenditure | json}}
+
+  <p>radius--{{radius }}</p>
+
+</div>
+<app-search-list  [applicableDestinations]="this.applicableDestinations"></app-search-list>
