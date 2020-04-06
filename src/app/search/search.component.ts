@@ -3,6 +3,8 @@ import * as constant from '../searchConstants';
 import {MatSnackBar} from '@angular/material';
 import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
+import {SearchDataService} from '../services/search-data.serivce';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -10,10 +12,12 @@ import LocationData from './location.json';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements AfterViewInit {
+export class SearchComponent implements AfterViewInit, OnInit {
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
+  userParameters: UserParameters;
+  searchDataSubs: Subscription;
 
   calculatedExpenditure: CalculatedExpenditure = {
     hotelExpenditure: 0,
@@ -24,19 +28,28 @@ export class SearchComponent implements AfterViewInit {
 
   globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
 
-  constructor(private snackBar: MatSnackBar) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private searchDataService: SearchDataService) {
 
+  }
+
+  ngOnInit() {
+    // Check why we need to initSearch in afterviewinit
+    //this.userParameters = this.searchDataService.getUserSearchData();
   }
 
   ngAfterViewInit() {
     /**
      * Init search here
      */
-    this.initSearch();
+    this.searchDataSubs = this.searchDataService.getUserSearchData().subscribe((data) => {
+      this.initSearch(data)
+    });
   }
 
 
-  initSearch() {
+  initSearch(userParameters: UserParameters) {
 
     /**
      * Initial parameters supplied from User
@@ -45,7 +58,7 @@ export class SearchComponent implements AfterViewInit {
     let budget;
     let byRoad = false;
 
-    const userParameters:UserParameters = {
+    /*const userParameters:UserParameters = {
       duration: 2,
       hotel: {
         starrating: 4
@@ -57,7 +70,7 @@ export class SearchComponent implements AfterViewInit {
       },
       budget: 10000,
       person: 2
-    };
+    };*/
 
     if (userParameters.travel.travelmode === 'twoWheeler' ||
       userParameters.travel.travelmode === 'bus' ||
