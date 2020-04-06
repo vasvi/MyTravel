@@ -31,7 +31,6 @@ export interface UserParameters {
 
 }
 
-
 export interface Location {
     formatted_address: string;
     photos: Array<string>;
@@ -47,4 +46,13 @@ export interface Place {
     imageUrl: string,
     rating: number,
     types: Array<string>
+}
+
+export interface Position {
+    coords: Coordinates;
+}
+
+export interface Coordinates {
+    latitude: string;
+    longitude: string;
 }
