@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {UserParameters} from '../model/search-criteria';
-import {Observable, of} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {GlobalDestinationsObject} from '../model/search-criteria';
 import LocationData from '../search/location.json';
 
@@ -10,6 +10,7 @@ import LocationData from '../search/location.json';
 export class SearchDataService {
     private userSearchObject: UserParameters;
     globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
+    private subject = new Subject<any>();
 
     /** Sets userSearchObject with the object passed in */
     setUserSearchData = (searchParans: UserParameters) => {
@@ -21,7 +22,7 @@ export class SearchDataService {
         return of(this.userSearchObject);
     }
 
-    getApplicableLocations=(radius:number=500, position?: Position, totalDays?: number, byRoad?: any, calculatedExpenditure?: any): Observable<any> =>{
+    getApplicableLocations=(radius:number=500, position?: Position, totalDays?: number, byRoad?: any, calculatedExpenditure?: any):void =>{
 
         /**
          * Configure to get the data from Database
@@ -33,7 +34,6 @@ export class SearchDataService {
         });
     
         let currentUserLocation;
-        // const applicableLocations = [];
         let destinationIndex = 0;
     
         currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
@@ -66,7 +66,11 @@ export class SearchDataService {
                 }
               }
             });
+            this.subject.next(applicableLocations);
         });
-        return of(applicableLocations);
       }
+
+      getApplicableLocationsSubs(): Observable<any> {
+        return this.subject.asObservable();
+    }
 }
