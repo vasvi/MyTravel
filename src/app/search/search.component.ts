@@ -3,7 +3,8 @@ import * as constant from '../searchConstants';
 import {MatSnackBar} from '@angular/material';
 import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
-import { ActivatedRoute} from '@angular/router';
+import {SearchDataService} from '../services/search-data.serivce';
+import {Subscription} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 
 
@@ -19,6 +20,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   userParameters:UserParameters;
   applicableLocations= [];
   applicableDestinations: any;
+  searchDataSubs: Subscription;
   calculatedExpenditure: CalculatedExpenditure = {
     hotelExpenditure: 0,
     foodExpenditure: 0,
@@ -28,28 +30,37 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
 
-  constructor(private snackBar: MatSnackBar,
-              private activatedRoute: ActivatedRoute) {
+  constructor(
+    private snackBar: MatSnackBar,
+    private searchDataService: SearchDataService) {
 
+  }
+
+  ngOnInit() {
+    // Check why we need to initSearch in afterviewinit
+    //this.userParameters = this.searchDataService.getUserSearchData();
+    this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
   }
 
   ngAfterViewInit() {
     /**
      * Init search here
      */
-    this.initSearch();
-  }
-
-  ngOnInit(){
-    this.activatedRoute.queryParams.subscribe(params => {
-      const userData = params['formArray'];
-      console.log(userData);
-      this.userParameters = userData;
+    this.searchDataSubs = this.searchDataService.getUserSearchData().subscribe((data) => {
+      this.initSearch(data)
     });
-    this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
   }
 
-  initSearch() {
+  // ngOnInit(){
+  //   // this.activatedRoute.queryParams.subscribe(params => {
+  //   //   const userData = params['formArray'];
+  //   //   console.log(userData);
+  //   //   this.userParameters = userData;
+  //   // });
+  //   this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
+  // }
+
+  initSearch(userParameters: UserParameters) {
 
     /**
      * Initial parameters supplied from User
@@ -58,17 +69,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
     let budget;
     let byRoad = false;
 
-    const userParameters:UserParameters = {
+    /*const userParameters:UserParameters = {
       duration: 2,
       hotel: {
-        starRating: 4
+        starrating: 4
       },
       travel: {
-        modeOfTravel: 'driving',
-        driving: {
-          typeOfEngine: 'petrol',
-          typeOfVehicle: 'sedan'
-        }
+        travelmode: 'driving',
+        enginetype: 'petrol',
+        vehicletype: 'sedan'
       },
       budget: 10000,
       person: 2
@@ -77,6 +86,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
     if (userParameters.travel.modeOfTravel === 'twoWheeler' ||
       userParameters.travel.modeOfTravel === 'bus' ||
       userParameters.travel.modeOfTravel === 'driving') {
+    };*/
+
+    if (userParameters.travel.travelmode === 'twoWheeler' ||
+      userParameters.travel.travelmode === 'bus' ||
+      userParameters.travel.travelmode === 'driving') {
       byRoad = true;
     }
 
@@ -125,7 +139,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
    */
   getHotelExpenses(params:UserParameters , remainingBudget) {
     let hotelBudget;
-    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].hotelPrice * (params.duration-1);
+    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].hotelPrice * (params.duration-1);
     if (this.budgetValidations(remainingBudget - hotelBudget)) {
       return hotelBudget;
     } else {
@@ -144,7 +158,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
    */
   getFoodExpenses(params: UserParameters, remainingBudget) {
     let foodBudget;
-    foodBudget = params.person * constant.searchConstants.hotelAndFoodPrices[params.hotel.starRating].foodPrice * (params.duration);
+    foodBudget = params.person * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].foodPrice * (params.duration);
     if (this.budgetValidations(remainingBudget - foodBudget)) {
       return foodBudget;
     } else {
@@ -169,11 +183,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     this.calculatedExpenditure.travelExpenditure = remainingBudget;
 
-    switch (params.travel.modeOfTravel) {
+    switch (params.travel.travelmode) {
 
       case 'driving': {
-        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel[params.travel.modeOfTravel].typeOfVehicle]);
-        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel[params.travel.modeOfTravel].typeOfEngine]));
+        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.vehicletype]);
+        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype]));
         break;
       }
       case 'twoWheeler': {
@@ -182,11 +196,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
         break;
       }
       case 'bus': {
-        radius = remainingBudget / (params.person * travelConst.bus[params.travel[params.travel.modeOfTravel].typeOfBus ? params.travel[params.travel.modeOfTravel].typeOfBus : 'nonAc']);
+        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype : 'nonAc']);
         break;
       }
       case 'train': {
-        radius = remainingBudget / (params.person * travelConst.train[params.travel[params.travel.modeOfTravel].trainClass ? params.travel[params.travel.modeOfTravel].trainClass : 1]);
+        radius = remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]);
         break;
       }
       default: {
