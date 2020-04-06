@@ -17,7 +17,7 @@ export interface Hotel {
 export interface TravelDetails {
     travelmode: string;
     enginetype?: string;
-    vehicletype?: string;
+    cartype?: string;
     bustype?: string;
     trainclass?: string;
 }

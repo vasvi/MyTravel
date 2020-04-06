@@ -6,7 +6,7 @@ import { Location } from './model/search-criteria';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'My Travel';
 
   constructor(
@@ -17,7 +17,7 @@ export class AppComponent {
   private createLocationObject(location): Location {
     let formattedLocationData: Location = {
       name: location.name,
-      formatted_address : location.formatted_address,
+      formatted_address: location.formatted_address,
       photos: (() => {
         if (Array.isArray(location.photos)) {
           return location.photos.map(o => {
@@ -44,5 +44,21 @@ export class AppComponent {
     })
   }
 
+  currentLocationEnabled = false;
+
+  ngOnInit(): void {
+    this.enableLocation(false);
+  }
+
+  enableLocation(manuallyRequested) {
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.currentLocationEnabled = true;
+    }, (error) => {
+      if (manuallyRequested) {
+        alert('Please enable location setting on your device. If on browser, click the location icon on top and clear setting for the current site. Click here again after doing that')
+      }
+    });
+  }
 
 }
