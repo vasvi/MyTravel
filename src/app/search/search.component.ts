@@ -88,9 +88,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
       userParameters.travel.modeOfTravel === 'driving') {
     };*/
 
-    if (userParameters.travel.travelmode === 'twoWheeler' ||
-      userParameters.travel.travelmode === 'bus' ||
-      userParameters.travel.travelmode === 'driving') {
+    if (userParameters.travel.travelmode === constant.travelMode.twowheeler ||
+      userParameters.travel.travelmode === constant.travelMode.bus ||
+      userParameters.travel.travelmode === constant.travelMode.fourwheeler) {
       byRoad = true;
     }
 
@@ -185,21 +185,21 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     switch (params.travel.travelmode) {
 
-      case 'driving': {
+      case constant.travelMode.fourwheeler: {
         numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.vehicletype]);
-        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype]));
+        radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype.toLowerCase()]));
         break;
       }
-      case 'twoWheeler': {
+      case constant.travelMode.twowheeler: {
         numberOfVehicles = Math.ceil(params.person / travelConst.twoWheeler.seatingCapacity);
         radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.twoWheeler.petrol));
         break;
       }
-      case 'bus': {
-        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype : 'nonAc']);
+      case constant.travelMode.bus: {
+        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype.toLowerCase() : 'nonAc']);
         break;
       }
-      case 'train': {
+      case constant.travelMode.train: {
         radius = remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]);
         break;
       }

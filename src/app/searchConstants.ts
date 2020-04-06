@@ -1,4 +1,4 @@
-export const  travelMode = {
+export const travelMode = {
   'twowheeler': 'twowheeler',
   'fourwheeler': 'fourwheeler',
   'bus': 'bus',
@@ -21,7 +21,7 @@ export const busType = {
 
 export const engineType = {
   'diesel': 'Diesel',
-  'petrol': 'Petrol' 
+  'petrol': 'Petrol'
 };
 
 export const trainType = {
@@ -31,8 +31,15 @@ export const trainType = {
   'fourthclass': 'Fourth Class'
 };
 
+export const carType = {
+  'hatchback': 'HatchBack (4 Seats)',
+  'sedan': 'Sedan (5 Seats)',
+  'suv': 'SUV/MUV (7 Seats)'
+};
+
+
 export const searchConstants = {
- 
+
   /**
    * Hotel and food cost based on star rating
    */

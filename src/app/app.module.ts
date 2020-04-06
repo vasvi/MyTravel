@@ -11,7 +11,7 @@ import { SearchFormComponent } from './home/search-form/search-form.component';
 import { GlobalSearchComponent } from './global-search/global-search.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material';
+import {MatIconModule, MatToolbarModule} from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,6 +47,7 @@ import { SearchListComponent } from './search/search-list/search-list.component'
     MatSelectModule,
     MatStepperModule,
     MatRadioModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
