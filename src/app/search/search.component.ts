@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import * as constant from '../searchConstants';
 import {MatSnackBar} from '@angular/material';
-import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../model/search-criteria';
+import {GlobalDestinationsObject, CalculatedExpenditure, UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
 import {Subscription} from 'rxjs';
@@ -17,8 +17,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
-  userParameters:UserParameters;
-  applicableLocations= [];
+  userParameters: UserParameters;
+  applicableLocations = [];
   applicableDestinations: any;
   searchDataSubs: Subscription;
   calculatedExpenditure: CalculatedExpenditure = {
@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   };
   radius: any;
 
-  globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
+  globalDestinationsObject: GlobalDestinationsObject[] = LocationData;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -47,7 +47,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
      * Init search here
      */
     this.searchDataSubs = this.searchDataService.getUserSearchData().subscribe((data) => {
-      this.initSearch(data)
+      this.initSearch(data);
     });
   }
 
@@ -69,7 +69,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
     let budget;
     let byRoad = false;
 
-    /*const userParameters:UserParameters = {
+    /*
+    const userParameters:UserParameters = {
       duration: 2,
       hotel: {
         starrating: 4
@@ -137,9 +138,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
    * @param remainingBudget
    * @returns {any}
    */
-  getHotelExpenses(params:UserParameters , remainingBudget) {
+  getHotelExpenses(params: UserParameters, remainingBudget) {
     let hotelBudget;
-    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].hotelPrice * (params.duration-1);
+    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].hotelPrice * (params.duration - 1);
     if (this.budgetValidations(remainingBudget - hotelBudget)) {
       return hotelBudget;
     } else {
@@ -176,7 +177,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
    * @param remainingBudget
    * @returns {any}
    */
-  calculateRadius(params:UserParameters , remainingBudget) {
+  calculateRadius(params: UserParameters, remainingBudget) {
     let radius;
     let numberOfVehicles;
     const travelConst = constant.searchConstants.modeOfTravelPrices;
