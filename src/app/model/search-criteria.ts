@@ -1,3 +1,8 @@
+export interface ApplicableLocationObject {
+    location: Object;
+    position: Object;
+}
+
 export interface GlobalDestinationsObject {
     location: string;
     latitude: number;
