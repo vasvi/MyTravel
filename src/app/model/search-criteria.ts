@@ -30,3 +30,12 @@ export interface UserParameters {
     travel: TravelDetails;
 
 }
+
+export interface Position {
+    coords: Coordinates;
+}
+
+export interface Coordinates {
+    latitude: string; 
+    longitude: string;
+}

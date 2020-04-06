@@ -69,25 +69,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
     let budget;
     let byRoad = false;
 
-    /*const userParameters:UserParameters = {
-      duration: 2,
-      hotel: {
-        starrating: 4
-      },
-      travel: {
-        travelmode: 'driving',
-        enginetype: 'petrol',
-        vehicletype: 'sedan'
-      },
-      budget: 10000,
-      person: 2
-    };
-    // const userParameters = this.userParameters;
-    if (userParameters.travel.modeOfTravel === 'twoWheeler' ||
-      userParameters.travel.modeOfTravel === 'bus' ||
-      userParameters.travel.modeOfTravel === 'driving') {
-    };*/
-
     if (userParameters.travel.travelmode === constant.travelMode.twowheeler ||
       userParameters.travel.travelmode === constant.travelMode.bus ||
       userParameters.travel.travelmode === constant.travelMode.fourwheeler) {
@@ -220,53 +201,61 @@ export class SearchComponent implements OnInit, AfterViewInit {
    * @param byRoad
    */
   getApplicableLocations(radius, position, totalDays, byRoad) {
-
-    /**
-     * Configure to get the data from Database
-     */
-    const destinationsArray = [];
-    this.globalDestinationsObject.forEach((ele) => {
-      destinationsArray.push(ele.location);
-    });
-
-    let currentUserLocation;
-    // const applicableLocations = [];
-    let destinationIndex = 0;
-
-    currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
-    const service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-      {
-        origins: [currentUserLocation],
-        destinations: destinationsArray,
-        travelMode: google.maps.TravelMode.TWO_WHEELER,
-        avoidHighways: false,
-        avoidTolls: false,
-        unitSystem: google.maps.UnitSystem.METRIC
-      }, (data) => {
-
-        console.log(data);
-        data.rows[0].elements.forEach((ele) => {
-          if (ele.distance && ele.distance.value < (radius * 1000)) {
-            /**
-             * Check for travel time also
-             */
-
-            if (!byRoad || ele.duration.value * 2 < (totalDays * 24 * 60 * 60)) {
-              this.applicableLocations.push({
-                location: data.destinationAddresses[destinationIndex],
-                details: ele,
-                latitude: this.globalDestinationsObject[destinationIndex].latitude,
-                longitude: this.globalDestinationsObject[destinationIndex++].longitude,
-                expenditure: this.calculatedExpenditure
-              });
-            }
-          }
-        });
+    
+    // this.applicableLocations = 
+    this.searchDataService.getApplicableLocations(radius, 
+      position, totalDays, byRoad,this.calculatedExpenditure).subscribe((data)=>{
+        this.applicableLocations =data;
         this.mapInitializer(this.applicableLocations, position);
         this.applicableDestinations.next(this.applicableLocations);
         console.log('destinations set in parent');
-      });
+      })
+    /**
+     * Configure to get the data from Database
+     */
+    // const destinationsArray = [];
+    // this.globalDestinationsObject.forEach((ele) => {
+    //   destinationsArray.push(ele.location);
+    // });
+
+    // let currentUserLocation;
+    // // const applicableLocations = [];
+    // let destinationIndex = 0;
+
+    // currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
+    // const service = new google.maps.DistanceMatrixService();
+    // service.getDistanceMatrix(
+    //   {
+    //     origins: [currentUserLocation],
+    //     destinations: destinationsArray,
+    //     travelMode: google.maps.TravelMode.TWO_WHEELER,
+    //     avoidHighways: false,
+    //     avoidTolls: false,
+    //     unitSystem: google.maps.UnitSystem.METRIC
+    //   }, (data) => {
+
+    //     console.log(data);
+    //     data.rows[0].elements.forEach((ele) => {
+    //       if (ele.distance && ele.distance.value < (radius * 1000)) {
+    //         /**
+    //          * Check for travel time also
+    //          */
+
+    //         if (!byRoad || ele.duration.value * 2 < (totalDays * 24 * 60 * 60)) {
+    //           this.applicableLocations.push({
+    //             location: data.destinationAddresses[destinationIndex],
+    //             details: ele,
+    //             latitude: this.globalDestinationsObject[destinationIndex].latitude,
+    //             longitude: this.globalDestinationsObject[destinationIndex++].longitude,
+    //             expenditure: this.calculatedExpenditure
+    //           });
+    //         }
+    //       }
+    //     });
+        // this.mapInitializer(this.applicableLocations, position);
+        // this.applicableDestinations.next(this.applicableLocations);
+        // console.log('destinations set in parent');
+      // });
   }
 
 
