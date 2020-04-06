@@ -3,25 +3,29 @@
     <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
       <ng-template matStepLabel>Fill out general details</ng-template>
       <mat-form-field>
-        <mat-label>Persons</mat-label>
+        <mat-label>Number of travellers</mat-label>
         <input matInput formControlName="person" type="number" required>
         <mat-error>This field is required</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Budget</mat-label>
+        <mat-label>Budget per person</mat-label>
         <input matInput formControlName="budget" type="number" required>
         <mat-error>This field is required</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Duration</mat-label>
+        <mat-label>Total days of trip</mat-label>
         <input matInput formControlName="duration" type="number" required>
         <mat-error>This field is required</mat-error>
       </mat-form-field>
       <div>
         <button type="button" mat-button matStepperNext>Next</button>
       </div>
+      <div class="stepperInfoSection">
+        Necessary details to initiate our search.
+      </div>
+
     </mat-step>
 
     <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
@@ -41,6 +45,10 @@
         <button type="button" mat-button matStepperPrevious>Back</button>
         <button type="button" mat-button matStepperNext>Next</button>
       </div>
+
+      <div class="stepperInfoSection">
+        Just one more step after this.
+      </div>
     </mat-step>
 
     <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
@@ -53,12 +61,20 @@
           </mat-radio-button>
         </mat-radio-group>
 
-        <div class="travel-subtype" *ngIf="travelmode === 'twowheeler' || travelmode === 'fourwheeler'">
-          {{travelmode}}
+        <div class="travel-subtype" *ngIf="travelmode === 'two wheeler' || travelmode === 'four wheeler'">
           <mat-form-field>
-            <mat-label>Vehicle Type</mat-label>
-            <input matInput formControlName="vehicletype">
-            <mat-error>The field is required</mat-error>
+            <mat-label>Car Type</mat-label>
+            <mat-select formControlName="carType">
+              <mat-option value="hatchback">
+                Hatch Back (4 Seats)
+              </mat-option>
+              <mat-option value="sedan">
+                Sedan (5 Seats)
+              </mat-option>
+              <mat-option value="suv">
+                SUV (7 Seats)
+              </mat-option>
+            </mat-select>
           </mat-form-field>
           <mat-form-field>
             <mat-label>Engine Type</mat-label>
@@ -79,13 +95,17 @@
                 {{type.value}}
               </mat-option>
             </mat-select>
-            <mat-error>The field is required</mat-error>
           </mat-form-field>
         </div>
 
         <div class="travel-subtype" *ngIf="travelmode === 'train'">
           <mat-form-field>
             <mat-label>Train Class</mat-label>
+            <mat-select formControlName="trainclass">
+              <mat-option *ngFor="let type of trainTypeOptions" [value]="type.value">
+                {{type.value}}
+              </mat-option>
+            </mat-select>
             <mat-select formControlName="trainclass">
               <mat-option *ngFor="let type of trainTypeOptions" [value]="type.value">
                 {{type.value}}
@@ -98,6 +118,9 @@
       <div>
         <button mat-button [disabled]="!searchForm.valid">Done</button>
         <button type="button" mat-button (click)="linearHorizontalStepper.reset()">Reset</button>
+      </div>
+      <div class="stepperInfoSection">
+        Optional, but helps us to provide more precise results.
       </div>
     </mat-step>
   </mat-horizontal-stepper>
