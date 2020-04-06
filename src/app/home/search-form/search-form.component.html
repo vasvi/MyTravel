@@ -77,7 +77,6 @@
                 {{type.value}}
               </mat-option>
             </mat-select>
-            <mat-error>The field is required</mat-error>
           </mat-form-field>
         </div>
 
@@ -100,12 +99,6 @@
                 {{type.value}}
               </mat-option>
             </mat-select>
-            <mat-select formControlName="trainclass">
-              <mat-option *ngFor="let type of trainTypeOptions" [value]="type.value">
-                {{type.value}}
-              </mat-option>
-            </mat-select>
-            <mat-error>The field is required</mat-error>
           </mat-form-field>
         </div>
       </div>

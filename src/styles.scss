@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Lato:400');
 
 /**
   Global Theme Variables
@@ -109,4 +110,29 @@ body [class^='mat-'], body [class*=' mat-'] {
   font-weight: 600 !important;
   font-size: .8em;
   color: #4d4d4d;
+}
+
+.footer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  right: 0;
+  height: 50px;
+  background: #201f1f;
+  color: white;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+
+  .footerElements{
+    padding: 10px;
+    font-weight: bold;
+    font-size: .75em;
+    a {
+      padding: 5px;
+      font-weight: bold;
+      vertical-align: text-bottom;
+    }
+  }
 }
