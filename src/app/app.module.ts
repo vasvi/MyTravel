@@ -9,7 +9,6 @@ import { SearchComponent } from './search/search.component';
 import { LocationComponent } from './location/location.component';
 import { SearchFormComponent } from './home/search-form/search-form.component';
 import { GlobalSearchComponent } from './global-search/global-search.component';
-import { SearchListComponent } from './search/search-list/search-list.component';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -53,7 +52,7 @@ import {HttpClientModule} from '@angular/common/http';
     MatStepperModule,
     MatRadioModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
     MatIconModule,
     MatCardModule,
     NgxMasonryModule

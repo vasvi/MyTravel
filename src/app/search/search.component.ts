@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import * as constant from '../searchConstants';
 import {MatSnackBar} from '@angular/material';
-import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../model/search-criteria';
+import {GlobalDestinationsObject, CalculatedExpenditure, UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
 import {Subscription} from 'rxjs';
@@ -110,9 +110,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
    * @param remainingBudget
    * @returns {any}
    */
-  getHotelExpenses(params:UserParameters , remainingBudget) {
+  getHotelExpenses(params: UserParameters, remainingBudget) {
     let hotelBudget;
-    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].hotelPrice * (params.duration-1);
+    hotelBudget = (Math.ceil(params.person / 2)) * constant.searchConstants.hotelAndFoodPrices[params.hotel.starrating].hotelPrice * (params.duration - 1);
     if (this.budgetValidations(remainingBudget - hotelBudget)) {
       return hotelBudget;
     } else {
@@ -149,7 +149,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
    * @param remainingBudget
    * @returns {any}
    */
-  calculateRadius(params:UserParameters , remainingBudget) {
+  calculateRadius(params: UserParameters, remainingBudget) {
     let radius;
     let numberOfVehicles;
     const travelConst = constant.searchConstants.modeOfTravelPrices;
@@ -194,16 +194,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
    */
   getApplicableLocations(radius, position, totalDays, byRoad) {
 
-      this.searchDataService.getApplicableLocations(radius,
-        position, totalDays, byRoad,this.calculatedExpenditure);
-      this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-        if(data){
-          this.applicableLocations =data;
-          this.mapInitializer(this.applicableLocations, position);
-          this.applicableDestinations.next(this.applicableLocations);
-          console.log('destinations set in parent');
-        }
-      });
+    this.searchDataService.getApplicableLocations(radius,
+      position, totalDays, byRoad, this.calculatedExpenditure);
+    this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
+      if (data) {
+        this.applicableLocations = data;
+        this.mapInitializer(this.applicableLocations, position);
+        this.applicableDestinations.next(this.applicableLocations);
+        console.log('destinations set in parent');
+      }
+    });
   }
 
 
