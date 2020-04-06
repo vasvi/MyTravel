@@ -1,11 +1,24 @@
 <nav class="navbar navbar-light fixed-top">
   <span class="navbar-brand">FindYourGetaway</span>
   <span class="search-bar">
-      <app-global-search (onLocationChange)="onLocationChange($event)"></app-global-search>
-    </span>
+    <app-global-search (onLocationChange)="onLocationChange($event)"></app-global-search>
+  </span>
   <span>
     <a>Login</a>
   </span>
 </nav>
 
-<router-outlet></router-outlet>
+<div class="footer">
+  <span class="footerElements">Home</span>
+  <span class="footerElements">About Us</span>
+  <span class="footerElements">Contact Us</span>
+  <span class="footerElements">Careers</span>
+
+<span class="footerElements">
+  Location <span [style.color]="this.currentLocation ? 'green': 'red'">{{this.currentLocation ? ' : '+ this.currentLocation : ' : '+'Disabled'}} </span> <a *ngIf="!this.currentLocation" href="#" (click)="enableLocation(true)"> Enable</a>
+</span>
+</div>
+
+<div class="main">
+  <router-outlet></router-outlet>
+</div>

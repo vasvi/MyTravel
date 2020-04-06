@@ -36,11 +36,28 @@ export interface UserParameters {
 
 }
 
+export interface Location {
+    formatted_address: string;
+    photos: Array<string>;
+    id: string;
+    name: string;
+    place_id: string;
+    reference: string;
+    geometry: Array<any>; // [lat, long]
+}
+
+export interface Place {
+    name: string,
+    imageUrl: string,
+    rating: number,
+    types: Array<string>
+}
+
 export interface Position {
     coords: Coordinates;
 }
 
 export interface Coordinates {
-    latitude: string; 
+    latitude: string;
     longitude: string;
 }

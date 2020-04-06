@@ -14,13 +14,13 @@ export class SearchComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
-  userParameters:UserParameters;
-  applicableLocations= [];
+  userParameters: UserParameters;
+  applicableLocations = [];
   applicableDestinations: any;
   searchDataSubs: Subscription;
   availableLocationsSubs: Subscription;
 
-  globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
+  globalDestinationsObject: GlobalDestinationsObject[] = LocationData;
 
   constructor(
     private snackBar: MatSnackBar,
