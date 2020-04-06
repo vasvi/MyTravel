@@ -2,6 +2,7 @@ import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {FormGroup, FormControl, Validators, AbstractControl, FormBuilder, FormArray} from '@angular/forms';
 import {UserParameters} from '../../model/search-criteria';
 import {SearchDataService} from '../../services/search-data.serivce';
+import * as Constants from '../../searchConstants';
 
 @Component({
   selector: 'search-form',
@@ -20,19 +21,37 @@ export class SearchFormComponent implements OnInit {
    get travelDetails(): Object {return this.formArray.get('2') && this.formArray.get('2').value};
 
    hotelRatingOptions = [
-      {value: '2 star'},
-      {value: '3 star'},
-      {value: '4 star'},
-      {value: '5 star'},
+      {value: Constants.hotelRatingType.twostar},
+      {value: Constants.hotelRatingType.threestar},
+      {value: Constants.hotelRatingType.fourstar},
+      {value: Constants.hotelRatingType.fivestar},
     ];
 
     travelTypeOptions = [
-      {value: 'two wheeler'},
-      {value: 'four wheeler'},
-      {value: 'bus'},
-      {value: 'train'},
-      {value: 'flight'}      
-    ]
+      {value: Constants.travelMode.twowheeler},
+      {value: Constants.travelMode.fourwheeler},
+      {value: Constants.travelMode.bus},
+      {value: Constants.travelMode.train},
+      {value: Constants.travelMode.flight}      
+    ];
+
+    busTypeOptions = [
+      {value: Constants.busType.ac},
+      {value: Constants.busType.nonac},
+      {value: Constants.busType.volvo}
+    ];
+
+    engineTypeOptions = [
+      {value: Constants.engineType.petrol},
+      {value: Constants.engineType.diesel}
+    ];
+
+    trainTypeOptions = [
+      {value: Constants.trainType.firstclass},
+      {value: Constants.trainType.secondclass},
+      {value: Constants.trainType.thirdclass},
+      {value: Constants.trainType.fourthclass}
+    ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -100,14 +119,14 @@ export class SearchFormComponent implements OnInit {
 
       // Set new validation
       switch (event.value) {
-        case 'bus':
+        case Constants.travelMode.bus:
           travelFormGroup.get('bustype').setValidators(Validators.required);
           break;
-        case 'train':
+        case Constants.travelMode.train:
           travelFormGroup.get('trainclass').setValidators(Validators.required);
           break;
-        case 'two wheeler':
-        case 'four wheeler':
+        case Constants.travelMode.twowheeler:
+        case Constants.travelMode.fourwheeler:
           travelFormGroup.get('vehicletype').setValidators(Validators.required);
           travelFormGroup.get('enginetype').setValidators(Validators.required);
           break;

@@ -53,7 +53,8 @@
           </mat-radio-button>
         </mat-radio-group>
 
-        <div class="travel-subtype" *ngIf="travelmode === 'two wheeler' || travelmode === 'four wheeler'">
+        <div class="travel-subtype" *ngIf="travelmode === 'twowheeler' || travelmode === 'fourwheeler'">
+          {{travelmode}}
           <mat-form-field>
             <mat-label>Vehicle Type</mat-label>
             <input matInput formControlName="vehicletype">
@@ -61,7 +62,11 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Engine Type</mat-label>
-            <input matInput formControlName="enginetype">
+            <mat-select formControlName="enginetype">
+              <mat-option *ngFor="let type of engineTypeOptions" [value]="type.value">
+                {{type.value}}
+              </mat-option>
+            </mat-select>
             <mat-error>The field is required</mat-error>
           </mat-form-field>
         </div>
@@ -69,7 +74,11 @@
         <div class="travel-subtype" *ngIf="travelmode === 'bus'">
           <mat-form-field>
             <mat-label>Bus Type</mat-label>
-            <input matInput formControlName="bustype">
+            <mat-select formControlName="bustype">
+              <mat-option *ngFor="let type of busTypeOptions" [value]="type.value">
+                {{type.value}}
+              </mat-option>
+            </mat-select>
             <mat-error>The field is required</mat-error>
           </mat-form-field>
         </div>
@@ -77,7 +86,11 @@
         <div class="travel-subtype" *ngIf="travelmode === 'train'">
           <mat-form-field>
             <mat-label>Train Class</mat-label>
-            <input matInput formControlName="trainclass">
+            <mat-select formControlName="trainclass">
+              <mat-option *ngFor="let type of trainTypeOptions" [value]="type.value">
+                {{type.value}}
+              </mat-option>
+            </mat-select>
             <mat-error>The field is required</mat-error>
           </mat-form-field>
         </div>
