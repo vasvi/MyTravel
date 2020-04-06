@@ -18,9 +18,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatStepperModule,
     MatRadioModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    NgxMasonryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

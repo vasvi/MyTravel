@@ -1,23 +1,56 @@
 <div class="wrapper">
     <div class="container">
-        <div class="info">
-            <div class="title">
-                {{targetLocation?.name}}
-                <br>
-                {{targetLocation?.formatted_address}}
+        <div class="main-lc">
+            <div class="info">
+                <div class="title">
+                    <h3>
+                        {{targetLocation?.name}}
+                    </h3>
+                    {{targetLocation?.formatted_address}}
+                </div>
             </div>
-            <div #mapContainer id="map" class="map-container"></div>
-
-            <div class="images">
-                <ngx-masonry [useImagesLoaded]="true">
-                    <div ngxMasonryItem class="masonry-item" *ngFor="let image of targetLocation.photos">
-                        <img [src]="image" alt="">
+            <div class="carousel">
+                <div class="box">
+                    <div class="img">
+                        <img *ngFor="let img of targetLocation.photos; let i=index" [hidden]="currentCarouselIndex!=i"
+                            [src]="img" alt="">
                     </div>
-                </ngx-masonry>
-                <!-- <div class="box" >
-                    <img  [src]="image" alt="">
-                </div> -->
+                    <button mat-button class="left" (click)="navigatePrev()">
+                        <span class="material-icons">
+                            arrow_forward_ios
+                        </span>
+                    </button>
+                    <button mat-button class="right" (click)="navigateNext()">
+                        <span class="material-icons">
+                            arrow_forward_ios
+                        </span>
+                    </button>
+                </div>
             </div>
+        </div>
+
+        <h3>Places of interest</h3>
+        <div class="nearby">
+            <ngx-masonry [useImagesLoaded]="true" [updateLayout]="updateMasonryLayout">
+                <div ngxMasonryItem class="masonry-item" *ngFor="let place of places">
+                    <div class="b-box" *ngIf="place.imageUrl">
+                        <img [src]="place.imageUrl" alt="">
+                        <div class="text">
+                            <span class="name block">
+                                {{place.name}}
+                            </span>
+                            <span class="rating block">
+                                <span class="material-icons">
+                                    grade
+                                </span>
+                                {{place.rating}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </ngx-masonry>
         </div>
     </div>
 </div>
+
+<div #mapContainer id="map" class="map-container"></div>

@@ -41,3 +41,10 @@ export interface Location {
     reference: string;
     geometry: Array<any>; // [lat, long]
 }
+
+export interface Place {
+    name: string,
+    imageUrl: string,
+    rating: number,
+    types: Array<string>
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '../model/search-criteria';
+import { Location, Place } from '../model/search-criteria';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +13,9 @@ export class LocationComponent implements OnInit {
   map: google.maps.Map;
   routerEventSubscription: Subscription;
   targetLocation: Location;
-
+  places: Array<Place> = [];
+  carouselItems: Array<string>;
+  currentCarouselIndex: number;
   constructor(
     private activatedRoute: ActivatedRoute
   ) { }
@@ -33,6 +35,7 @@ export class LocationComponent implements OnInit {
         this.targetLocation.geometry[0] = parseFloat(this.targetLocation.geometry[0]);
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);
         this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
+        this.createCarousel();
       }
     })
   }
@@ -42,9 +45,23 @@ export class LocationComponent implements OnInit {
     const targetCoordinates = new google.maps.LatLng(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
     service.nearbySearch({
       location: targetCoordinates,
-      radius: 12000
+      radius: 30000,
+      type: 'tourist_attraction'
     }, (results, status) => {
+      var placesList: Array<Place> = [];
       results.forEach((item) => {
+        let placeObj: Place = {
+          name: item.name,
+          imageUrl: (() => {
+            return Array.isArray(item.photos) ? item.photos[0].getUrl({
+              maxHeight: 400,
+              maxWidth: 300
+            }) : null;
+          })(),
+          types: item.types,
+          rating: item.rating
+        }
+        placesList.push(placeObj);
         let markerOptions = {
           map: this.map,
           draggable: false,
@@ -61,6 +78,8 @@ export class LocationComponent implements OnInit {
         }
         this.createMarker(markerOptions);
       })
+      this.places = placesList;
+      console.log(this.places)
     });
   }
 
@@ -93,6 +112,18 @@ export class LocationComponent implements OnInit {
     this.plotNearbyPlaces();
   }
 
+  createCarousel() {
+    this.carouselItems = this.targetLocation.photos;
+    this.currentCarouselIndex = 0;
+  }
+
+  navigateNext() {
+    this.currentCarouselIndex = this.currentCarouselIndex === this.carouselItems.length ? 0 : this.currentCarouselIndex + 1
+  }
+
+  navigatePrev() {
+    this.currentCarouselIndex = this.currentCarouselIndex === 0 ? this.carouselItems.length : this.currentCarouselIndex - 1
+  }
 
   ngOnInit() {
     this.subscribeToRouterEvents();
