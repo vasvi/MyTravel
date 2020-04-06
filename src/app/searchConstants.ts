@@ -76,9 +76,9 @@ export const searchConstants = {
         diesel: 3
       },
       seatingCapacity: {
-        suv: 7,
-        hatchback: 4,
-        sedan: 5
+        'SUV/MUV (7 Seats)': 7,
+        'HatchBack (4 Seats)': 4,
+        'Sedan (5 Seats)': 5
       }
     },
     bus: {

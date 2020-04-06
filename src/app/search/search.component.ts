@@ -186,7 +186,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     switch (params.travel.travelmode) {
 
       case constant.travelMode.fourwheeler: {
-        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.vehicletype]);
+        numberOfVehicles = Math.ceil(params.person / travelConst.driving.seatingCapacity[params.travel.cartype]);
         radius = Math.ceil(remainingBudget / (numberOfVehicles * travelConst.driving.engineType[params.travel.enginetype.toLowerCase()]));
         break;
       }
