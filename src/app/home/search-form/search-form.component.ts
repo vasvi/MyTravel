@@ -11,23 +11,28 @@ export class SearchFormComponent implements OnInit {
   @Output() formData: EventEmitter<UserParameters> = new EventEmitter();
   searchForm: FormGroup;
 
-   get formArray(): AbstractControl | null { return this.searchForm.get('formArray'); };
-   get travelmode(): string { return this.formArray.get('2').get('travel') && this.formArray.get('2').get('travel').value }; 
+  get formArray(): AbstractControl | null {
+    return this.searchForm.get('formArray');
+  }
 
-   hotelRatingOptions = [
-      {value: '2 star'},
-      {value: '3 star'},
-      {value: '4 star'},
-      {value: '5 star'},
-    ];
+  get travelmode(): string {
+    return this.formArray.get('2').get('travel') && this.formArray.get('2').get('travel').value;
+  }
 
-    travelTypeOptions = [
-      {value: 'two wheeler'},
-      {value: 'four wheeler'},
-      {value: 'bus'},
-      {value: 'train'},
-      {value: 'flight'}      
-    ]
+  hotelRatingOptions = [
+    {value: '2 star'},
+    {value: '3 star'},
+    {value: '4 star'},
+    {value: '5 star'},
+  ];
+
+  travelTypeOptions = [
+    {value: 'two wheeler'},
+    {value: 'four wheeler'},
+    {value: 'bus'},
+    {value: 'train'},
+    {value: 'flight'}
+  ];
 
   constructor(private _formBuilder: FormBuilder) {
   }
@@ -50,10 +55,10 @@ export class SearchFormComponent implements OnInit {
         }),
         this._formBuilder.group({
           travel: ['', [Validators.required]],
-          vehicletype: [''],
-          enginetype: [''],
-          bustype: [''],
-          trainclass: ['']          
+          carType: [''],
+          engineType: [''],
+          busType: [''],
+          trainClass: ['']
         })
       ])
     });

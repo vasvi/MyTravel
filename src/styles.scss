@@ -1,23 +1,108 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,600,700,800,900&display=swap');
+/**
+  Global Theme Variables
+ */
+
+$themeFont: "Montserrat", sans-serif !important;
+$themeColor: '#dbdbdb';
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: $themeFont;
+
+}
+
+/**
+  Navbar Css
+ */
+
+.navbar {
+  font-weight: 600;
+  background: #242424;
+  height: 64px;
+  color: #dbdbdb !important;
+  font-size: .9em;
+  padding: 0 16px !important;
+}
+
+.navbar-brand {
+  font-size: 1.1em !important;
+  color: #f1a578 !important;
+}
 
 
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-html, body { height: 100%; }
-body { margin: 0; font-family: "Montserrat", sans-serif !important;
-font-weight: 500 !important;}
+.navbar .mat-form-field-label-wrapper {
+  .mat-form-field-label{
+    color: #d1cdcd !important;
+    padding: 0 5px;
+  }
+  font-family: $themeFont;
+  font-size: .85em !important;
+  font-weight: bold;
+
+}
+.navbar .mat-form-field input {
+  font-family: $themeFont;
+  padding: 1px 8px;
+  font-size: .9em;
+  font-weight: bold;
+}
+
+.navbar .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #f1a578
+}
+
+/**
+ */
+
+/**
+Material Theme Customizations
+ */
+
+body [class^='mat-'], body [class*=' mat-'] {
+
+}
+
+.mat-step-label {
+  font-weight: bold;
+  font-size: .7em;
+  color: rgba(227, 227, 227, 0.87) !important;
+}
+
+.mat-simple-snackbar, .gm-style-iw-d {
+  font-weight: bold;
+  font-family: $themeFont;
+}
+
+.mat-simple-snackbar {
+  font-weight: 500 !important;
+  font-size: .7em;
+}
+
+.mat-form-field-underline {
+  background-color: #bdbdbd !important;
+}
 
 
-.gm-style-iw-d{
-  font-family: "Montserrat", sans-serif;
+.mat-select-value {
+  color: #FFF !important;
+  padding: 4px 10px;
+  font-family: $themeFont;
+  font-weight: bold;
+}
+
+
+/**
+ */
+
+.gm-style-iw-d {
   font-weight: 600 !important;
   font-size: .8em;
   color: #4d4d4d;
-}
-
-.mat-simple-snackbar{
-  font-family: 'Montserrat',sans-serif !important;
-  font-weight: 500 !important;
-  font-size: .7em;
 }
