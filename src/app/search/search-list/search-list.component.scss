@@ -1,0 +1,38 @@
+ul{
+    list-style-type: none;
+}
+.city-info{
+    font-size: 14px;
+    line-height: 1.58;
+    color: rgba(0,0,0,.54);
+    position: relative;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    max-height: 106px;
+    min-height: 58px;
+    border: solid #ebebeb 2px 2px 0 2px;
+    padding: 10px;
+}
+
+.city-info a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.city-info .city-name{
+    color: #000;
+    font-size: 16px;
+    line-height: 20px;
+    padding-bottom: -5px;
+}
+
+.city-info .city-img{
+    float: right;
+    height: 86px;
+    width: auto;
+}
+
+.city-info p{
+    margin-bottom: 0;
+}

@@ -4,6 +4,7 @@ import {MatSnackBar} from '@angular/material';
 import {GlobalDestinationsObject,CalculatedExpenditure,UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
 import { ActivatedRoute} from '@angular/router';
+import {BehaviorSubject} from 'rxjs';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
   userParameters:UserParameters;
+  applicableLocations= [];
+  applicableDestinations: any;
   calculatedExpenditure: CalculatedExpenditure = {
     hotelExpenditure: 0,
     foodExpenditure: 0,
@@ -43,6 +46,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       console.log(userData);
       this.userParameters = userData;
     });
+    this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
   }
 
   initSearch() {
@@ -54,22 +58,22 @@ export class SearchComponent implements OnInit, AfterViewInit {
     let budget;
     let byRoad = false;
 
-    // const userParameters:UserParameters = {
-    //   duration: 2,
-    //   hotel: {
-    //     starRating: 4
-    //   },
-    //   travel: {
-    //     modeOfTravel: 'driving',
-    //     driving: {
-    //       typeOfEngine: 'petrol',
-    //       typeOfVehicle: 'sedan'
-    //     }
-    //   },
-    //   budget: 10000,
-    //   person: 2
-    // };
-    const userParameters = this.userParameters;
+    const userParameters:UserParameters = {
+      duration: 2,
+      hotel: {
+        starRating: 4
+      },
+      travel: {
+        modeOfTravel: 'driving',
+        driving: {
+          typeOfEngine: 'petrol',
+          typeOfVehicle: 'sedan'
+        }
+      },
+      budget: 10000,
+      person: 2
+    };
+    // const userParameters = this.userParameters;
     if (userParameters.travel.modeOfTravel === 'twoWheeler' ||
       userParameters.travel.modeOfTravel === 'bus' ||
       userParameters.travel.modeOfTravel === 'driving') {
@@ -206,15 +210,13 @@ export class SearchComponent implements OnInit, AfterViewInit {
     /**
      * Configure to get the data from Database
      */
-
-
     const destinationsArray = [];
     this.globalDestinationsObject.forEach((ele) => {
       destinationsArray.push(ele.location);
     });
 
     let currentUserLocation;
-    const applicableLocations = [];
+    // const applicableLocations = [];
     let destinationIndex = 0;
 
     currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
@@ -237,16 +239,19 @@ export class SearchComponent implements OnInit, AfterViewInit {
              */
 
             if (!byRoad || ele.duration.value * 2 < (totalDays * 24 * 60 * 60)) {
-              applicableLocations.push({
+              this.applicableLocations.push({
                 location: data.destinationAddresses[destinationIndex],
                 details: ele,
                 latitude: this.globalDestinationsObject[destinationIndex].latitude,
-                longitude: this.globalDestinationsObject[destinationIndex++].longitude
+                longitude: this.globalDestinationsObject[destinationIndex++].longitude,
+                expenditure: this.calculatedExpenditure
               });
             }
           }
         });
-        this.mapInitializer(applicableLocations, position);
+        this.mapInitializer(this.applicableLocations, position);
+        this.applicableDestinations.next(this.applicableLocations);
+        console.log('destinations set in parent');
       });
   }
 
