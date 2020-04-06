@@ -61,18 +61,12 @@
           </mat-radio-button>
         </mat-radio-group>
 
-        <div class="travel-subtype" *ngIf="travelmode === 'two wheeler' || travelmode === 'four wheeler'">
+        <div class="travel-subtype" *ngIf="travelmode === 'fourwheeler'">
           <mat-form-field>
             <mat-label>Car Type</mat-label>
-            <mat-select formControlName="carType">
-              <mat-option value="hatchback">
-                Hatch Back (4 Seats)
-              </mat-option>
-              <mat-option value="sedan">
-                Sedan (5 Seats)
-              </mat-option>
-              <mat-option value="suv">
-                SUV (7 Seats)
+            <mat-select formControlName="cartype">
+              <mat-option *ngFor="let type of carTypeOptions" [value]="type.value">
+                {{type.value}}
               </mat-option>
             </mat-select>
           </mat-form-field>

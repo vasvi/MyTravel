@@ -14,44 +14,64 @@ export class SearchFormComponent implements OnInit {
   searchForm: FormGroup;
 
   /**Form getters */
-   get formArray(): AbstractControl | null { return this.searchForm.get('formArray'); };
-   get travelmode(): string { return this.formArray.get('2').get('travelmode') && this.formArray.get('2').get('travelmode').value };
-   get hotelData(): Object { return this.formArray.get('1') && this.formArray.get('1').value};
-   get generalDetails(): Object { return this.formArray.get('0') && this.formArray.get('0').value};
-   get travelDetails(): Object {return this.formArray.get('2') && this.formArray.get('2').value};
+  get formArray(): AbstractControl | null {
+    return this.searchForm.get('formArray');
+  }
 
-   hotelRatingOptions = [
-      {value: Constants.hotelRatingType.twostar},
-      {value: Constants.hotelRatingType.threestar},
-      {value: Constants.hotelRatingType.fourstar},
-      {value: Constants.hotelRatingType.fivestar},
-    ];
+  get travelmode(): string {
+    return this.formArray.get('2').get('travelmode') && this.formArray.get('2').get('travelmode').value;
+  }
 
-    travelTypeOptions = [
-      {value: Constants.travelMode.twowheeler},
-      {value: Constants.travelMode.fourwheeler},
-      {value: Constants.travelMode.bus},
-      {value: Constants.travelMode.train},
-      {value: Constants.travelMode.flight}      
-    ];
+  get hotelData(): Object {
+    return this.formArray.get('1') && this.formArray.get('1').value;
+  }
 
-    busTypeOptions = [
-      {value: Constants.busType.ac},
-      {value: Constants.busType.nonac},
-      {value: Constants.busType.volvo}
-    ];
+  get generalDetails(): Object {
+    return this.formArray.get('0') && this.formArray.get('0').value;
+  }
 
-    engineTypeOptions = [
-      {value: Constants.engineType.petrol},
-      {value: Constants.engineType.diesel}
-    ];
+  get travelDetails(): Object {
+    return this.formArray.get('2') && this.formArray.get('2').value;
+  }
 
-    trainTypeOptions = [
-      {value: Constants.trainType.firstclass},
-      {value: Constants.trainType.secondclass},
-      {value: Constants.trainType.thirdclass},
-      {value: Constants.trainType.fourthclass}
-    ];
+  hotelRatingOptions = [
+    {value: Constants.hotelRatingType.twostar},
+    {value: Constants.hotelRatingType.threestar},
+    {value: Constants.hotelRatingType.fourstar},
+    {value: Constants.hotelRatingType.fivestar},
+  ];
+
+  travelTypeOptions = [
+    {value: Constants.travelMode.twowheeler},
+    {value: Constants.travelMode.fourwheeler},
+    {value: Constants.travelMode.bus},
+    {value: Constants.travelMode.train},
+    {value: Constants.travelMode.flight}
+  ];
+
+  busTypeOptions = [
+    {value: Constants.busType.ac},
+    {value: Constants.busType.nonac},
+    {value: Constants.busType.volvo}
+  ];
+
+  engineTypeOptions = [
+    {value: Constants.engineType.petrol},
+    {value: Constants.engineType.diesel}
+  ];
+
+  trainTypeOptions = [
+    {value: Constants.trainType.firstclass},
+    {value: Constants.trainType.secondclass},
+    {value: Constants.trainType.thirdclass},
+    {value: Constants.trainType.fourthclass}
+  ];
+
+  carTypeOptions = [
+    {value: Constants.carType.hatchback},
+    {value: Constants.carType.sedan},
+    {value: Constants.carType.suv},
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -77,9 +97,10 @@ export class SearchFormComponent implements OnInit {
         this._formBuilder.group({
           travelmode: ['', [Validators.required]],
           vehicletype: [''],
+          cartype: [''],
           enginetype: [''],
           bustype: [''],
-          trainclass: ['']          
+          trainclass: ['']
         })
       ])
     });
@@ -101,7 +122,7 @@ export class SearchFormComponent implements OnInit {
     Object.assign(obj, {
       travel: Object.assign({}, this.travelDetails)
     });
-    
+
     console.log(obj);
 
     this.searchDataService.setUserSearchData(obj as UserParameters);

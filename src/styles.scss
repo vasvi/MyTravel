@@ -97,6 +97,10 @@ body [class^='mat-'], body [class*=' mat-'] {
   font-weight: bold;
 }
 
+.mat-option-text{
+  font-family: $themeFont;
+  font-weight: bold;
+}
 
 /**
  */
