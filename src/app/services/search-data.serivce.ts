@@ -164,6 +164,7 @@ export class SearchDataService {
         return (radius / 2);
       }
 
+    /** This method can be called with just radius and/or current position to get non-parameterized search */
     getApplicableLocations=(radius:number=500, position?: Position, totalDays?: number, byRoad?: any, calculatedExpenditure?: any):void =>{
 
         /**
