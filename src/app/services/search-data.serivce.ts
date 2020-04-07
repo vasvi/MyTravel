@@ -202,6 +202,7 @@ export class SearchDataService {
                   applicableLocations.push({
                     location: data.destinationAddresses[destinationIndex],
                     details: ele,
+                    imageUrl: this.globalDestinationsObject[destinationIndex].imageUrl,
                     latitude: this.globalDestinationsObject[destinationIndex].latitude,
                     longitude: this.globalDestinationsObject[destinationIndex++].longitude,
                     expenditure: calculatedExpenditure

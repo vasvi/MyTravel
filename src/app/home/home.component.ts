@@ -36,10 +36,10 @@ export class HomeComponent implements OnInit {
     };
 
     navigator.geolocation.getCurrentPosition((position) => {
-      this.searchDataService.getApplicableLocations(500, position);
+      this.searchDataService.getApplicableLocations(2500, position);
     }, (error) => {
       console.log('No Location Available :: ' + error);
-      this.searchDataService.getApplicableLocations(500, defaultPosition);
+      this.searchDataService.getApplicableLocations(2500, defaultPosition);
     });
   }
 }

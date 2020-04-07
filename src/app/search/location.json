@@ -1,17 +1,21 @@
 [{
     "location": "Manali",
     "latitude": 32.2432,
-    "longitude": 77.1892
+    "longitude": 77.1892,
+    "imageUrl": "assets/images/manali.webp"
   }, {
     "location": "Jaipur",
     "latitude": 26.9124,
-    "longitude": 75.7873
+    "longitude": 75.7873,
+    "imageUrl": "assets/images/jaipur.jpg"
   }, {
     "location": "Leh",
     "latitude": 34.152588,
-    "longitude": 77.577049
+    "longitude": 77.577049,
+    "imageUrl": "assets/images/leh.jpg"
   }, {
     "location": "Goa",
     "latitude": 15.2993,
-    "longitude": 74.1240
+    "longitude": 74.1240,
+    "imageUrl": "assets/images/goa.jpg"
   }]
