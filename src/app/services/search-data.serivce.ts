@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable, of, Subject} from 'rxjs';
-import {CalculatedExpenditure, GlobalDestinationsObject, UserParameters, ApplicableLocationObject} from '../model/search-criteria';
+import {ApplicableLocationObject, CalculatedExpenditure, GlobalDestinationsObject, Position, UserParameters } from '../model/search-criteria';
 import LocationData from '../search/location.json';
 import * as constant from '../searchConstants';
 
@@ -46,7 +46,7 @@ export class SearchDataService {
           byRoad = true;
         }
     
-        const defaultPosition = {
+        const defaultPosition : Position = {
           coords: {
             latitude: constant.searchConstants.defaultLocation.latitude,
             longitude: constant.searchConstants.defaultLocation.longitude
@@ -65,7 +65,7 @@ export class SearchDataService {
             this.getApplicableLocations(this.radius, position, userParameters.duration, byRoad, this.calculatedExpenditure);
           }, (error) => {
             console.log('No Location Available :: ' + error);
-            //this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
+            this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
           });
         } catch (e) {
           //this.snackBar.open(e, '', {duration: 5000});
