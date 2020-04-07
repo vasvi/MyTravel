@@ -7,6 +7,7 @@ export interface GlobalDestinationsObject {
     location: string;
     latitude: number;
     longitude: number;
+    imageUrl: string;
     information: string;
 }
 

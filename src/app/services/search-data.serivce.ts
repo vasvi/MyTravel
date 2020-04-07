@@ -74,7 +74,7 @@ export class SearchDataService {
         this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
       });
     } catch (e) {
-      // this.snackBar.open(e, '', {duration: 5000});
+      //this.snackBar.open(e, '', {duration: 5000});
     }
   }
 
@@ -208,20 +208,20 @@ export class SearchDataService {
               applicableLocations.push({
                 location: data.destinationAddresses[destinationIndex],
                 details: ele,
-                latitude: this.globalDestinationsObject[destinationIndex].latitude,
-                longitude: this.globalDestinationsObject[destinationIndex].longitude,
+                imageUrl: this.globalDestinationsObject[destinationIndex].imageUrl,
                 information: this.globalDestinationsObject[destinationIndex].information,
+                latitude: this.globalDestinationsObject[destinationIndex].latitude,
+                longitude: this.globalDestinationsObject[destinationIndex++].longitude,
                 expenditure: calculatedExpenditure
               });
-              destinationIndex++;
             }
           }
         });
 
         if (applicableLocations && position) {
-          const locationData: ApplicableLocationObject = {
+          let locationData: ApplicableLocationObject = {
             location: applicableLocations,
-            position
+            position: position
           };
 
           this.applicableLocationsSubject.next(locationData);
