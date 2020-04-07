@@ -1,4 +1,9 @@
-#map {
-  height: 600px;
-  width: 100%;
+.searchResults {
+  display: flex;
+  margin-top: 60px;
+
+  #map {
+    height: 600px;
+    width: 50%;
+  }
 }
