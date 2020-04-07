@@ -61,7 +61,7 @@
           </mat-radio-button>
         </mat-radio-group>
 
-        <div class="travel-subtype" *ngIf="travelmode === 'fourwheeler'">
+        <div class="travel-subtype" *ngIf="travelmode.toLowerCase() === 'four wheeler'">
           <mat-form-field>
             <mat-label>Car Type</mat-label>
             <mat-select formControlName="cartype">

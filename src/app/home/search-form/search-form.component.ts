@@ -156,7 +156,7 @@ export class SearchFormComponent implements OnInit {
           break;
       }
     }
-  }
+  };
 
   clearValidations = (travelFormGroup) => {
     travelFormGroup.get('bustype').clearValidators();

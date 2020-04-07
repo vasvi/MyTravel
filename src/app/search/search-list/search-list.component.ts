@@ -12,9 +12,10 @@ import { SearchDataService } from '../../services/search-data.serivce';
 
 export class SearchListComponent implements OnInit {
 
-  destinations: [];
+  destinations = [];
   applicableDestinations: any;
   availableLocationsSubs: Subscription;
+  @Input() parentComponent: string;
 
   constructor(private searchDataService: SearchDataService,
     private ref: ChangeDetectorRef){}
@@ -22,7 +23,7 @@ export class SearchListComponent implements OnInit {
   ngOnInit() {
     this.applicableDestinations = new BehaviorSubject(this.destinations);
     this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-      if (data && data.location ) {
+      if (data && data.location) {
         this.destinations = data.location;
         setTimeout(() => {
           this.ref.detectChanges();

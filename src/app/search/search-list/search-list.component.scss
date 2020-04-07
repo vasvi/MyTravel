@@ -4,30 +4,37 @@ ul {
 }
 
 .city-info {
-  font-size: .85em;
+  font-size: 0.85em;
   color: rgba(0, 0, 0, 0.54);
   position: relative;
   display: table;
   table-layout: fixed;
-  margin: 8px;
-  width: 98%;
+  margin: 9px;
+  width: calc(100% - 22px);
+  box-shadow: 1px 1px 4px 0px #ccc;
   padding: 20px 20px !important;
   min-height: 58px;
-  border: solid #cecece 2px;
+  .city-desc{
+    width: 76%;
+    margin: 15px 0 0;
+    height: 91px;
+    overflow: hidden;
+    color: #474545;
+  }
 }
 
 .city-info a {
-  text-decoration: none;
-  color: inherit;
+text-decoration: none;
+color: inherit;
 }
 
 .city-info .city-name {
-  color: #000;
-  font-size: 1em;
-  line-height: 1.6em;
-  font-weight: bold;
-  padding-bottom: 10px;
- }
+color: #000;
+font-size: 1em;
+line-height: 1.6em;
+font-weight: bold;
+padding-bottom: 2px;
+}
 
 .city-info .city-img {
   float: right;
@@ -36,14 +43,50 @@ ul {
 }
 
 .city-info p {
-  margin-bottom: 0;
-  font-size: .9em;
-  font-weight: bold;
+margin-bottom: 0;
+font-size: .9em;
+font-weight: bold;
 }
 
-.parentContainer {
-  width: 50%;
-  position: absolute;
-  right: 0;
-  padding: 0 0 50px;
+.leftAlignedContainer {
+width: 50%;
+position: absolute;
+right: 0;
+padding: 0 0 50px;
+}
+
+.centerAlignedContainer {
+text-align: left;
+padding: 38px 0;
+max-height: 800px;
+overflow-y: auto;
+ul {
+display: flex;
+flex-wrap: wrap;
+li {
+  flex-basis: 50%;
+}
+}
+}
+
+h1 {
+font-size: 2em;
+padding: 0px 0 1px;
+text-align: center;
+font-family: "Lato", sans-serif;
+}
+
+h4 {
+font-weight: bold;
+font-size: 0.9em;
+padding: 0 15%;
+line-height: 1.4em;
+}
+
+.spinner{
+  img{
+    width: 100px;
+    margin: 50px 0 10px;
+  }
+
 }
