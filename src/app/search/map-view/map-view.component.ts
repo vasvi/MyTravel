@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {SearchDataService} from '../../services/search-data.serivce';
+import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'map-view',
@@ -14,13 +16,20 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
   availableLocationsSubs: Subscription;
 
   constructor(
-    private searchDataService: SearchDataService
+    private searchDataService: SearchDataService,
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngAfterViewInit() {
     this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-      console.log("From MAP VIEW:  " + data);
-      this.mapInitializer(data.location, data.position);
+      if (data.location && data.position) {
+        this.mapInitializer(data.location, data.position);
+      } else {
+        // Navigate to home page
+        this.snackBar.open(data, '', {duration: 5000});
+        this.router.navigate(['/'], {skipLocationChange: true} )
+      }
     });
   }
 
