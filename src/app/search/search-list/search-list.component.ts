@@ -20,8 +20,8 @@ export class SearchListComponent implements OnInit {
   ngOnInit() {
     this.applicableDestinations = new BehaviorSubject(this.destinations);
     this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-      if (data && data.length ) {
-        this.destinations = data;
+      if (data && data.location ) {
+        this.destinations = data.location;
         console.log('data set in child' + this.destinations);
       }
     });

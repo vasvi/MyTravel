@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable, of, Subject} from 'rxjs';
 import {ApplicableLocationObject, CalculatedExpenditure, GlobalDestinationsObject, Position, UserParameters } from '../model/search-criteria';
 import LocationData from '../search/location.json';
-import {Position} from '../model/search-criteria'
 import * as constant from '../searchConstants';
 
 @Injectable({
