@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, BehaviorSubject, Subscription} from 'rxjs';
 import {JsonPipe} from '@angular/common';
+import { SearchDataService } from '../../services/search-data.serivce';
 
 @Component({
   selector: 'app-search-list',
@@ -10,22 +11,19 @@ import {JsonPipe} from '@angular/common';
 
 export class SearchListComponent implements OnInit {
 
-  destinations: any;
-  @Input() applicableDestinations: Observable<any>;
+  destinations: [];
+  applicableDestinations: any;
+  availableLocationsSubs: Subscription;
 
-  // @Input() set applicableDestinations(value: any) {
-  //     this.destinations=value;
-  // }
-
-  // get applicableDestinations(): any {
-  //   return this.destinations;
-  // }
+  constructor(private searchDataService: SearchDataService){}
 
   ngOnInit() {
-    console.log('search-list init' + JSON.stringify(this.applicableDestinations) + 'destinations' + this.destinations);
-    this.applicableDestinations.subscribe(data => {
-      this.destinations = data;
-      console.log('data received in child' + JSON.stringify(this.destinations));
+    this.applicableDestinations = new BehaviorSubject(this.destinations);
+    this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
+      if (data && data.location ) {
+        this.destinations = data.location;
+        console.log('data set in child' + this.destinations);
+      }
     });
   }
 }
