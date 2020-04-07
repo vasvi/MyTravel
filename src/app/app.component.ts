@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
         location.geometry.location.lng()
       ]
     };
-    return formattedLocationData
+    return formattedLocationData;
   }
 
   onLocationChange(location) {
@@ -67,6 +67,7 @@ export class AppComponent implements OnInit {
               if (results[i].types[0] === 'locality') {
                 const city = results[i].address_components[0].short_name;
                 this.currentLocation = city;
+                GlobalVariables.setGlobalVariable('currentCity', city);
               }
             }
           }

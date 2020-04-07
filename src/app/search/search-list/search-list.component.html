@@ -1,24 +1,37 @@
-
-List Component
+<div *ngIf="this.parentComponent !== 'searchComponent'">
+  <h1 align="center">
+    Our Location Listings
+  </h1>
+  <h4 align="center">
+    <span>Based on our calculation, these locations are close to you and are suitable for weekend getaway</span>
+  </h4>
+</div>
 <!-- {{destinations}} -->
 <!-- <div *ngIf="destinations.length"> -->
-<div class="container parentContainer">
-<ul>
+<div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'">
+
+  <div align="center" *ngIf="destinations.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
+    <h4 align="center">
+      Please wait.. You locations are being loaded.
+    </h4>
+  </div>
+  <ul>
     <li *ngFor="let destination of destinations">
-        <!-- <li> -->
-            <div class="city-info">
-                <div>
-                    <img src="assets/images/indd.jpg" class="city-img">
-                </div>
-                <div class="">
-                    <p class="city-name">{{destination.location}}</p>
-                    <p> {{destination.details.distance.text}}</p>
-                    <p *ngIf="destination.expenditure">Hotel Expense: {{destination.expenditure.hotelExpenditure}} (2 persons/room) | Food Expense: {{destination.expenditure.foodExpenditure}}
-                        |Max Travel Expense: {{destination.expenditure.travelExpenditure}} </p>
-                    <p>Cold & chilling</p>
-                </div>
-            </div>
+      <!-- <li> -->
+      <div class="city-info">
+        <div>
+          <img src="assets/images/indd.jpg" class="city-img">
+        </div>
+        <div class="">
+          <p class="city-name"><a routerLink="location"> {{destination.location}}</a></p>
+          <p style="color: #939393;font-weight: bold;font-size: .85em;"> {{destination.details.distance.text}} away</p>
+         <!-- <p *ngIf="destination.expenditure">Hotel Expense: {{destination.expenditure.hotelExpenditure}} (2
+            persons/room) | Food Expense: {{destination.expenditure.foodExpenditure}}
+            |Max Travel Expense: {{destination.expenditure.travelExpenditure}} </p>-->
+          <p class="city-desc">{{destination.information ? destination.information : 'No Information Available'}}</p>
+        </div>
+      </div>
     </li>
-</ul>
+  </ul>
 </div>
 
