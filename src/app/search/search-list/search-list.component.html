@@ -1,38 +1,24 @@
+
 List Component
 <!-- {{destinations}} -->
 <!-- <div *ngIf="destinations.length"> -->
-<div class="container parentContainer">
-  <ul>
+<div class="container">
+<ul>
     <li *ngFor="let destination of destinations">
-      <!-- <li> -->
-      <div class="city-info">
-        <div>
-          <img src="assets/images/indd.jpg" class="city-img">
-        </div>
-        <div class="">
-          <p class="city-name">{{destination.location}}</p>
-          <p> {{destination.details.distance.text}}</p>
-          <p>Hotel Expense: {{destination.expenditure.hotelExpenditure}} (2 persons/room) | Food Expense:
-            {{destination.expenditure.foodExpenditure}}
-            |Max Travel Expense: {{destination.expenditure.travelExpenditure}} </p>
-          <p>Cold & chilling</p>
-        </div>
-      </div>
+        <!-- <li> -->
+            <div class="city-info">
+                <div>
+                    <img src="assets/images/indd.jpg" class="city-img">
+                </div>
+                <div class="">
+                    <p class="city-name">{{destination.location}}</p>
+                    <p> {{destination.details.distance.text}}</p>
+                    <p *ngIf="destination.expenditure">Hotel Expense: {{destination.expenditure.hotelExpenditure}} (2 persons/room) | Food Expense: {{destination.expenditure.foodExpenditure}}
+                        |Max Travel Expense: {{destination.expenditure.travelExpenditure}} </p>
+                    <p>Cold & chilling</p>
+                </div>
+            </div>
     </li>
-  </ul>
+</ul>
 </div>
-<!-- </div> -->
 
-
-<!-- <div class="city-info">
-    <div >
-        <img src="assets/images/indd.jpg" class="city-img">
-    </div>
-    <div class="">
-        <p class="city-name">Nagpur, Maharashtra</p>
-        <p> 500 kms</p>
-        <p>Approx total expense - 12000rs</p>
-        <p>Cold & chilling</p>
-    </div>
-</div>
-</li> -->
