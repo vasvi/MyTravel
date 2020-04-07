@@ -3,6 +3,7 @@ import {UserParameters} from '../model/search-criteria';
 import {Observable, of, Subject} from 'rxjs';
 import {GlobalDestinationsObject} from '../model/search-criteria';
 import LocationData from '../search/location.json';
+import {Position} from '../model/search-criteria'
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ import LocationData from '../search/location.json';
 export class SearchDataService {
     private userSearchObject: UserParameters;
     globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
-    private subject = new Subject<any>();
+    private applicableLocationsSubject = new Subject<any>();
 
     /** Sets userSearchObject with the object passed in */
     setUserSearchData = (searchParans: UserParameters) => {
@@ -66,12 +67,12 @@ export class SearchDataService {
                 }
               }
             });
-            this.subject.next(applicableLocations);
+            this.applicableLocationsSubject.next(applicableLocations);
         });
       }
 
       getApplicableLocationsSubs(): Observable<any> {
-        return this.subject.asObservable();
+        return this.applicableLocationsSubject.asObservable();
     }
 }
 

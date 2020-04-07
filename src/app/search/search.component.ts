@@ -19,7 +19,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   mapOptions: google.maps.MapOptions;
   userParameters: UserParameters;
   applicableLocations = [];
-  applicableDestinations: any;
+  // applicableDestinations: any;
   searchDataSubs: Subscription;
   availableLocationsSubs: Subscription;
   calculatedExpenditure: CalculatedExpenditure = {
@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     // Check why we need to initSearch in afterviewinit
     //this.userParameters = this.searchDataService.getUserSearchData();
-    this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
+    // this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
   }
 
   ngAfterViewInit() {
@@ -200,7 +200,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       if (data) {
         this.applicableLocations = data;
         this.mapInitializer(this.applicableLocations, position);
-        this.applicableDestinations.next(this.applicableLocations);
+        // this.applicableDestinations.next(this.applicableLocations);
         console.log('destinations set in parent');
       }
     });
