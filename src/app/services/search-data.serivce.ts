@@ -210,9 +210,6 @@ export class SearchDataService {
                 }
               }
             });
-<<<<<<< HEAD
-            this.applicableLocationsSubject.next(applicableLocations);
-=======
             
             if (applicableLocations && position) {
                 let locationData: ApplicableLocationObject = {
@@ -220,9 +217,8 @@ export class SearchDataService {
                     position: position
                 };
 
-                this.subject.next(locationData);
+                this.applicableLocationsSubject.next(locationData);
             }
->>>>>>> 3903f13875cbff2957d4b1cee7533d214b8b8923
         });
       }
 
