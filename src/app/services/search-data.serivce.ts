@@ -10,7 +10,7 @@ import * as constant from '../searchConstants';
 export class SearchDataService {
     private userSearchObject: UserParameters;
     globalDestinationsObject : GlobalDestinationsObject[] = LocationData;
-    private subject = new Subject<any>();
+    private applicableLocationsSubject = new Subject<any>();
 
     /** Sets userSearchObject with the object passed in */
     setUserSearchData = (searchParans: UserParameters) => {
@@ -216,13 +216,13 @@ export class SearchDataService {
                     position: position
                 };
 
-                this.subject.next(locationData);
+                this.applicableLocationsSubject.next(locationData);
             }
         });
       }
 
       getApplicableLocationsSubs(): Observable<any> {
-        return this.subject.asObservable();
+        return this.applicableLocationsSubject.asObservable();
     }
 }
 
