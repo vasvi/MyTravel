@@ -26,6 +26,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { SearchListComponent } from './search/search-list/search-list.component';
 import {HttpClientModule} from '@angular/common/http';
+import { MapViewComponent } from './search/map-view/map-view.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {HttpClientModule} from '@angular/common/http';
     LocationComponent,
     SearchFormComponent,
     GlobalSearchComponent,
-    SearchListComponent
+    SearchListComponent,
+    MapViewComponent
   ],
   imports: [
     BrowserModule,
