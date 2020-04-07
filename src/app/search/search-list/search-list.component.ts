@@ -1,7 +1,8 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectorRef} from '@angular/core';
 import {Observable, BehaviorSubject, Subscription} from 'rxjs';
 import {JsonPipe} from '@angular/common';
 import { SearchDataService } from '../../services/search-data.serivce';
+
 
 @Component({
   selector: 'app-search-list',
@@ -15,13 +16,17 @@ export class SearchListComponent implements OnInit {
   applicableDestinations: any;
   availableLocationsSubs: Subscription;
 
-  constructor(private searchDataService: SearchDataService){}
+  constructor(private searchDataService: SearchDataService,
+    private ref: ChangeDetectorRef){}
 
   ngOnInit() {
     this.applicableDestinations = new BehaviorSubject(this.destinations);
     this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
       if (data && data.location ) {
         this.destinations = data.location;
+        setTimeout(() => {
+          this.ref.detectChanges();
+      }, 250);
         console.log('data set in child' + this.destinations);
       }
     });
