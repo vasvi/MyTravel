@@ -1,6 +1,6 @@
 import {Component, AfterViewInit, OnDestroy} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
-import {GlobalDestinationsObject,UserParameters} from '../model/search-criteria';
+import {GlobalDestinationsObject, UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
 import {BehaviorSubject, Subscription} from 'rxjs';
@@ -31,10 +31,10 @@ export class SearchComponent implements AfterViewInit, OnDestroy {
       if (data) {
         sessionStorage.setItem('userData', JSON.stringify(data));
         this.searchDataService.initSearch(data);
-      } else if ( JSON.parse(sessionStorage.getItem('userData')) ) {
+      } else if (JSON.parse(sessionStorage.getItem('userData'))) {
         let userData = JSON.parse(sessionStorage.getItem('userData'));
         this.searchDataService.initSearch(userData);
-      } else 
+      } else
         this.snackBar.open('Please search again!', '', {duration: 5000})
     });
   }
