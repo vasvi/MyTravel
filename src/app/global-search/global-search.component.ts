@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
-declare const google;
 @Component({
   selector: 'app-global-search',
   templateUrl: './global-search.component.html',
@@ -15,13 +14,11 @@ export class GlobalSearchComponent implements OnInit {
   }
 
   initAutoComplete(){
-    setTimeout(() => {
-      let autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
-      google.maps.event.addListener(autoComplete, 'place_changed', () => {
-        let place = autoComplete.getPlace();
-        this.onLocationChange.emit(place);
-      })
-    }, 300);
+    let autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
+    google.maps.event.addListener(autoComplete, 'place_changed', () => {
+      let place = autoComplete.getPlace();
+      this.onLocationChange.emit(place);
+    })
   }
 
   ngOnInit() {}
