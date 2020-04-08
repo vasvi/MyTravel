@@ -23,7 +23,7 @@ export class SearchListComponent implements OnInit {
   ngOnInit() {
     this.applicableDestinations = new BehaviorSubject(this.destinations);
     this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-      if (data && data.location) {
+      if (data && data.location && data.location.length) {
         this.destinations = data.location;
         setTimeout(() => {
           this.ref.detectChanges();

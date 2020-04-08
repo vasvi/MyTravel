@@ -96,7 +96,6 @@ export class SearchFormComponent implements OnInit {
         }),
         this._formBuilder.group({
           travelmode: ['', [Validators.required]],
-          vehicletype: [''],
           cartype: [''],
           enginetype: [''],
           bustype: [''],
@@ -132,8 +131,8 @@ export class SearchFormComponent implements OnInit {
   }
 
   optionChanged = (event) => {
-    let travelFormGroup = this.formArray.get('2').get('bustype') && this.formArray.get('2');
-    console.log(event.value); // bus
+    let travelFormGroup = this.formArray.get('2');
+
     if (travelFormGroup) {
       // Clear validators
       this.clearValidations(travelFormGroup);
@@ -146,9 +145,8 @@ export class SearchFormComponent implements OnInit {
         case Constants.travelMode.train:
           travelFormGroup.get('trainclass').setValidators(Validators.required);
           break;
-        case Constants.travelMode.twowheeler:
         case Constants.travelMode.fourwheeler:
-          travelFormGroup.get('vehicletype').setValidators(Validators.required);
+          travelFormGroup.get('cartype').setValidators(Validators.required);
           travelFormGroup.get('enginetype').setValidators(Validators.required);
           break;
         default:
@@ -161,7 +159,7 @@ export class SearchFormComponent implements OnInit {
   clearValidations = (travelFormGroup) => {
     travelFormGroup.get('bustype').clearValidators();
     travelFormGroup.get('trainclass').clearValidators();
-    travelFormGroup.get('vehicletype').clearValidators();
+    travelFormGroup.get('cartype').clearValidators();
     travelFormGroup.get('enginetype').clearValidators();
   }
 }
