@@ -73,7 +73,25 @@
     </mat-step>
 
     <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
-      <ng-template matStepLabel>Tell us how you would be travelling?</ng-template>
+      <ng-template matStepLabel>Tell us how you would be travelling?
+        <div>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'Two Wheeler'">
+            <mat-icon>directions_bike</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'Four Wheeler'">
+            <mat-icon>directions_car</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'train'">
+            <mat-icon>directions_railway</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'bus'">
+            <mat-icon>directions_bus</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'flight'">
+            <mat-icon>flight</mat-icon>
+          </span>
+        </div>
+      </ng-template>
       <div class="travel-type">
         <mat-label>Travel by</mat-label>
         <mat-radio-group aria-label="Select an Option" formControlName="travelmode" required>
@@ -82,7 +100,7 @@
           </mat-radio-button>
         </mat-radio-group>
 
-        <div class="travel-subtype" *ngIf="travelmode.toLowerCase() === 'four wheeler'">
+        <div class="travel-subtype" *ngIf="travelmode && travelmode.toLowerCase() === 'four wheeler'">
           <mat-form-field>
             <mat-label>Car Type</mat-label>
             <mat-select formControlName="cartype">
