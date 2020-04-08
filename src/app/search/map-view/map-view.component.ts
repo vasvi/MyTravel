@@ -23,7 +23,7 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-      if (data.location && data.position) {
+      if (data.location && data.location.length && data.position) {
         this.mapInitializer(data.location, data.position);
       } else {
         // Navigate to home page
