@@ -4,7 +4,7 @@ import { SearchDataService } from './search-data.serivce';
 import * as constant from '../searchConstants';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 
-fdescribe('SearchDataService', () => {
+describe('SearchDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({
       
 }));
