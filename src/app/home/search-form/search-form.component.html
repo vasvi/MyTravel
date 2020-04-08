@@ -1,7 +1,22 @@
 <form [formGroup]="searchForm" class="search-form" (ngSubmit)="onSubmit()" novalidate>
   <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray" [linear]="false">
     <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
-      <ng-template matStepLabel>Fill out general details</ng-template>
+      <ng-template matStepLabel>Fill out general details
+        <div>
+          <span *ngIf="formArray?.get([0]).get('person').value">
+            <mat-icon>people</mat-icon>
+            {{formArray?.get([0]).get('person').value}}
+          </span>
+          <span *ngIf="formArray?.get([0]).get('budget').value">
+            <mat-icon>payment</mat-icon>
+            {{formArray?.get([0]).get('budget').value}}
+          </span>
+          <span *ngIf="formArray?.get([0]).get('duration').value">
+            <mat-icon>timer</mat-icon>
+            {{formArray?.get([0]).get('duration').value}}
+          </span>
+        </div>
+      </ng-template>
       <mat-form-field>
         <mat-label>Number of travellers</mat-label>
         <input matInput formControlName="person" type="number" required>
@@ -31,6 +46,12 @@
     <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
       <ng-template matStepLabel>
         <div>Select your hotel type</div>
+        <div>
+          <span *ngIf="formArray?.get([1]).get('starrating').value">
+            <mat-icon> hotel</mat-icon>
+            {{formArray?.get([1]).get('starrating').value}}
+          </span>
+        </div>
       </ng-template>
       <mat-form-field>
         <mat-label>Hotel type</mat-label>
@@ -107,7 +128,7 @@
         <button type="button" mat-button (click)="linearHorizontalStepper.reset()">Reset</button>
       </div>
       <div class="stepperInfoSection">
-        Optional, but helps us to provide more precise results.
+        Almost done!
       </div>
     </mat-step>
   </mat-horizontal-stepper>

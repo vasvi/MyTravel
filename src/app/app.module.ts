@@ -19,7 +19,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
@@ -45,7 +44,6 @@ import { MapViewComponent } from './search/map-view/map-view.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSnackBarModule,
-    // MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -56,7 +54,6 @@ import { MapViewComponent } from './search/map-view/map-view.component';
     MatIconModule,
     HttpClientModule,
     MatIconModule,
-    MatCardModule,
     NgxMasonryModule
   ],
   providers: [],
