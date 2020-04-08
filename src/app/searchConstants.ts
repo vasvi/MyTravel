@@ -1,6 +1,6 @@
 export const travelMode = {
-  'twowheeler': 'twowheeler',
-  'fourwheeler': 'fourwheeler',
+  'twowheeler': 'Two Wheeler',
+  'fourwheeler': 'Four Wheeler',
   'bus': 'bus',
   'train': 'train',
   'flight': 'flight'

@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import {Component, ViewChild, ElementRef, AfterViewInit, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs';
 import {SearchDataService} from '../../services/search-data.serivce';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
@@ -34,7 +34,7 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.availableLocationsSubs) {
+    if (this.availableLocationsSubs) {
       this.availableLocationsSubs.unsubscribe();
     }
   }
@@ -56,86 +56,7 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
       streetViewControl: false,
       fullscreenControl: false,
       mapTypeControl: false,
-      styles: [
-        {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
-        {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
-        {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
-        {
-          featureType: 'administrative.locality',
-          elementType: 'labels.text.fill',
-          stylers: [{color: '#d59563'}]
-        },
-        {
-          featureType: 'poi',
-          elementType: 'labels.text.fill',
-          stylers: [{color: '#d59563'}]
-        },
-        {
-          featureType: 'poi.park',
-          elementType: 'geometry',
-          stylers: [{color: '#263c3f'}]
-        },
-        {
-          featureType: 'poi.park',
-          elementType: 'labels.text.fill',
-          stylers: [{color: '#6b9a76'}]
-        },
-        {
-          featureType: 'road',
-          elementType: 'geometry',
-          stylers: [{color: '#38414e'}]
-        },
-        {
-          featureType: 'road',
-          elementType: 'geometry.stroke',
-          stylers: [{color: '#212a37'}]
-        },
-        {
-          featureType: 'road',
-          elementType: 'labels.text.fill',
-          stylers: [{color: '#9ca5b3'}]
-        },
-        {
-          featureType: 'road.highway',
-          elementType: 'geometry',
-          stylers: [{color: '#746855'}]
-        },
-        {
-          featureType: 'road.highway',
-          elementType: 'geometry.stroke',
-          stylers: [{color: '#1f2835'}]
-        },
-        {
-          featureType: 'road.highway',
-          elementType: 'labels.text.fill',
-          stylers: [{color: '#f3d19c'}]
-        },
-        {
-          featureType: 'transit',
-          elementType: 'geometry',
-          stylers: [{color: '#2f3948'}]
-        },
-        {
-          featureType: 'transit.station',
-          elementType: 'labels.text.fill',
-          stylers: [{color: '#d59563'}]
-        },
-        {
-          featureType: 'water',
-          elementType: 'geometry',
-          stylers: [{color: '#17263c'}]
-        },
-        {
-          featureType: 'water',
-          elementType: 'labels.text.fill',
-          stylers: [{color: '#515c6d'}]
-        },
-        {
-          featureType: 'water',
-          elementType: 'labels.text.stroke',
-          stylers: [{color: '#17263c'}]
-        }
-      ]
+      styles: []
     };
 
     const marker = new google.maps.Marker({
@@ -161,7 +82,7 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
         position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
         map: this.map,
         animation: google.maps.Animation.DROP,
-        icon: 'https://cdn1.iconfinder.com/data/icons/web-55/32/web_1-24.png'
+        icon: 'https://cdn0.iconfinder.com/data/icons/stuttgart/32/milestone.png'
       });
 
       google.maps.event.addListener(destinationMarker, 'click', ((mark, j, destinationsLocations, map) => {
@@ -172,56 +93,4 @@ export class MapViewComponent implements AfterViewInit, OnDestroy {
       })(destinationMarker, i, locations, this.map));
     }
   }
-  
-  /**
-   *
-   * @param locations
-   * @param position
-   */
-
-   /*
-  mapInitializer(locations, position) {
-
-    const infoWindow = new google.maps.InfoWindow();
-    let destinationMarker;
-
-    const coordinates = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    const mapOptions = this.mapOptions = {
-      center: coordinates,
-      zoom: 5,
-      mapTypeId: google.maps.MapTypeId.TERRAIN
-    };
-
-    const marker = new google.maps.Marker({
-      position: coordinates,
-      map: this.map,
-      draggable: true,
-      animation: google.maps.Animation.BOUNCE
-    });
-
-    google.maps.event.addListener(marker, 'click', (() => {
-      return () => {
-        infoWindow.setContent('Your current location');
-        infoWindow.open(this.map, marker);
-      };
-    })());
-
-    this.map = new google.maps.Map(this.gmap.nativeElement, mapOptions);
-    marker.setMap(this.map);
-
-    for (let i = 0; i < locations.length; i++) {
-      destinationMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
-        map: this.map,
-        animation: google.maps.Animation.DROP
-      });
-
-      google.maps.event.addListener(destinationMarker, 'click', ((mark, j, destinationsLocations, map) => {
-        return () => {
-          infoWindow.setContent(destinationsLocations[j].location);
-          infoWindow.open(map, mark);
-        };
-      })(destinationMarker, i, locations, this.map));
-    }
-  }*/
 }
