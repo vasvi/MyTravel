@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToSearch = () => {
-    this.router.navigate(['search']);
+    this.router.navigate(['search'], {skipLocationChange: true});
   }
 
   getDefaultLocations(): void {

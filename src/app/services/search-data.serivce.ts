@@ -74,7 +74,7 @@ export class SearchDataService {
         this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
       });
     } catch (e) {
-      //this.snackBar.open(e, '', {duration: 5000});
+        this.applicableLocationsSubject.next(e);
     }
   }
 
@@ -85,7 +85,7 @@ export class SearchDataService {
     if (budget && budget > 0) {
       return true;
     } else {
-      throw new Error('Your budget is too low. Please add more or change parameters of search');
+      throw new Error('Your budget is too low. Please modify your search');
     }
   }
 
