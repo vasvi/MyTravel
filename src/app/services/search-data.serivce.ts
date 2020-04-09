@@ -154,11 +154,11 @@ export class SearchDataService {
         break;
       }
       case constant.travelMode.bus: {
-        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype.toLowerCase() : 'nonAc']);
+        radius = Math.ceil(remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype.toLowerCase() : 'nonAc']));
         break;
       }
       case constant.travelMode.train: {
-        radius = remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]);
+        radius = Math.ceil(remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]));
         break;
       }
       default: {

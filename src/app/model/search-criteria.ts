@@ -18,7 +18,7 @@ export interface CalculatedExpenditure {
 }
 
 export interface Hotel {
-    starrating: number;
+    starrating: string;
 }
 
 export interface TravelDetails {
