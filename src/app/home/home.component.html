@@ -3,7 +3,7 @@
   <div class="search">
     <div class="titleText">
     </div>
-    <search-form (formData)="navigateToSearch($event)"></search-form>
+    <search-form></search-form>
   </div>
 
 </div>
@@ -71,9 +71,13 @@
     </div>
   </div>
 </div>
-<div class="introSection">
-  <app-search-list [parentComponent]="'homeComponent'" ></app-search-list>
+
+<div class="introSection" *ngIf="popularLocations else loading">
+  <app-search-list [locationData]="popularLocations" [parentComponent]="'homeComponent'" ></app-search-list>
 </div>
+<ng-template #loading>
+  loading...
+</ng-template>
 
 
 

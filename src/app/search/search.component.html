@@ -1,4 +1,7 @@
-<div class="searchResults">
-  <map-view class="map"></map-view>
-  <app-search-list [parentComponent]="'searchComponent'"></app-search-list>
+<div class="searchResults" *ngIf="applicableLocations else loading">
+  <map-view [locationData]="applicableLocations" class="map"></map-view>
+  <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'"></app-search-list>
 </div>
+<ng-template #loading>
+  Loading...
+</ng-template>
