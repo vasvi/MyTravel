@@ -1,6 +1,7 @@
 .searchResults {
   display: flex;
   margin-top: 60px;
+  flex-direction: column;
 
   .map {
     width: 50%;
