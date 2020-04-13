@@ -26,6 +26,7 @@ import { NgxMasonryModule } from 'ngx-masonry';
 import { SearchListComponent } from './search/search-list/search-list.component';
 import {HttpClientModule} from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MapViewComponent } from './search/map-view/map-view.component';
     SearchFormComponent,
     GlobalSearchComponent,
     SearchListComponent,
-    MapViewComponent
+    MapViewComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

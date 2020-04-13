@@ -1,41 +1,22 @@
-import {Component, ViewChild, ElementRef, AfterViewInit, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {SearchDataService} from '../../services/search-data.serivce';
-import {MatSnackBar} from '@angular/material';
-import {Router} from '@angular/router';
+import {Component, ViewChild, ElementRef, AfterViewInit, Input} from '@angular/core';
+import {ApplicableLocationObject} from '../../model/search-criteria';
 
 @Component({
   selector: 'map-view',
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss']
 })
-export class MapViewComponent implements AfterViewInit, OnDestroy {
+export class MapViewComponent implements AfterViewInit {
+  @Input() locationData: ApplicableLocationObject;
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
-  availableLocationsSubs: Subscription;
 
-  constructor(
-    private searchDataService: SearchDataService,
-    private snackBar: MatSnackBar,
-    private router: Router
-  ) { }
+  constructor() { }
 
   ngAfterViewInit() {
-    this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-      if (data.location && data.location.length && data.position) {
-        this.mapInitializer(data.location, data.position);
-      } else {
-        // Navigate to home page
-        this.snackBar.open(data, '', {duration: 5000});
-        this.router.navigate(['/'], {skipLocationChange: true} )
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    if (this.availableLocationsSubs) {
-      this.availableLocationsSubs.unsubscribe();
+    if (this.locationData.location && this.locationData.location.length && this.locationData.position) {
+      this.mapInitializer(this.locationData.location, this.locationData.position);
     }
   }
 

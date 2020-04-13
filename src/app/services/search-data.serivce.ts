@@ -17,6 +17,7 @@ export class SearchDataService {
   private userSearchObject: UserParameters;
   globalDestinationsObject: GlobalDestinationsObject[] = LocationData;
   private applicableLocationsSubject = new Subject<any>();
+  private applicableLocations: ApplicableLocationObject | {};
 
   /** Sets userSearchObject with the object passed in */
   setUserSearchData = (searchParans: UserParameters) => {
@@ -75,6 +76,7 @@ export class SearchDataService {
       });
     } catch (e) {
         this.applicableLocationsSubject.next(e);
+        this.applicableLocations = {};
     }
   }
 
@@ -223,10 +225,15 @@ export class SearchDataService {
             location: applicableLocations,
             position: position
           };
-
+          
+          this.applicableLocations = locationData;
           this.applicableLocationsSubject.next(locationData);
         }
       });
+  }
+
+  getApplicableLocationData = () : ApplicableLocationObject | any => {
+    return this.applicableLocations;
   }
 
   getApplicableLocationsSubs(): Observable<any> {

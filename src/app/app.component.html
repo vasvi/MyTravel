@@ -9,10 +9,8 @@
 </nav>
 
 <div class="footer">
-  <span class="footerElements">Home</span>
-  <span class="footerElements">About Us</span>
-  <span class="footerElements">Contact Us</span>
-  <span class="footerElements">Careers</span>
+  <a class="footerElements" routerLink='/'>Home</a>
+  <a class="footerElements" routerLink='/about'>About Us</a>
 
 <span class="footerElements">
   Location <span [style.color]="this.currentLocation ? 'green': 'red'">{{this.currentLocation ? ' : '+ this.currentLocation : ' : '+'Disabled'}} </span> <a *ngIf="!this.currentLocation" href="#" (click)="enableLocation(true)"> Enable</a>

@@ -1,6 +1,6 @@
 export interface ApplicableLocationObject {
-    location: Object;
-    position: Object;
+    location: Array<Object>;  //TODO: add interface for location object
+    position: Position;
 }
 
 export interface GlobalDestinationsObject {
