@@ -25,8 +25,8 @@ export class SearchDataService {
   };
 
   /**Returns userSearchObject  */
-  getUserSearchData = (): Observable<UserParameters> => {
-    return of(this.userSearchObject);
+  getUserSearchData = (): UserParameters => {
+    return this.userSearchObject;
   }
 
   /** Search Logic goes below this */
