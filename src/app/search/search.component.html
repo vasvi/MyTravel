@@ -1,11 +1,6 @@
 <div class="searchResults" *ngIf="applicableLocations else loading">
-  <details>
-    <search-form></search-form>
-  </details>
-  <div class="mapListView">
-    <map-view [locationData]="applicableLocations" class="map"></map-view>
-    <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'"></app-search-list>
-  </div>
+  <map-view [locationData]="applicableLocations" class="map"></map-view>
+  <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'"></app-search-list>
 </div>
 <ng-template #loading>
   Loading...
