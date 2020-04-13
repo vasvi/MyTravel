@@ -17,6 +17,7 @@ export class SearchDataService {
   private userSearchObject: UserParameters;
   globalDestinationsObject: GlobalDestinationsObject[] = LocationData;
   private applicableLocationsSubject = new Subject<any>();
+  private applicableLocations: ApplicableLocationObject | {};
 
   /** Sets userSearchObject with the object passed in */
   setUserSearchData = (searchParans: UserParameters) => {
@@ -74,7 +75,8 @@ export class SearchDataService {
         this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
       });
     } catch (e) {
-      //this.snackBar.open(e, '', {duration: 5000});
+        this.applicableLocationsSubject.next(e);
+        this.applicableLocations = {};
     }
   }
 
@@ -85,7 +87,7 @@ export class SearchDataService {
     if (budget && budget > 0) {
       return true;
     } else {
-      throw new Error('Your budget is too low. Please add more or change parameters of search');
+      throw new Error('Your budget is too low. Please modify your search');
     }
   }
 
@@ -223,10 +225,15 @@ export class SearchDataService {
             location: applicableLocations,
             position: position
           };
-
+          
+          this.applicableLocations = locationData;
           this.applicableLocationsSubject.next(locationData);
         }
       });
+  }
+
+  getApplicableLocationData = () : ApplicableLocationObject | any => {
+    return this.applicableLocations;
   }
 
   getApplicableLocationsSubs(): Observable<any> {

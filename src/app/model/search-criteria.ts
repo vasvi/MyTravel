@@ -1,14 +1,14 @@
 export interface ApplicableLocationObject {
-    location: Object;
-    position: Object;
+    location: Array<Object>;  //TODO: add interface for location object
+    position: Position;
 }
 
 export interface GlobalDestinationsObject {
     location: string;
     latitude: number;
     longitude: number;
-    imageUrl: string;
-    information: string;
+    imageUrl?: string;
+    information?: string;
 }
 
 export interface CalculatedExpenditure {
