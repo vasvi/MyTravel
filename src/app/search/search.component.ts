@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GlobalDestinationsObject, ApplicableLocationObject} from '../model/search-criteria';
+import {GlobalDestinationsObject, ApplicableLocationObject, Position} from '../model/search-criteria';
 import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
 
@@ -19,5 +19,24 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.applicableLocations = this.searchDataService.getApplicableLocationData();
+
+    // Get data from session
+    if (!this.applicableLocations) {
+      let location = JSON.parse(sessionStorage.getItem('location'));
+      let latitude = JSON.parse(sessionStorage.getItem('position.latitude'));
+      let longitude = JSON.parse(sessionStorage.getItem('position.longitude'));
+
+      let position: Position = {
+        coords: {
+          latitude,
+          longitude
+        }
+      }
+        
+      this.applicableLocations = {
+        location,
+        position
+      }
+    }
   }  
 }

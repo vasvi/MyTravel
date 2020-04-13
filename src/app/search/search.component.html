@@ -1,8 +1,9 @@
 <div class="searchResults" *ngIf="applicableLocations else loading">
-  <details>
+  <details class="searchResults__editSearch">
+    <summary class="searchResults__summary">Edit your search</summary>
     <search-form></search-form>
   </details>
-  <div class="mapListView">
+  <div class="searchResults__mapListView">
     <map-view [locationData]="applicableLocations" class="map"></map-view>
     <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'"></app-search-list>
   </div>
