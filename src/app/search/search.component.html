@@ -1,7 +1,7 @@
 <div class="searchResults" *ngIf="applicableLocations else loading">
   <details class="searchResults__editSearch">
     <summary class="searchResults__summary">Edit your search</summary>
-    <search-form></search-form>
+    <search-form [formData]="searchQuery" (locationDataChange)="refreshSearchView()"></search-form>
   </details>
   <div class="searchResults__mapListView">
     <map-view [locationData]="applicableLocations" class="map"></map-view>
