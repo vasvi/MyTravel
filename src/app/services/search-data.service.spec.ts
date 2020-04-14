@@ -5,7 +5,7 @@ import * as constant from '../searchConstants';
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 
-fdescribe('SearchDataService', () => {
+describe('SearchDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({
       
 }));
@@ -75,7 +75,7 @@ beforeEach(() => {
 describe('should test budgetValidations', ()=>{
     it('should throw error if budget is negative', ()=>{
         const service: SearchDataService = TestBed.get(SearchDataService);
-        expect(function(){ service.budgetValidations(-4000);}).toThrow(new Error('Your budget is too low. Please add more or change parameters of search'));
+        expect(function(){ service.budgetValidations(-4000);}).toThrow(new Error('Your budget is too low. Please modify your search'));
     })
 })
 describe('should test getHotelExpenses', ()=>{
@@ -89,7 +89,7 @@ describe('should test getHotelExpenses', ()=>{
             travel: {travelmode: 'Four Wheeler', enginetype: 'diesel', cartype: 'HatchBack (4 Seats)'}
         }
         // const hotelBudget=service.getHotelExpenses(userData, 50);
-        expect(function(){ service.getHotelExpenses(userData, 50);}).toThrow(new Error('Your budget is too low. Please add more or change parameters of search'));
+        expect(function(){ service.getHotelExpenses(userData, 50);}).toThrow(new Error('Your budget is too low. Please modify your search'));
     })
 })  
 describe('should test calculateRadius', ()=>{
