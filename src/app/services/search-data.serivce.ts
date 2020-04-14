@@ -75,8 +75,8 @@ export class SearchDataService {
         this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
       });
     } catch (e) {
-        this.applicableLocationsSubject.next(e);
-        this.applicableLocations = {};
+      this.applicableLocationsSubject.next(e);
+      this.applicableLocations = {};
     }
   }
 
@@ -156,11 +156,11 @@ export class SearchDataService {
         break;
       }
       case constant.travelMode.bus: {
-        radius = remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype.toLowerCase() : 'nonAc']);
+        radius = Math.ceil(remainingBudget / (params.person * travelConst.bus[params.travel.bustype ? params.travel.bustype.toLowerCase() : 'nonAc']));
         break;
       }
       case constant.travelMode.train: {
-        radius = remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]);
+        radius = Math.ceil(remainingBudget / (params.person * travelConst.train[params.travel.trainclass ? params.travel.trainclass : 1]));
         break;
       }
       default: {
@@ -225,14 +225,14 @@ export class SearchDataService {
             location: applicableLocations,
             position: position
           };
-          
+
           this.applicableLocations = locationData;
           this.applicableLocationsSubject.next(locationData);
         }
       });
   }
 
-  getApplicableLocationData = () : ApplicableLocationObject | any => {
+  getApplicableLocationData = (): ApplicableLocationObject | any => {
     return this.applicableLocations;
   }
 
