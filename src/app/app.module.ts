@@ -27,6 +27,7 @@ import { SearchListComponent } from './search/search-list/search-list.component'
 import {HttpClientModule} from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
+import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AboutComponent } from './about/about.component';
     GlobalSearchComponent,
     SearchListComponent,
     MapViewComponent,
-    AboutComponent
+    AboutComponent,
+    WeatherWidgetComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location, Place } from '../model/search-criteria';
 import { Subscription } from 'rxjs';
+import { WeatherService } from '../services/weather/weather.service';
+import { WeatherDetails } from '../model/weather.model';
 
 @Component({
   selector: 'app-location',
@@ -16,8 +18,10 @@ export class LocationComponent implements OnInit {
   places: Array<Place> = [];
   carouselItems: Array<string>;
   currentCarouselIndex: number;
+  weatherDetails: WeatherDetails;
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private weatherService: WeatherService
   ) { }
 
   ngOnDestroy() {
@@ -28,6 +32,16 @@ export class LocationComponent implements OnInit {
     this.initializeGoogleMap();
   }
 
+  getWeatherDetails(){
+    this.weatherService.getWeatherDetails({
+      place_id :this.targetLocation.place_id,
+      geometry: this.targetLocation.geometry
+    })
+    .subscribe((data: WeatherDetails) => {
+      this.weatherDetails = data;
+    })
+  }
+
   subscribeToRouterEvents() {
     this.routerEventSubscription = this.activatedRoute.queryParams.subscribe((params: Location) => {
       if (params) {
@@ -36,6 +50,7 @@ export class LocationComponent implements OnInit {
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);
         this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
         this.createCarousel();
+        this.getWeatherDetails();
       }
     })
   }
@@ -79,7 +94,6 @@ export class LocationComponent implements OnInit {
         this.createMarker(markerOptions);
       })
       this.places = placesList;
-      console.log(this.places)
     });
   }
 
