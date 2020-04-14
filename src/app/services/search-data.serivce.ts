@@ -22,11 +22,12 @@ export class SearchDataService {
   /** Sets userSearchObject with the object passed in */
   setUserSearchData = (searchParans: UserParameters) => {
     this.userSearchObject = searchParans;
+    this.setSessionStorage('userSearch', this.userSearchObject);
   };
 
   /**Returns userSearchObject  */
-  getUserSearchData = (): Observable<UserParameters> => {
-    return of(this.userSearchObject);
+  getUserSearchData = (): UserParameters => {
+    return this.userSearchObject;
   }
 
   /** Search Logic goes below this */
@@ -77,6 +78,7 @@ export class SearchDataService {
     } catch (e) {
         this.applicableLocationsSubject.next(e);
         this.applicableLocations = {};
+        this.setSessionStorage('location', this.applicableLocations);
     }
   }
 
@@ -225,7 +227,10 @@ export class SearchDataService {
             location: applicableLocations,
             position: position
           };
-          
+          this.setSessionStorage('position.latitude', position.coords.latitude);
+          this.setSessionStorage('position.longitude', position.coords.longitude);
+          this.setSessionStorage('location', applicableLocations);
+
           this.applicableLocations = locationData;
           this.applicableLocationsSubject.next(locationData);
         }
@@ -238,6 +243,10 @@ export class SearchDataService {
 
   getApplicableLocationsSubs(): Observable<any> {
     return this.applicableLocationsSubject.asObservable();
+  }
+
+  setSessionStorage(key: string, value: any) {
+    sessionStorage.setItem(key, JSON.stringify(value));
   }
 }
 
