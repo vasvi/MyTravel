@@ -17,4 +17,8 @@ export class SearchListComponent implements OnInit {
   ngOnInit() {
     this.destinations = this.locationData && this.locationData.location;
   }
+
+  hideDestination(destination){
+    destination.hideDestination = true;
+  }
 }
