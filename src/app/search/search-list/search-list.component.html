@@ -8,30 +8,40 @@
 </div>
 <!-- {{destinations}} -->
 <!-- <div *ngIf="destinations.length"> -->
-<div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'">
-
+<!-- <div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'"> -->
+<div class="container">
   <div align="center" *ngIf="destinations.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
       Please wait.. You locations are being loaded.
     </h4>
   </div>
-  <ul>
-    <li *ngFor="let destination of destinations">
-      <!-- <li> -->
-      <div class="city-info">
-        <div>
-          <img [src]="destination.imageUrl" class="city-img">
-        </div>
-        <div class="">
-          <p class="city-name"><a routerLink="location"> {{destination.location}}</a></p>
-          <p style="color: #939393;font-weight: bold;font-size: .85em;"> {{destination.details.distance.text}} away</p>
-         <!-- <p *ngIf="destination.expenditure">Hotel Expense: {{destination.expenditure.hotelExpenditure}} (2
-            persons/room) | Food Expense: {{destination.expenditure.foodExpenditure}}
-            |Max Travel Expense: {{destination.expenditure.travelExpenditure}} </p>-->
-          <p class="city-desc">{{destination.information ? destination.information : 'No Information Available'}}</p>
-        </div>
-      </div>
-    </li>
-  </ul>
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp full-width">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">
+          Destination
+        </th>
+        <th>
+          Distance
+        </th>
+        <th>
+          Image
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngFor= "let destination of destinations; let destinationIndex = index;">
+      <tr data-toggle="collapse" [attr.data-target]="'#data' + destinationIndex">
+        <td class="mdl-data-table__cell--non-numeric"> {{destination.location}} --- {{destinationIndex}}
+        </td>
+        <td>{{destination.details.distance.text}} away</td>
+        <td><img [src]="destination.imageUrl" class="city-img"></td>
+      </tr>
+      <tr colspan="6" class="hiddenRow collapse"  [attr.id]="'data' + destinationIndex">
+        <div id="demo1">{{destination.information ? destination.information : 'No Information Available'}} </div>
+      </tr>
+    </tbody>
+  </table>
 </div>
+
+
 
