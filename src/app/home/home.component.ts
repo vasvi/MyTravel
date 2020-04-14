@@ -1,33 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { SearchDataService } from '../services/search-data.serivce';
-import { Subscription, BehaviorSubject } from 'rxjs';
 import * as Constant from '../searchConstants';
+import { ApplicableLocationObject } from '../model/search-criteria';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  availableLocationsSubs: Subscription;
-  applicableDestinations: any;
-  applicableLocations = [];
+export class HomeComponent implements OnInit, OnDestroy {
+  popularLocations: ApplicableLocationObject;
+  popularLocationSubs: Subscription;
+
   constructor(
-    private router: Router,
     private searchDataService: SearchDataService
   ) { }
 
   ngOnInit() {
-    this.getDefaultLocations();
-    this.applicableDestinations = new BehaviorSubject(this.applicableLocations);
+    this.initSearchForPopularLocations();
+    this.popularLocationSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => this.getPopularLocations(data));
   }
 
-  navigateToSearch = () => {
-    this.router.navigate(['search']);
-  }
-
-  getDefaultLocations(): void {
+  initSearchForPopularLocations(): void {
     const defaultPosition = {
       coords: {
         latitude: Constant.searchConstants.defaultLocation.latitude,
@@ -38,8 +33,19 @@ export class HomeComponent implements OnInit {
     navigator.geolocation.getCurrentPosition((position) => {
       this.searchDataService.getApplicableLocations(2500, position);
     }, (error) => {
-      console.log('No Location Available :: ' + error);
       this.searchDataService.getApplicableLocations(2500, defaultPosition);
     });
+  }
+
+  getPopularLocations = (data) => {
+    if (data && data.location && data.location.length) {
+      this.popularLocations = data;
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.popularLocationSubs) {
+      this.popularLocationSubs.unsubscribe();
+    }
   }
 }
