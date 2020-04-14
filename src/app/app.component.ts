@@ -1,9 +1,8 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {GlobalVariables} from './globalVariables';
 import {MapService} from './services/map/map.service';
-import { Router } from '@angular/router';
-import { Location } from './model/search-criteria';
-
+import {Router} from '@angular/router';
+import {Location} from './model/search-criteria';
 
 
 @Component({
@@ -46,7 +45,7 @@ export class AppComponent implements OnInit {
   onLocationChange(location) {
     this.ngZone.run(() => {
       let queryParamsObj = this.createLocationObject(location);
-      this.router.navigate(['location'], { queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true });
+      this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
     })
   }
 
