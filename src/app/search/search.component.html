@@ -1,7 +1,51 @@
 <div class="searchResults" *ngIf="applicableLocations else loading">
-  <map-view [locationData]="applicableLocations" class="map"></map-view>
-  <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'"></app-search-list>
+  <details class="searchResults__editSearch">
+    <summary class="searchResults__summary">
+      <ng-container *ngTemplateOutlet="formdata"></ng-container>
+    </summary>
+    <search-form [formData]="searchQuery" (locationDataChange)="refreshSearchView()"></search-form>
+  </details>
+  <div class="searchResults__mapListView">
+    <map-view [locationData]="applicableLocations" class="map"></map-view>
+    <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'"></app-search-list>
+  </div>
 </div>
 <ng-template #loading>
   Loading...
+</ng-template>
+
+<ng-template #formdata>
+  <div>
+    <span *ngIf="searchQuery.person">
+      <mat-icon>people</mat-icon>
+      {{searchQuery.person}}
+    </span>
+    <span *ngIf="searchQuery.budget">
+      <mat-icon>payment</mat-icon>
+      {{searchQuery.budget}}
+    </span>
+    <span *ngIf="searchQuery.duration">
+      <mat-icon>timer</mat-icon>
+      {{searchQuery.duration}}
+    </span>
+    <span *ngIf="searchQuery.hotel.starrating">
+      <mat-icon> hotel</mat-icon>
+      {{searchQuery.hotel.starrating}}
+    </span>
+    <span *ngIf="searchQuery.travel.travelmode === 'Two Wheeler'">
+      <mat-icon>directions_bike</mat-icon>
+    </span>
+    <span *ngIf="searchQuery.travel.travelmode === 'Four Wheeler'">
+      <mat-icon>directions_car</mat-icon>
+    </span>
+    <span *ngIf="searchQuery.travel.travelmode === 'train'">
+      <mat-icon>directions_railway</mat-icon>
+    </span>
+    <span *ngIf="searchQuery.travel.travelmode === 'bus'">
+      <mat-icon>directions_bus</mat-icon>
+    </span>
+    <span *ngIf="searchQuery.travel.travelmode === 'flight'">
+      <mat-icon>flight</mat-icon>
+    </span>
+  </div>
 </ng-template>
