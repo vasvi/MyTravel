@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {ApplicableLocationObject} from 'src/app/model/search-criteria';
 
 @Component({
@@ -7,7 +7,7 @@ import {ApplicableLocationObject} from 'src/app/model/search-criteria';
   styleUrls: ['./search-list.component.scss'],
 })
 
-export class SearchListComponent implements OnInit {
+export class SearchListComponent implements OnInit, OnChanges {
   destinations = [];
   @Input() parentComponent: string;
   @Input() locationData: ApplicableLocationObject;
@@ -20,5 +20,9 @@ export class SearchListComponent implements OnInit {
 
   hideDestination(destination){
     destination.hideDestination = true;
+  }
+  
+  ngOnChanges() {
+    this.destinations = this.locationData && this.locationData.location;
   }
 }

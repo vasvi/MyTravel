@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, AfterViewInit, Input} from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit, Input, OnChanges} from '@angular/core';
 import {ApplicableLocationObject} from '../../model/search-criteria';
 
 @Component({
@@ -6,7 +6,7 @@ import {ApplicableLocationObject} from '../../model/search-criteria';
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss']
 })
-export class MapViewComponent implements AfterViewInit {
+export class MapViewComponent implements AfterViewInit, OnChanges {
   @Input() locationData: ApplicableLocationObject;
   @ViewChild('mapContainer', {static: false}) gmap: ElementRef;
   map: google.maps.Map;
@@ -15,6 +15,12 @@ export class MapViewComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit() {
+    if (this.locationData.location && this.locationData.location.length && this.locationData.position) {
+      this.mapInitializer(this.locationData.location, this.locationData.position);
+    }
+  }
+
+  ngOnChanges() {
     if (this.locationData.location && this.locationData.location.length && this.locationData.position) {
       this.mapInitializer(this.locationData.location, this.locationData.position);
     }
