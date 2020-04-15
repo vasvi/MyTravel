@@ -10,7 +10,10 @@
   <app-search-list [locationData]="popularLocations" [parentComponent]="'homeComponent'" ></app-search-list>
 </div>
 <ng-template #loading>
-  loading...
+  <div class="loadingPopular">
+    Fetching popular destinations around you..
+    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+  </div>
 </ng-template>
 
 

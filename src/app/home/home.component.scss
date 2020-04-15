@@ -22,3 +22,13 @@
 .popularLocations {
   margin-top: 30px;
 }
+
+.loadingPopular {
+  margin-top: 50px;
+  text-align: center;
+
+  .mdl-progress {
+    margin-left: 33%;
+    margin-top: 20px;
+  }
+}

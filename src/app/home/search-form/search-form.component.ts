@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, OnDestroy, Input, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, OnDestroy, Input, Output, NgZone} from '@angular/core';
 import {FormGroup, Validators, AbstractControl, FormBuilder} from '@angular/forms';
 import {UserParameters, ApplicableLocationObject} from '../../model/search-criteria';
 import {SearchDataService} from '../../services/search-data.serivce';
@@ -20,7 +20,8 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private searchDataService: SearchDataService,
     private router: Router,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private zone: NgZone) {
   }
 
   searchForm: FormGroup;
@@ -162,7 +163,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     if (this.userSearchObj) {
       if (data.location && data.location.length && data.position) {
         if (!this.isEditMode) {
-          this.router.navigate(['search']);
+          this.zone.run(() => this.router.navigate(['search']));
         } else
           this.locationDataChange.emit();
       } else if (this.userSearchObj && data.location && !data.location.length) {
