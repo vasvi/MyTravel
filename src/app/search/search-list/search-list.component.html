@@ -8,30 +8,41 @@
 </div>
 <!-- {{destinations}} -->
 <!-- <div *ngIf="destinations.length"> -->
-<div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'">
-
+<!-- <div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'"> -->
+<div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'" class="container">
   <div align="center" *ngIf="destinations.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
       Please wait.. You locations are being loaded.
     </h4>
   </div>
-  <ul>
-    <li *ngFor="let destination of destinations">
-      <!-- <li> -->
-      <div class="city-info">
-        <div>
-          <img [src]="destination.imageUrl" class="city-img">
-        </div>
-        <div class="">
-          <p class="city-name"><a routerLink="location"> {{destination.location}}</a></p>
-          <p style="color: #939393;font-weight: bold;font-size: .85em;"> {{destination.details.distance.text}} away</p>
-         <!-- <p *ngIf="destination.expenditure">Hotel Expense: {{destination.expenditure.hotelExpenditure}} (2
-            persons/room) | Food Expense: {{destination.expenditure.foodExpenditure}}
-            |Max Travel Expense: {{destination.expenditure.travelExpenditure}} </p>-->
-          <p class="city-desc">{{destination.information ? destination.information : 'No Information Available'}}</p>
-        </div>
-      </div>
-    </li>
-  </ul>
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width">
+    <thead>
+      <tr>
+        <th >Destination</th>
+        <th class="mdl-data-table__header--sorted-ascending">Distance</th>
+        <th>Image</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="full-width">
+      <!-- <cdk-virtual-scroll-viewport [itemSize]="112" style="height:386px"> *cdkVirtualFor -->
+      <ng-container *ngFor= "let destination of destinations; let destinationIndex = index;" class="full-width">
+      <tr data-toggle="collapse" [attr.data-target]="'#data' + destinationIndex" *ngIf="!destination?.hideDestination">
+        <td class="mdl-data-table__cell--non-numeric"> {{destination.location}}</td>
+        <td>{{destination.details.distance.text}}</td>
+        <td><img [src]="destination.imageUrl" class="city-img"></td>
+        <td><button class="mdl-button mdl-js-button mdl-button--icon" (click)="hideDestination(destination)">
+          <i class="material-icons">close</i>
+        </button></td>
+      </tr>
+      <tr colspan="6" class="hiddenRow collapse"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination">
+        <div id="demo1">{{destination.information ? destination.information : 'No Information Available'}} </div>
+      </tr>
+      </ng-container>
+    <!-- </cdk-virtual-scroll-viewport> -->
+    </tbody>
+  </table>
 </div>
+
+
 
