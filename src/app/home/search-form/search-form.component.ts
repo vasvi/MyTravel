@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnInit, OnDestroy, Input, Output} from '@angular/core';
 import {FormGroup, Validators, AbstractControl, FormBuilder} from '@angular/forms';
 import {UserParameters, ApplicableLocationObject} from '../../model/search-criteria';
 import {SearchDataService} from '../../services/search-data.serivce';
@@ -13,7 +13,9 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./search-form.component.scss']
 })
 export class SearchFormComponent implements OnInit, OnDestroy {
- 
+  @Input() formData: UserParameters;
+  @Output() locationDataChange = new EventEmitter();
+
   constructor(
     private _formBuilder: FormBuilder,
     private searchDataService: SearchDataService,
@@ -24,6 +26,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   searchForm: FormGroup;
   availableLocationSubs: Subscription;
   userSearchObj: UserParameters;
+  isEditMode = false;
 
   /**Form getters */
   get formArray(): AbstractControl | null {
@@ -87,6 +90,13 @@ export class SearchFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.searchForm = this.createFormGroup();
+
+    //Check if the form is in edit mode
+    if (this.formData) {
+      this.isEditMode = true;
+      this.prefillForm(this.formData);
+    }
+
     this.availableLocationSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => this.getAvailableLocations(data));
   }
 
@@ -118,10 +128,43 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  prefillForm = (formdata: UserParameters) => {
+    console.log(this.generalDetails);
+    // general details
+    this.formArray.get('0').get('person').setValue(this.formData.person);
+    this.formArray.get('0').get('budget').setValue(this.formData.budget);
+    this.formArray.get('0').get('duration').setValue(this.formData.duration);
+
+    // hotel details
+    this.formArray.get('1').get('starrating').setValue(this.formData.hotel.starrating);
+
+    // travel details
+    let travelForm = this.formArray.get('2');
+    travelForm.get('travelmode').setValue(this.formData.travel.travelmode);
+
+    switch (this.formData.travel.travelmode) {
+      case Constants.travelMode.bus:
+        travelForm.get('bustype').setValue(this.formData.travel.bustype);
+        break;
+      case Constants.travelMode.train:
+        travelForm.get('trainclass').setValue(this.formData.travel.trainclass);
+        break;
+      case Constants.travelMode.fourwheeler:
+        travelForm.get('cartype').setValue(this.formData.travel.cartype);
+        travelForm.get('enginetype').setValue(this.formData.travel.enginetype);
+        break;
+      default:
+        break;
+    }
+  }
+
   getAvailableLocations = (data: ApplicableLocationObject | any) => {
     if (this.userSearchObj) {
       if (data.location && data.location.length && data.position) {
-        this.router.navigate(['search'])
+        if (!this.isEditMode) {
+          this.router.navigate(['search']);
+        } else
+          this.locationDataChange.emit();
       } else if (this.userSearchObj && data.location && !data.location.length) {
         this.snackBar.open('Budget too low', '', {duration: 5000});
       } else {

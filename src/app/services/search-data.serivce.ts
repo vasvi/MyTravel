@@ -237,7 +237,7 @@ export class SearchDataService {
       });
   }
 
-  getApplicableLocationData = () : ApplicableLocationObject | any => {
+  getApplicableLocationData = ():ApplicableLocationObject | any => {
     return this.applicableLocations;
   }
 
