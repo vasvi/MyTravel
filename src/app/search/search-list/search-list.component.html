@@ -9,8 +9,7 @@
 <!-- {{destinations}} -->
 <!-- <div *ngIf="destinations.length"> -->
 <!-- <div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'"> -->
-<div class="container">
-  <button type="button" class="mdl-button close">Close Button</button>
+<div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'" class="container">
   <div align="center" *ngIf="destinations.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
       Please wait.. You locations are being loaded.
