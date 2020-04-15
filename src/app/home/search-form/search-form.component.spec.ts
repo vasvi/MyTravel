@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchFormComponent } from './search-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { MatIconModule, MatStepperModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatRadioModule, MatSnackBarModule } from '@angular/material';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { HomeComponent } from '../home.component';
@@ -12,6 +12,7 @@ import { SearchListComponent } from 'src/app/search/search-list/search-list.comp
 import { MapViewComponent } from 'src/app/search/map-view/map-view.component';
 import { NgxMasonryComponent } from 'ngx-masonry';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { format } from 'url';
 
 fdescribe('SearchFormComponent', () => {
   let component: SearchFormComponent;
@@ -63,7 +64,12 @@ fdescribe('SearchFormComponent', () => {
   // it('should not submit invalid form', () => {
   // })
 
-  it('form should be valid', () => {
+  describe('test form validations', () => {
+
+    beforeEach(() => {
+      component.formArray.reset();
+    })
+
     let generalDetails = {
       person: 3,
       budget: 4000,
@@ -79,14 +85,27 @@ fdescribe('SearchFormComponent', () => {
       bustype: null,
       trainclass: null
     }
+    it('form should be valid', () => {
+      component.formArray.get('0').patchValue(generalDetails);
+      component.formArray.get('1').patchValue(hotel);
+      component.formArray.get('2').patchValue(travel);
+      expect(component.formArray.valid).toBeTruthy();
+    })
 
-    component.formArray.get('0').patchValue(generalDetails);
-    component.formArray.get('1').patchValue(hotel);
-    component.formArray.get('2').patchValue(travel);
+    it('form should be invalid', () => {
+      travel.travelmode = 'train';
+      component.formArray.get('2').patchValue(travel);
+      expect(component.formArray.valid).toBeFalsy();
+    })
 
-    expect(component.formArray.valid).toBeTruthy();
-
+    it('should test clearValidations', () => {
+      travel.travelmode = 'bus';
+      component.formArray.get('2').patchValue(travel);
+      component.clearValidations(component.formArray.get('2'));
+      expect(component.formArray.get('2').valid).toBeTruthy();
+    })
   })
+
 
   it('should test optionChanged', () => {
 
@@ -100,5 +119,33 @@ fdescribe('SearchFormComponent', () => {
       trainclass: null
     })
     expect(form.valid).toBeFalsy();
+  })
+
+  it('should test createFormGroup', () => {
+    let formArray = component.createFormGroup();
+    expect(formArray instanceof FormGroup).toBeTruthy();
+  })
+
+  it('should test prefillForm', () => {
+    let hotel = {
+      starrating: '3 star',
+    };
+    let travel = {
+      travelmode: 'train',
+      cartype: null,
+      enginetype: null,
+      bustype: null,
+      trainclass: 'Fourth Class'
+    }
+    let formData = {
+      hotel,
+      travel,
+      person: 3,
+      budget: 6000,
+      duration: 6
+    };
+    component.formData = formData;
+    component.prefillForm(formData);
+    expect(component.searchForm.valid).toBeTruthy();
   })
 });
