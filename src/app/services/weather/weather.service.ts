@@ -15,7 +15,7 @@ export class WeatherService {
   cacheWeatherDetails: Object = {};
 
   getWeatherDetails(options: WeatherOptions): Observable<any> {
-    let url = `${this.openWeatherApiEndpoint}/onecall?lat=${options.geometry[0]}&lon=${options.geometry[1]}&appid=${environment.OPENWEATHER.appid}`
+    let url = `${this.openWeatherApiEndpoint}/onecall?lat=${options.geometry[0]}&lon=${options.geometry[1]}&appid=${environment.OPENWEATHER.appid}&units=metric`
 
     return new Observable((observer: Observer<WeatherDetails>) => {
       let cachedData = this.cacheWeatherDetails[options.place_id]

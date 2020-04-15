@@ -1,5 +1,41 @@
-<div class="wrapper">
-    <mat-card>
-        {{weatherDetails | json}}
-    </mat-card>
+<div class="wrapper" *ngIf="weatherDetails">
+    <div class="row">
+        <div class="col-4 top-panel">
+            <div class="box">
+                <div class="day">
+                    {{weatherDetails.current.dt * 1000 | date: 'EEEE'}}
+                </div>
+                <div class="date">
+                    {{weatherDetails.current.dt * 1000 | date: 'longDate'}}
+                </div>
+                <div class="icon">
+                    <img [src]="'http://openweathermap.org/img/wn/'+weatherDetails.current.weather[0].icon+'@2x.png'"
+                        alt="">
+                </div>
+                <div class="temp">
+                    {{weatherDetails.current.temp}} &#8451;
+                </div>
+                <div class="type">
+                    {{weatherDetails.current.weather[0].description}}
+                </div>
+            </div>
+        </div>
+        <div class="col-8 bottom-panel">
+            <div class="row">
+                <ng-container *ngFor="let weather of weatherDetails.daily; let i = index">
+                    <div class="col-2" *ngIf="i < 6">
+                        <div class="week">
+                            {{weather.dt * 1000 | date: 'EEEE'}}
+                        </div>
+                        <div class="icon">
+                            <img [src]="'http://openweathermap.org/img/wn/'+weather.weather[0].icon+'@2x.png'" alt="">
+                        </div>
+                        <div class="temp">
+                            {{weather.temp.day}}
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
 </div>

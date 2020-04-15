@@ -29,6 +29,10 @@
             </div>
         </div>
 
+        <div class="weather-card">
+            <app-weather-widget [weather]="weatherDetails"></app-weather-widget>
+        </div>
+
         <h3>Places of interest</h3>
         <div class="nearby">
             <ngx-masonry [useImagesLoaded]="true" [updateLayout]="true">
@@ -51,9 +55,7 @@
             </ngx-masonry>
         </div>
 
-        <div class="weather-card">
-            <app-weather-widget [weather]="weatherDetails"></app-weather-widget>
-        </div>
+       
     </div>
 </div>
 
