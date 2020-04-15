@@ -90,3 +90,25 @@ h4 {
   }
 
 }
+
+
+tr {
+  td {
+    img {
+      width: 100px;
+      margin: 10px 0 10px;
+    }
+  }
+}
+
+.full-width{
+  width: 100%;
+}
+
+tr{
+  white-space: normal;
+}
+
+cdk-virtual-scroll-viewport {
+  height: 400px;
+}
