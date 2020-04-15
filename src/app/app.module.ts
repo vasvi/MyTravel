@@ -27,6 +27,7 @@ import { SearchListComponent } from './search/search-list/search-list.component'
 import {HttpClientModule} from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { AboutComponent } from './about/about.component';
     MatIconModule,
     HttpClientModule,
     MatIconModule,
-    NgxMasonryModule
+    NgxMasonryModule,
+    ScrollingModule
   ],
   providers: [],
   schemas: [
