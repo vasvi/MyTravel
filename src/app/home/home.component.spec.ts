@@ -24,7 +24,7 @@ export class SearchDataServiceMock {
 }
 
 
-fdescribe('HomeComponent', () => {
+describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
