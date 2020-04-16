@@ -112,3 +112,25 @@ tr{
 cdk-virtual-scroll-viewport {
   height: 400px;
 }
+
+.search-list .name{
+  width:50%;
+  text-align: left;
+}
+
+.search-list .dest-image{
+  width:20%;
+}
+
+.search-list .close{
+  width:20%;
+}
+
+.search-list .distance{
+  width:10%;
+}
+
+.search-list .description {
+  width: 190%;
+  margin:24px;
+}
