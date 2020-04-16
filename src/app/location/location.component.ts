@@ -32,14 +32,14 @@ export class LocationComponent implements OnInit {
     this.initializeGoogleMap();
   }
 
-  getWeatherDetails(){
+  getWeatherDetails() {
     this.weatherService.getWeatherDetails({
-      place_id :this.targetLocation.place_id,
+      place_id: this.targetLocation.place_id,
       geometry: this.targetLocation.geometry
     })
-    .subscribe((data: WeatherDetails) => {
-      this.weatherDetails = data;
-    })
+      .subscribe((data: WeatherDetails) => {
+        this.weatherDetails = data;
+      })
   }
 
   subscribeToRouterEvents() {
@@ -55,6 +55,40 @@ export class LocationComponent implements OnInit {
     })
   }
 
+  createPlaceObj(data): Place {
+    let placeObj: Place = {
+      name: data.name,
+      imageUrl: (() => {
+        return Array.isArray(data.photos) ? data.photos[0].getUrl({
+          maxHeight: 400,
+          maxWidth: 300
+        }) : null;
+      })(),
+      types: data.types,
+      rating: data.rating
+    }
+
+    return placeObj;
+  }
+
+  createMarkerOptions(data) {
+    let markerOptions = {
+      map: this.map,
+      draggable: false,
+      animation: google.maps.Animation.DROP,
+      position: {
+        lat: data.geometry.location.lat(),
+        lng: data.geometry.location.lng()
+      },
+      icon: {
+        url: data.icon,
+        scaledSize: new google.maps.Size(30, 30)
+      },
+      title: data.name
+    }
+    return markerOptions;
+  }
+
   plotNearbyPlaces() {
     const service = new google.maps.places.PlacesService(this.map);
     const targetCoordinates = new google.maps.LatLng(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
@@ -65,32 +99,9 @@ export class LocationComponent implements OnInit {
     }, (results, status) => {
       var placesList: Array<Place> = [];
       results.forEach((item) => {
-        let placeObj: Place = {
-          name: item.name,
-          imageUrl: (() => {
-            return Array.isArray(item.photos) ? item.photos[0].getUrl({
-              maxHeight: 400,
-              maxWidth: 300
-            }) : null;
-          })(),
-          types: item.types,
-          rating: item.rating
-        }
+        let placeObj: Place = this.createPlaceObj(item);
         placesList.push(placeObj);
-        let markerOptions = {
-          map: this.map,
-          draggable: false,
-          animation: google.maps.Animation.DROP,
-          position: {
-            lat: item.geometry.location.lat(),
-            lng: item.geometry.location.lng()
-          },
-          icon: {
-            url: item.icon,
-            scaledSize: new google.maps.Size(30, 30)
-          },
-          title: item.name
-        }
+        let markerOptions = this.createMarkerOptions(item);
         this.createMarker(markerOptions);
       })
       this.places = placesList;
