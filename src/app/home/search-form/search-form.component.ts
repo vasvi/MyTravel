@@ -3,7 +3,7 @@ import {FormGroup, Validators, AbstractControl, FormBuilder} from '@angular/form
 import {UserParameters, ApplicableLocationObject} from '../../model/search-criteria';
 import {SearchDataService} from '../../services/search-data.serivce';
 import * as Constants from '../../searchConstants';
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 
@@ -92,7 +92,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.searchForm = this.createFormGroup();
 
-    //Check if the form is in edit mode
+    // Check if the form is in edit mode
     if (this.formData) {
       this.isEditMode = true;
       this.prefillForm(this.formData);
@@ -178,7 +178,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     event.stopPropagation();
 
     let obj = {};
-    
+
     Object.assign(obj, this.generalDetails);
 
     Object.assign(obj, {
