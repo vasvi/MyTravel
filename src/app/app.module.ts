@@ -24,10 +24,23 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { SearchListComponent } from './search/search-list/search-list.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import {GoogleLoginProvider, SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
+import { SignInComponent } from './sign-in/sign-in.component';
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -39,7 +52,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     GlobalSearchComponent,
     SearchListComponent,
     MapViewComponent,
-    AboutComponent
+    AboutComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -59,9 +73,15 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatIconModule,
     NgxMasonryModule,
     ScrollingModule,
-    MatDialogModule
+    MatDialogModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
  ],
