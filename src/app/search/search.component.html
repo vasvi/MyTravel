@@ -15,37 +15,44 @@
 </ng-template>
 
 <ng-template #formdata>
-  <div>
-    <span *ngIf="searchQuery.person">
-      <mat-icon>people</mat-icon>
-      {{searchQuery.person}}
-    </span>
-    <span *ngIf="searchQuery.budget">
-      <mat-icon>payment</mat-icon>
-      {{searchQuery.budget}}
-    </span>
-    <span *ngIf="searchQuery.duration">
-      <mat-icon>timer</mat-icon>
-      {{searchQuery.duration}}
-    </span>
-    <span *ngIf="searchQuery.hotel.starrating">
-      <mat-icon> hotel</mat-icon>
-      {{searchQuery.hotel.starrating}}
-    </span>
-    <span *ngIf="searchQuery.travel.travelmode === 'Two Wheeler'">
-      <mat-icon>directions_bike</mat-icon>
-    </span>
-    <span *ngIf="searchQuery.travel.travelmode === 'Four Wheeler'">
-      <mat-icon>directions_car</mat-icon>
-    </span>
-    <span *ngIf="searchQuery.travel.travelmode === 'train'">
-      <mat-icon>directions_railway</mat-icon>
-    </span>
-    <span *ngIf="searchQuery.travel.travelmode === 'bus'">
-      <mat-icon>directions_bus</mat-icon>
-    </span>
-    <span *ngIf="searchQuery.travel.travelmode === 'flight'">
-      <mat-icon>flight</mat-icon>
-    </span>
+  <div class="searchParamSummary">
+    <div>
+      <span *ngIf="searchQuery.person">
+        <mat-icon>people</mat-icon>
+        {{searchQuery.person}}
+      </span>
+      <span *ngIf="searchQuery.budget">
+        <mat-icon>payment</mat-icon>
+        {{searchQuery.budget}}
+      </span>
+      <span *ngIf="searchQuery.duration">
+        <mat-icon>timer</mat-icon>
+        {{searchQuery.duration}}
+      </span>
+      <span *ngIf="searchQuery.hotel.starrating">
+        <mat-icon> hotel</mat-icon>
+        {{searchQuery.hotel.starrating}}
+      </span>
+      <span *ngIf="searchQuery.travel.travelmode === 'Two Wheeler'">
+        <mat-icon>directions_bike</mat-icon>
+      </span>
+      <span *ngIf="searchQuery.travel.travelmode === 'Four Wheeler'">
+        <mat-icon>directions_car</mat-icon>
+      </span>
+      <span *ngIf="searchQuery.travel.travelmode === 'train'">
+        <mat-icon>directions_railway</mat-icon>
+      </span>
+      <span *ngIf="searchQuery.travel.travelmode === 'bus'">
+        <mat-icon>directions_bus</mat-icon>
+      </span>
+      <span *ngIf="searchQuery.travel.travelmode === 'flight'">
+        <mat-icon>flight</mat-icon>
+      </span>
+    </div>
+    <div>
+      <span class="editIcon">
+        <mat-icon>create</mat-icon>
+      </span>
+    </div>
   </div>
 </ng-template>
