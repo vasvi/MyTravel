@@ -13,7 +13,7 @@ import { MapViewComponent } from 'src/app/search/map-view/map-view.component';
 import { NgxMasonryComponent } from 'ngx-masonry';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('SearchFormComponent', () => {
+describe('SearchFormComponent', () => {
   let component: SearchFormComponent;
   let fixture: ComponentFixture<SearchFormComponent>;
 

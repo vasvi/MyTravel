@@ -7,7 +7,7 @@ import {of} from 'rxjs';
 
 describe('SearchDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
-  var distanceMatrix;
+  let distanceMatrix;
 
   beforeEach(() => {
 
@@ -175,9 +175,9 @@ describe('SearchDataService', () => {
         travel: {travelmode: 'train'}
       }
       service.setUserSearchData(userData);
-      /*const userSearchData = service.getUserSearchData().subscribe(data => {
-        expect(data).toEqual(userData);
-      });*/
+      const userSearchData = service.getUserSearchData();
+      expect(userSearchData).toEqual(userData);
+
     });
   });
 });
