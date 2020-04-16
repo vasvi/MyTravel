@@ -4,7 +4,7 @@ import {HttpClientTestingModule, HttpTestingController} from '@angular/common/ht
 import {inject} from '@angular/core/testing';
 import {environment} from '../../../environments/environment';
 
-describe('MapService', () => {
+fdescribe('MapService', () => {
   beforeEach(() => TestBed.configureTestingModule({imports: [HttpClientTestingModule]}));
 
   it('should be created', () => {

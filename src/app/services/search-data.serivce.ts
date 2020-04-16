@@ -76,9 +76,9 @@ export class SearchDataService {
         this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
       });
     } catch (e) {
-        this.applicableLocationsSubject.next(e);
-        this.applicableLocations = {};
-        this.setSessionStorage('location', this.applicableLocations);
+      this.applicableLocationsSubject.next(e);
+      this.applicableLocations = {};
+      this.setSessionStorage('location', this.applicableLocations);
     }
   }
 
@@ -237,7 +237,7 @@ export class SearchDataService {
       });
   }
 
-  getApplicableLocationData = ():ApplicableLocationObject | any => {
+  getApplicableLocationData = (): ApplicableLocationObject | any => {
     return this.applicableLocations;
   }
 

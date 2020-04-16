@@ -1,7 +1,8 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, ElementRef, NgZone, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {GlobalVariables} from './globalVariables';
 import {MapService} from './services/map/map.service';
 import {Router} from '@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Location} from './model/search-criteria';
 
 
@@ -13,14 +14,17 @@ import {Location} from './model/search-criteria';
 export class AppComponent implements OnInit {
   title = 'My Travel';
   currentLocation = '';
+  newUserLocationObject: any;
+  @ViewChild('manualLocationEntry', null) dialogRef: TemplateRef<any>;
+  @ViewChild('manualLocationInput', {static: false}) locationInputViewChild: ElementRef;
 
   constructor(private router: Router,
               private ngZone: NgZone,
-              private mapService: MapService) {
+              private mapService: MapService, private dialog: MatDialog) {
   }
 
   private createLocationObject(location): Location {
-    let formattedLocationData: Location = {
+    const formattedLocationData: Location = {
       name: location.name,
       formatted_address: location.formatted_address,
       photos: (() => {
@@ -40,6 +44,41 @@ export class AppComponent implements OnInit {
       ]
     };
     return formattedLocationData;
+  }
+
+  onManualLocationClicked() {
+
+    const dialogRef = this.dialog.open(this.dialogRef, {
+      height: '350px',
+      width: '800px',
+    });
+
+    this.initAutoComplete();
+  }
+
+  initAutoComplete() {
+    setTimeout(() => {
+      const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement, {
+        types: ['(cities)'],
+        componentRestrictions: {country: 'in'}
+      });
+      google.maps.event.addListener(autoComplete, 'place_changed', () => {
+        const place = autoComplete.getPlace();
+        this.newUserLocationObject = place;
+      });
+    }, 300);
+  }
+
+  setManualLocation() {
+    const manualLocationObject = {
+      address: this.newUserLocationObject.formatted_address,
+      geometry: {latitude: '', longitude: ''}
+    };
+    manualLocationObject.geometry.latitude = this.newUserLocationObject.geometry.location.lat();
+    manualLocationObject.geometry.longitude = this.newUserLocationObject.geometry.location.lng();
+    sessionStorage.setItem('manualLocationObject', JSON.stringify(manualLocationObject));
+    this.currentLocation = manualLocationObject.address;
+    this.dialog.closeAll();
   }
 
   onLocationChange(location) {
