@@ -27,6 +27,7 @@ import { SearchListComponent } from './search/search-list/search-list.component'
 import { HttpClientModule } from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
+import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {GoogleLoginProvider, SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -53,7 +54,8 @@ export function provideConfig() {
     SearchListComponent,
     MapViewComponent,
     AboutComponent,
-    SignInComponent
+    SignInComponent,
+    WeatherWidgetComponent
   ],
   imports: [
     BrowserModule,
