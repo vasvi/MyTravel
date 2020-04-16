@@ -1,1 +1,12 @@
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<button type="button" *ngIf="!user" (click)="signInWithGoogle()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Sign In With Google</button>
+<div *ngIf="user">
+    <span class="mdl-chip">
+        <span class="mdl-chip__text">{{user.name}}</span>
+    </span>
+    <button id="signout" class="mdl-button mdl-js-button mdl-button--icon" (click)="toggleMenu()">
+        <i class="material-icons">more_vert</i>
+    </button>
+    <ul *ngIf="menuOpen" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="signout">
+        <li class="mdl-menu__item" (click)="signOut">Sign Out</li>
+    </ul>
+</div>
