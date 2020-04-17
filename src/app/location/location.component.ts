@@ -16,8 +16,6 @@ export class LocationComponent implements OnInit {
   routerEventSubscription: Subscription;
   targetLocation: Location;
   places: Array<Place> = [];
-  carouselItems: Array<string>;
-  currentCarouselIndex: number;
   weatherDetails: WeatherDetails;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -49,7 +47,6 @@ export class LocationComponent implements OnInit {
         this.targetLocation.geometry[0] = parseFloat(this.targetLocation.geometry[0]);
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);
         this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
-        this.createCarousel();
         this.getWeatherDetails();
       }
     })
@@ -132,23 +129,11 @@ export class LocationComponent implements OnInit {
         lat: this.targetLocation.geometry[0],
         lng: this.targetLocation.geometry[1]
       },
-      zoom: 15
+      zoom: 12
     });
     this.plotNearbyPlaces();
   }
 
-  createCarousel() {
-    this.carouselItems = this.targetLocation.photos;
-    this.currentCarouselIndex = 0;
-  }
-
-  navigateNext() {
-    this.currentCarouselIndex = this.currentCarouselIndex === this.carouselItems.length ? 0 : this.currentCarouselIndex + 1
-  }
-
-  navigatePrev() {
-    this.currentCarouselIndex = this.currentCarouselIndex === 0 ? this.carouselItems.length : this.currentCarouselIndex - 1
-  }
 
   ngOnInit() {
     this.subscribeToRouterEvents();

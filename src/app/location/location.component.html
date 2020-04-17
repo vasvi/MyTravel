@@ -1,7 +1,7 @@
 <div class="wrapper">
     <div class="container">
-        <div class="main-lc">
-            <div class="info">
+        <div class="main-lc mdl-grid">
+            <div class="info mdl-cell mdl-cell--12-col">
                 <div class="title">
                     <h3>
                         {{targetLocation?.name}}
@@ -9,14 +9,18 @@
                     {{targetLocation?.formatted_address}}
                 </div>
             </div>
-            <div class="carousel">
+            <div class="carousel mdl-cell mdl-cell--12-col">
                 <app-location-images [images]=targetLocation.photos></app-location-images>
-                
             </div>
         </div>
 
-        <div class="weather-card">
-            <app-weather-widget [weather]="weatherDetails"></app-weather-widget>
+        <div class="mdl-grid" style="padding: 0;">
+            <div class="mdl-cell mdl-cell--6-col weather">
+                <div #mapContainer id="map" class="map-container"></div>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col weather">
+                <app-weather-widget [weather]="weatherDetails"></app-weather-widget>
+            </div>
         </div>
 
         <h3>Places of interest</h3>
@@ -41,8 +45,6 @@
             </ngx-masonry>
         </div>
 
-       
+
     </div>
 </div>
-
-<div #mapContainer id="map" class="map-container"></div>
