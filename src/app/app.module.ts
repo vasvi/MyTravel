@@ -29,6 +29,7 @@ import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
 import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { LocationImagesComponent } from './location/location-images/location-images.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     SearchListComponent,
     MapViewComponent,
     AboutComponent,
-    WeatherWidgetComponent
+    WeatherWidgetComponent,
+    LocationImagesComponent
   ],
   imports: [
     BrowserModule,
