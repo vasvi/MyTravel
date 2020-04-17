@@ -19,6 +19,14 @@ body {
 
 }
 
+h1, h4 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+
 /**
   Navbar Css
  */
@@ -37,9 +45,8 @@ body {
   color: #f1a578 !important;
 }
 
-
 .navbar .mat-form-field-label-wrapper {
-  .mat-form-field-label{
+  .mat-form-field-label {
     color: #d1cdcd !important;
     padding: 0 5px;
   }
@@ -48,6 +55,7 @@ body {
   font-weight: bold;
 
 }
+
 .navbar .mat-form-field input {
   font-family: $themeFont;
   padding: 1px 8px;
@@ -90,7 +98,6 @@ body [class^='mat-'], body [class*=' mat-'] {
   background-color: #bdbdbd !important;
 }
 
-
 .mat-select-value {
   color: #FFF !important;
   padding: 4px 10px;
@@ -98,9 +105,13 @@ body [class^='mat-'], body [class*=' mat-'] {
   font-weight: bold;
 }
 
-.mat-option-text{
+.mat-option-text {
   font-family: $themeFont;
   font-weight: bold;
+}
+
+.pac-container{
+  z-index: 1040;
 }
 
 /**
@@ -112,7 +123,7 @@ body [class^='mat-'], body [class*=' mat-'] {
   color: #4d4d4d;
 }
 
-.footer{
+.footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -125,7 +136,7 @@ body [class^='mat-'], body [class*=' mat-'] {
   justify-content: center;
   align-items: center;
 
-  .footerElements{
+  .footerElements {
     padding: 10px;
     font-weight: bold;
     font-size: .75em;

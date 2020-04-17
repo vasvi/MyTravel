@@ -12,11 +12,31 @@
   <a class="footerElements" routerLink='/'>Home</a>
   <a class="footerElements" routerLink='/about'>About Us</a>
 
-<span class="footerElements">
-  Location <span [style.color]="this.currentLocation ? 'green': 'red'">{{this.currentLocation ? ' : '+ this.currentLocation : ' : '+'Disabled'}} </span> <a *ngIf="!this.currentLocation" href="#" (click)="enableLocation(true)"> Enable</a>
+  <span class="footerElements">
+  <span style="font-size: 11px;vertical-align: text-bottom;" [style.color]="this.currentLocation ? 'green': 'red'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}} </span> <a
+    *ngIf="!this.currentLocation" href="#" (click)="enableLocation(true)">Enable Auto Detect</a>
+  <a (click)="onManualLocationClicked(true)">Add Location Manually</a>
 </span>
 </div>
-
 <div class="main">
   <router-outlet></router-outlet>
 </div>
+<ng-template #manualLocationEntry>
+  <div class="introSection">
+    <h1>
+      Help us to find where you are
+    </h1>
+    <h4>
+      There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+      some
+      form, by injected humour, or randomised words which don't look even slightly believable.
+    </h4>
+
+    <div class="wrapper">
+      <mat-form-field  class="manualLocationSearchBar">
+        <input matInput #manualLocationInput placeholder="Start typing your location ">
+      </mat-form-field>
+      <mat-icon aria-hidden="false" (click)="setManualLocation()" aria-label="Example home icon">check</mat-icon>
+    </div>
+  </div>
+</ng-template>

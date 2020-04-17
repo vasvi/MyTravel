@@ -12,7 +12,7 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule, MatToolbarModule } from '@angular/material';
+import {MatDialogModule, MatIconModule, MatToolbarModule} from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +27,7 @@ import { SearchListComponent } from './search/search-list/search-list.component'
 import {HttpClientModule} from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
+import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     GlobalSearchComponent,
     SearchListComponent,
     MapViewComponent,
-    AboutComponent
+    AboutComponent,
+    WeatherWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     HttpClientModule,
     MatIconModule,
     NgxMasonryModule,
-    ScrollingModule
+    ScrollingModule,
+    MatDialogModule
   ],
   providers: [],
   schemas: [

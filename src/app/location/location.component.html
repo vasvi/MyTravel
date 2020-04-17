@@ -29,9 +29,13 @@
             </div>
         </div>
 
+        <div class="weather-card">
+            <app-weather-widget [weather]="weatherDetails"></app-weather-widget>
+        </div>
+
         <h3>Places of interest</h3>
         <div class="nearby">
-            <ngx-masonry [useImagesLoaded]="true" [updateLayout]="updateMasonryLayout">
+            <ngx-masonry [useImagesLoaded]="true" [updateLayout]="true">
                 <div ngxMasonryItem class="masonry-item" *ngFor="let place of places">
                     <div class="b-box" *ngIf="place.imageUrl">
                         <img [src]="place.imageUrl" alt="">
@@ -50,6 +54,8 @@
                 </div>
             </ngx-masonry>
         </div>
+
+       
     </div>
 </div>
 
