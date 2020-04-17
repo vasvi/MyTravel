@@ -6,9 +6,6 @@
     <span>Based on our calculation, these locations are close to you and are suitable for weekend getaway</span>
   </h4>
 </div>
-<!-- {{destinations}} -->
-<!-- <div *ngIf="destinations.length"> -->
-<!-- <div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'"> -->
 <div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'" class="container search-list">
   <div align="center" *ngIf="destinations.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
@@ -18,6 +15,7 @@
   <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width">
     <thead>
       <tr>
+        <th class="expand"></th>
         <th class="name">Destination</th>
         <th class="mdl-data-table__header--sorted-ascending distance">Distance</th>
         <th class="dest-image">Image</th>
@@ -27,7 +25,10 @@
     <tbody class="full-width">
       <!-- <cdk-virtual-scroll-viewport [itemSize]="112" style="height:386px"> *cdkVirtualFor -->
       <ng-container *ngFor= "let destination of destinations; let destinationIndex = index;" class="full-width">
-      <tr data-toggle="collapse" [attr.data-target]="'#data' + destinationIndex" *ngIf="!destination?.hideDestination">
+      <tr *ngIf="!destination?.hideDestination" (click)="getPlaces(destination)">
+        <td class="expand"><button class="mdl-button mdl-js-button mdl-button--icon" [attr.data-target]="'#data' + destinationIndex">
+          <i class="material-icons" (click)="stopNavigation($event,destination)">{{destination?.showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</i>
+        </button></td>
         <td class="mdl-data-table__cell--non-numeric"> {{destination.location}}</td>
         <td>{{destination.details.distance.text}}</td>
         <td><img [src]="destination.imageUrl" class="city-img"></td>
@@ -35,7 +36,8 @@
           <i class="material-icons">close</i>
         </button></td>
       </tr>
-      <tr colspan="6" class="hiddenRow collapse"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination">
+      <tr colspan="6" class="hiddenRow"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination && destination?.showDescription">
+        <td></td>
         <div class="description">{{destination.information ? destination.information : 'No Information Available'}} </div>
       </tr>
       </ng-container>

@@ -9,6 +9,7 @@ export interface GlobalDestinationsObject {
     longitude: number;
     imageUrl?: string;
     information?: string;
+    placeId?:string;
 }
 
 export interface CalculatedExpenditure {
