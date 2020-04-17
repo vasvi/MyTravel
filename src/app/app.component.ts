@@ -4,6 +4,7 @@ import {MapService} from './services/map/map.service';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Location} from './model/search-criteria';
+import {SearchDataService} from './services/search-data.serivce';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private ngZone: NgZone,
-              private mapService: MapService, private dialog: MatDialog) {
+              private mapService: MapService, private dialog: MatDialog, private searchService: SearchDataService) {
   }
 
   private createLocationObject(location): Location {
@@ -72,10 +73,11 @@ export class AppComponent implements OnInit {
   setManualLocation() {
     const manualLocationObject = {
       address: this.newUserLocationObject.formatted_address,
-      geometry: {latitude: '', longitude: ''}
+      latitude: '',
+      longitude: ''
     };
-    manualLocationObject.geometry.latitude = this.newUserLocationObject.geometry.location.lat();
-    manualLocationObject.geometry.longitude = this.newUserLocationObject.geometry.location.lng();
+    manualLocationObject.latitude = this.newUserLocationObject.geometry.location.lat();
+    manualLocationObject.longitude = this.newUserLocationObject.geometry.location.lng();
     sessionStorage.setItem('manualLocationObject', JSON.stringify(manualLocationObject));
     this.currentLocation = manualLocationObject.address;
     this.dialog.closeAll();
@@ -90,18 +92,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.enableLocation(false);
+    this.enableLocation();
   }
 
-  enableLocation(manuallyRequested) {
+  enableLocation() {
 
-    let manualLocationObject = sessionStorage.getItem('manualLocationObject');
-    if (manualLocationObject) {
-      manualLocationObject = JSON.parse(manualLocationObject);
-      this.currentLocation = manualLocationObject.address;
-    } else {
-      navigator.geolocation.getCurrentPosition((position) => {
-        GlobalVariables.setGlobalVariable('position', position);
+    this.searchService.getPosition((position) => {
+      if (position) {
         this.mapService.reverseGeoCode(position.coords.latitude, position.coords.longitude).subscribe((response: any) => {
 
           const results = response.results;
@@ -111,17 +108,14 @@ export class AppComponent implements OnInit {
                 if (results[i].types[0] === 'locality') {
                   const city = results[i].address_components[0].short_name;
                   this.currentLocation = city;
-                  GlobalVariables.setGlobalVariable('currentCity', city);
                 }
               }
             }
           }
         });
-      }, (error) => {
-        if (manuallyRequested) {
-          alert('Please enable location setting on your device. If on browser, click the location icon on top and clear setting for the current site. Click here again after doing that')
-        }
-      });
-    }
+      } else {
+        alert('We Cannot work until you provide us your location. Please allow location or Add it manually')
+      }
+    });
   }
 }
