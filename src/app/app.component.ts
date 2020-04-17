@@ -79,6 +79,7 @@ export class AppComponent implements OnInit {
     sessionStorage.setItem('manualLocationObject', JSON.stringify(manualLocationObject));
     this.currentLocation = manualLocationObject.address;
     this.dialog.closeAll();
+    this.mapService.userLocationChangeEmitter.next(manualLocationObject);
   }
 
   onLocationChange(location) {
@@ -94,28 +95,33 @@ export class AppComponent implements OnInit {
 
   enableLocation(manuallyRequested) {
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      GlobalVariables.setGlobalVariable('position', position);
-      this.mapService.reverseGeoCode(position.coords.latitude, position.coords.longitude).subscribe((response: any) => {
+    let manualLocationObject = sessionStorage.getItem('manualLocationObject');
+    if (manualLocationObject) {
+      manualLocationObject = JSON.parse(manualLocationObject);
+      this.currentLocation = manualLocationObject.address;
+    } else {
+      navigator.geolocation.getCurrentPosition((position) => {
+        GlobalVariables.setGlobalVariable('position', position);
+        this.mapService.reverseGeoCode(position.coords.latitude, position.coords.longitude).subscribe((response: any) => {
 
-        const results = response.results;
-        if (response.status === google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            for (const i in results) {
-              if (results[i].types[0] === 'locality') {
-                const city = results[i].address_components[0].short_name;
-                this.currentLocation = city;
-                GlobalVariables.setGlobalVariable('currentCity', city);
+          const results = response.results;
+          if (response.status === google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              for (const i in results) {
+                if (results[i].types[0] === 'locality') {
+                  const city = results[i].address_components[0].short_name;
+                  this.currentLocation = city;
+                  GlobalVariables.setGlobalVariable('currentCity', city);
+                }
               }
             }
           }
+        });
+      }, (error) => {
+        if (manuallyRequested) {
+          alert('Please enable location setting on your device. If on browser, click the location icon on top and clear setting for the current site. Click here again after doing that')
         }
       });
-
-    }, (error) => {
-      if (manuallyRequested) {
-        alert('Please enable location setting on your device. If on browser, click the location icon on top and clear setting for the current site. Click here again after doing that')
-      }
-    });
+    }
   }
 }
