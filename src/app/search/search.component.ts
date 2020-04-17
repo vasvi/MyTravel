@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalDestinationsObject, ApplicableLocationObject, Position, UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
+import {MapService} from '../services/map/map.service';
+import * as constant from '../searchConstants';
 
 @Component({
   selector: 'app-search',
@@ -14,7 +16,7 @@ export class SearchComponent implements OnInit {
   searchQuery: UserParameters;
 
   constructor(
-    private searchDataService: SearchDataService) {
+    private searchDataService: SearchDataService, private mapService: MapService) {
   }
 
   ngOnInit() {
@@ -25,24 +27,34 @@ export class SearchComponent implements OnInit {
 
     // Get data from session
     if (!this.applicableLocations) {
-      let location = JSON.parse(sessionStorage.getItem('location'));
-      let latitude = JSON.parse(sessionStorage.getItem('position.latitude'));
-      let longitude = JSON.parse(sessionStorage.getItem('position.longitude'));
-
-      let position: Position = {
-        coords: {
-          latitude,
-          longitude
+      const location = JSON.parse(sessionStorage.getItem('location'));
+      this.searchDataService.getPosition((position) => {
+        if (position) {
+          this.applicableLocations = {
+            location,
+            position
+          };
+        } else {
+          const defaultPosition: Position = {
+            coords: {
+              latitude: constant.searchConstants.defaultLocation.latitude,
+              longitude: constant.searchConstants.defaultLocation.longitude
+            }
+          };
+          this.applicableLocations = {
+            location,
+            position: defaultPosition
+          };
         }
-      }
-        
-      this.applicableLocations = {
-        location,
-        position
-      }
+      });
     }
-  } 
-  
+    this.mapService.userLocationChangeEmitter.asObservable().subscribe(() => {
+
+      // ::TODO Better Approach
+      window.location.reload();
+    });
+  }
+
   refreshSearchView = () => {
     this.applicableLocations = this.searchDataService.getApplicableLocationData();
   }

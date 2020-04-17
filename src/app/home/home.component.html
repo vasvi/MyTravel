@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div class="popularLocations" *ngIf="popularLocations else loading">
+<div class="popularLocations" *ngIf="!loadingPopularLocations else loading">
   <app-search-list [locationData]="popularLocations" [parentComponent]="'homeComponent'" ></app-search-list>
 </div>
 <ng-template #loading>
