@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log(this.user);
+      this.menuOpen = false;
     })
   }
 
@@ -31,7 +31,7 @@ export class SignInComponent implements OnInit {
     this.authService.signOut();
   }
 
-  toggleMenu = (): void => {
+  showUSerInfo = (): void => {
     this.menuOpen = !this.menuOpen;
   }
 }
