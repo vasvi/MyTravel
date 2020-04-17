@@ -14,7 +14,7 @@ export const environment = {
     client_secret: 'tRS1nGoMFNK-88vAePccX7Gi'
   },
   OPENWEATHER: {
-    app_id: '24aac48b2c5f1c06ed90d17dc31ae21c',
+    appid: '24aac48b2c5f1c06ed90d17dc31ae21c',
     api_endpoint: 'https://api.openweathermap.org/data/2.5/'
   }
 };

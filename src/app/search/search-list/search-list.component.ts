@@ -1,8 +1,5 @@
-import {Component, OnInit, Input, ChangeDetectorRef} from '@angular/core';
-import {Observable, BehaviorSubject, Subscription} from 'rxjs';
-import {JsonPipe} from '@angular/common';
-import { SearchDataService } from '../../services/search-data.serivce';
-
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {ApplicableLocationObject} from 'src/app/model/search-criteria';
 
 @Component({
   selector: 'app-search-list',
@@ -10,25 +7,22 @@ import { SearchDataService } from '../../services/search-data.serivce';
   styleUrls: ['./search-list.component.scss'],
 })
 
-export class SearchListComponent implements OnInit {
+export class SearchListComponent implements OnInit, OnChanges {
+  destinations = [];
+  @Input() parentComponent: string;
+  @Input() locationData: ApplicableLocationObject;
 
-  destinations: [];
-  applicableDestinations: any;
-  availableLocationsSubs: Subscription;
-
-  constructor(private searchDataService: SearchDataService,
-    private ref: ChangeDetectorRef){}
+  constructor(){}
 
   ngOnInit() {
-    this.applicableDestinations = new BehaviorSubject(this.destinations);
-    this.availableLocationsSubs = this.searchDataService.getApplicableLocationsSubs().subscribe(data => {
-      if (data && data.location ) {
-        this.destinations = data.location;
-        setTimeout(() => {
-          this.ref.detectChanges();
-      }, 250);
-        console.log('data set in child' + this.destinations);
-      }
-    });
+    this.destinations = this.locationData && this.locationData.location;
+  }
+
+  hideDestination(destination){
+    destination.hideDestination = true;
+  }
+  
+  ngOnChanges() {
+    this.destinations = this.locationData && this.locationData.location;
   }
 }

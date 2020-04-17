@@ -1,142 +1,21 @@
 <div class="fullWidthBackground">
-
   <div class="search">
     <div class="titleText">
     </div>
-    <search-form (formData)="navigateToSearch($event)"></search-form>
-  </div>
-
-</div>
-
-<div class="introSection">
-  <app-search-list ></app-search-list>
-  <h1>
-    Hi!
-  </h1>
-  <h4>
-    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
-    form, by injected humour, or randomised words which don't look even slightly believable.
-  </h4>
-  <div class="flexContainer">
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
-      <div class="content">
-        <h1>
-          We don't miss
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4></div>
-    </div>
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-
-      <div class="content">
-        <h1>
-          Book Instantly
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4>
-      </div>
-    </div>
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
-
-      <div class="content">
-        <h1>
-          Know your destination
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4></div>
-    </div>
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-
-      <div class="content">
-        <h1>
-          Experience
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4></div>
-    </div>
+    <search-form></search-form>
   </div>
 </div>
 
-<div class="bg1"></div>
-
-<div class="introSection">
-  <h1>
-    How It Works
-  </h1>
-  <h4>
-    There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
-    form, by injected humour, or randomised words which don't look even slightly believable.
-  </h4>
-  <div class="flexContainer">
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
-      <div class="content">
-        <h1>
-          We don't miss
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4></div>
-    </div>
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-
-      <div class="content">
-        <h1>
-          Book Instantly
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4>
-      </div>
-    </div>
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">search</mat-icon>
-
-      <div class="content">
-        <h1>
-          Know your destination
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4></div>
-    </div>
-    <div class="flexBox">
-      <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-
-      <div class="content">
-        <h1>
-          Experience
-        </h1>
-        <h4>
-          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-          some
-          form, by injected humour, or randomised words which don't look even slightly believable.
-        </h4></div>
-    </div>
-  </div>
+<div class="popularLocations" *ngIf="popularLocations else loading">
+  <app-search-list [locationData]="popularLocations" [parentComponent]="'homeComponent'" ></app-search-list>
 </div>
+<ng-template #loading>
+  <div class="loadingPopular">
+    Fetching popular destinations around you..
+    <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+  </div>
+</ng-template>
+
+
 
 

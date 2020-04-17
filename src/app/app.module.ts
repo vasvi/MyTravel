@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -12,14 +12,13 @@ import { GlobalSearchComponent } from './global-search/global-search.component';
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule, MatToolbarModule } from '@angular/material';
+import {MatDialogModule, MatIconModule, MatToolbarModule} from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatCardModule } from '@angular/material/card';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
@@ -27,6 +26,9 @@ import { NgxMasonryModule } from 'ngx-masonry';
 import { SearchListComponent } from './search/search-list/search-list.component';
 import {HttpClientModule} from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
+import { AboutComponent } from './about/about.component';
+import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { MapViewComponent } from './search/map-view/map-view.component';
     SearchFormComponent,
     GlobalSearchComponent,
     SearchListComponent,
-    MapViewComponent
+    MapViewComponent,
+    AboutComponent,
+    WeatherWidgetComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,6 @@ import { MapViewComponent } from './search/map-view/map-view.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatSnackBarModule,
-    // MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -56,10 +59,14 @@ import { MapViewComponent } from './search/map-view/map-view.component';
     MatIconModule,
     HttpClientModule,
     MatIconModule,
-    MatCardModule,
-    NgxMasonryModule
+    NgxMasonryModule,
+    ScrollingModule,
+    MatDialogModule
   ],
   providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+ ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

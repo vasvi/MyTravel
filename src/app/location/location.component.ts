@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location, Place } from '../model/search-criteria';
 import { Subscription } from 'rxjs';
+import { WeatherService } from '../services/weather/weather.service';
+import { WeatherDetails } from '../model/weather.model';
 
 @Component({
   selector: 'app-location',
@@ -16,8 +18,10 @@ export class LocationComponent implements OnInit {
   places: Array<Place> = [];
   carouselItems: Array<string>;
   currentCarouselIndex: number;
+  weatherDetails: WeatherDetails;
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private weatherService: WeatherService
   ) { }
 
   ngOnDestroy() {
@@ -28,6 +32,16 @@ export class LocationComponent implements OnInit {
     this.initializeGoogleMap();
   }
 
+  getWeatherDetails() {
+    this.weatherService.getWeatherDetails({
+      place_id: this.targetLocation.place_id,
+      geometry: this.targetLocation.geometry
+    })
+      .subscribe((data: WeatherDetails) => {
+        this.weatherDetails = data;
+      })
+  }
+
   subscribeToRouterEvents() {
     this.routerEventSubscription = this.activatedRoute.queryParams.subscribe((params: Location) => {
       if (params) {
@@ -36,8 +50,43 @@ export class LocationComponent implements OnInit {
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);
         this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
         this.createCarousel();
+        this.getWeatherDetails();
       }
     })
+  }
+
+  createPlaceObj(data): Place {
+    let placeObj: Place = {
+      name: data.name,
+      imageUrl: (() => {
+        return Array.isArray(data.photos) ? data.photos[0].getUrl({
+          maxHeight: 400,
+          maxWidth: 300
+        }) : null;
+      })(),
+      types: data.types,
+      rating: data.rating
+    }
+
+    return placeObj;
+  }
+
+  createMarkerOptions(data) {
+    let markerOptions = {
+      map: this.map,
+      draggable: false,
+      animation: google.maps.Animation.DROP,
+      position: {
+        lat: data.geometry.location.lat(),
+        lng: data.geometry.location.lng()
+      },
+      icon: {
+        url: data.icon,
+        scaledSize: new google.maps.Size(30, 30)
+      },
+      title: data.name
+    }
+    return markerOptions;
   }
 
   plotNearbyPlaces() {
@@ -50,36 +99,12 @@ export class LocationComponent implements OnInit {
     }, (results, status) => {
       var placesList: Array<Place> = [];
       results.forEach((item) => {
-        let placeObj: Place = {
-          name: item.name,
-          imageUrl: (() => {
-            return Array.isArray(item.photos) ? item.photos[0].getUrl({
-              maxHeight: 400,
-              maxWidth: 300
-            }) : null;
-          })(),
-          types: item.types,
-          rating: item.rating
-        }
+        let placeObj: Place = this.createPlaceObj(item);
         placesList.push(placeObj);
-        let markerOptions = {
-          map: this.map,
-          draggable: false,
-          animation: google.maps.Animation.DROP,
-          position: {
-            lat: item.geometry.location.lat(),
-            lng: item.geometry.location.lng()
-          },
-          icon: {
-            url: item.icon,
-            scaledSize: new google.maps.Size(30, 30)
-          },
-          title: item.name
-        }
+        let markerOptions = this.createMarkerOptions(item);
         this.createMarker(markerOptions);
       })
       this.places = placesList;
-      console.log(this.places)
     });
   }
 

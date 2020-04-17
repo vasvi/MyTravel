@@ -1,7 +1,22 @@
-<form [formGroup]="searchForm" class="search-form" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup]="searchForm" class="search-form" (ngSubmit)="onSubmit($event)" novalidate>
   <mat-horizontal-stepper #linearHorizontalStepper="matHorizontalStepper" formArrayName="formArray" [linear]="false">
     <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
-      <ng-template matStepLabel>Fill out general details</ng-template>
+      <ng-template matStepLabel>Fill out general details
+        <div>
+          <span *ngIf="formArray?.get([0]).get('person').value">
+            <mat-icon>people</mat-icon>
+            {{formArray?.get([0]).get('person').value}}
+          </span>
+          <span *ngIf="formArray?.get([0]).get('budget').value">
+            <mat-icon>payment</mat-icon>
+            {{formArray?.get([0]).get('budget').value}}
+          </span>
+          <span *ngIf="formArray?.get([0]).get('duration').value">
+            <mat-icon>timer</mat-icon>
+            {{formArray?.get([0]).get('duration').value}}
+          </span>
+        </div>
+      </ng-template>
       <mat-form-field>
         <mat-label>Number of travellers</mat-label>
         <input matInput formControlName="person" type="number" required>
@@ -31,6 +46,12 @@
     <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
       <ng-template matStepLabel>
         <div>Select your hotel type</div>
+        <div>
+          <span *ngIf="formArray?.get([1]).get('starrating').value">
+            <mat-icon> hotel</mat-icon>
+            {{formArray?.get([1]).get('starrating').value}}
+          </span>
+        </div>
       </ng-template>
       <mat-form-field>
         <mat-label>Hotel type</mat-label>
@@ -52,7 +73,25 @@
     </mat-step>
 
     <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
-      <ng-template matStepLabel>Tell us how you would be travelling?</ng-template>
+      <ng-template matStepLabel>Tell us how you would be travelling?
+        <div>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'Two Wheeler'">
+            <mat-icon>directions_bike</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'Four Wheeler'">
+            <mat-icon>directions_car</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'train'">
+            <mat-icon>directions_railway</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'bus'">
+            <mat-icon>directions_bus</mat-icon>
+          </span>
+          <span *ngIf="formArray?.get([2]).get('travelmode').value === 'flight'">
+            <mat-icon>flight</mat-icon>
+          </span>
+        </div>
+      </ng-template>
       <div class="travel-type">
         <mat-label>Travel by</mat-label>
         <mat-radio-group aria-label="Select an Option" formControlName="travelmode" required>
@@ -61,7 +100,7 @@
           </mat-radio-button>
         </mat-radio-group>
 
-        <div class="travel-subtype" *ngIf="travelmode === 'fourwheeler'">
+        <div class="travel-subtype" *ngIf="travelmode && travelmode.toLowerCase() === 'four wheeler'">
           <mat-form-field>
             <mat-label>Car Type</mat-label>
             <mat-select formControlName="cartype">
@@ -107,7 +146,7 @@
         <button type="button" mat-button (click)="linearHorizontalStepper.reset()">Reset</button>
       </div>
       <div class="stepperInfoSection">
-        Optional, but helps us to provide more precise results.
+        Almost done!
       </div>
     </mat-step>
   </mat-horizontal-stepper>
