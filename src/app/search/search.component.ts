@@ -49,9 +49,15 @@ export class SearchComponent implements OnInit {
       });
     }
     this.mapService.userLocationChangeEmitter.asObservable().subscribe(() => {
-
-      // ::TODO Better Approach
-      window.location.reload();
+      let userFormData: any = sessionStorage.getItem('userSearch');
+      if (userFormData) {
+        try {
+          userFormData = JSON.parse(userFormData);
+          this.searchDataService.initSearch(userFormData);
+        } catch (e) {
+          console.log(e);
+        }
+      }
     });
   }
 
