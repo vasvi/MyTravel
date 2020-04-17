@@ -228,6 +228,7 @@ export class SearchDataService {
             location: applicableLocations,
             position: position
           };
+
           this.setSessionStorage('position.latitude', position.coords.latitude);
           this.setSessionStorage('position.longitude', position.coords.longitude);
           this.setSessionStorage('location', applicableLocations);
@@ -254,13 +255,13 @@ export class SearchDataService {
    * @param callback
    */
   getPosition(callback) {
-    let manualLocationObject = sessionStorage.getItem('manualLocationObject');
+    let manualLocationObject: any = sessionStorage.getItem('manualLocationObject');
     if (manualLocationObject) {
       manualLocationObject = JSON.parse(manualLocationObject);
       const position = {
         coords: {
-          latitude: parseInt(manualLocationObject.geometry.latitude),
-          longitude: parseInt(manualLocationObject.geometry.longitude)
+          latitude: parseFloat(manualLocationObject.latitude),
+          longitude: parseFloat(manualLocationObject.longitude)
         }
       };
       callback(position);

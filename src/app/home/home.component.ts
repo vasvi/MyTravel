@@ -38,23 +38,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     };
 
-    let manualLocationObject = sessionStorage.getItem('manualLocationObject');
-    if (manualLocationObject) {
-      manualLocationObject = JSON.parse(manualLocationObject);
-      const position = {
-        coords: {
-          latitude: parseInt(manualLocationObject.geometry.latitude),
-          longitude: parseInt(manualLocationObject.geometry.longitude)
-        }
-      };
-      this.searchDataService.getApplicableLocations(2500, position);
-    } else {
-      navigator.geolocation.getCurrentPosition((position) => {
+    this.searchDataService.getPosition((position) => {
+      if (position) {
         this.searchDataService.getApplicableLocations(2500, position);
-      }, (error) => {
+      } else {
         this.searchDataService.getApplicableLocations(2500, defaultPosition);
-      });
-    }
+      }
+    });
   }
 
   getPopularLocations = (data) => {
