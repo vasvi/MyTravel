@@ -1,0 +1,20 @@
+.userDetail {
+    position: absolute;
+    background-color: #969590;
+    border-radius: 2px;
+    right: 10px;
+    opacity: 0.8;
+
+    div.username {
+        font-weight: bold;
+    }
+
+    div, button {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    button {
+        color: #dbdbdb;
+    }
+}

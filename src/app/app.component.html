@@ -3,9 +3,7 @@
   <span class="search-bar">
     <app-global-search (onLocationChange)="onLocationChange($event)"></app-global-search>
   </span>
-  <span>
-    <a>Login</a>
-  </span>
+  <sign-in></sign-in>
 </nav>
 
 <div class="footer">
@@ -14,7 +12,7 @@
 
   <span class="footerElements">
   <span style="font-size: 11px;vertical-align: text-bottom;" [style.color]="this.currentLocation ? 'green': 'red'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}} </span> <a
-    *ngIf="!this.currentLocation" href="#" (click)="enableLocation(true)">Enable Auto Detect</a>
+    *ngIf="!this.currentLocation" href="#" (click)="enableLocation()">Enable Auto Detect</a>
   <a (click)="onManualLocationClicked(true)">Add Location Manually</a>
 </span>
 </div>

@@ -24,12 +24,26 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { SearchListComponent } from './search/search-list/search-list.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
 import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LocationImagesComponent } from './location/location-images/location-images.component';
+import {GoogleLoginProvider, SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
+import { SignInComponent } from './sign-in/sign-in.component';
+import {UserNamePipe} from './user-name.pipe';
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("151161582611-i9fkqu14n7giqluadt174na8nil5qo2r.apps.googleusercontent.com")
+  }
+]);
+ 
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -43,7 +57,10 @@ import { LocationImagesComponent } from './location/location-images/location-ima
     MapViewComponent,
     AboutComponent,
     WeatherWidgetComponent,
-    LocationImagesComponent
+    LocationImagesComponent,
+    SignInComponent,
+    WeatherWidgetComponent,
+    UserNamePipe
   ],
   imports: [
     BrowserModule,
@@ -63,9 +80,15 @@ import { LocationImagesComponent } from './location/location-images/location-ima
     MatIconModule,
     NgxMasonryModule,
     ScrollingModule,
-    MatDialogModule
+    MatDialogModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
  ],

@@ -5,7 +5,8 @@ import {
   CalculatedExpenditure,
   GlobalDestinationsObject,
   Position,
-  UserParameters
+  UserParameters,
+  Location
 } from '../model/search-criteria';
 import LocationData from '../search/location.json';
 import * as constant from '../searchConstants';
@@ -69,11 +70,12 @@ export class SearchDataService {
       this.calculatedExpenditure.foodExpenditure = this.getFoodExpenses(userParameters, budget);
       budget = budget - this.calculatedExpenditure.foodExpenditure;
       this.radius = this.calculateRadius(userParameters, budget);
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.getApplicableLocations(this.radius, position, userParameters.duration, byRoad, this.calculatedExpenditure);
-      }, (error) => {
-        console.log('No Location Available :: ' + error);
-        this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
+      this.getPosition((position) => {
+        if (position) {
+          this.getApplicableLocations(this.radius, position, userParameters.duration, byRoad, this.calculatedExpenditure);
+        } else {
+          this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
+        }
       });
     } catch (e) {
       this.applicableLocationsSubject.next(e);
@@ -215,8 +217,9 @@ export class SearchDataService {
                 imageUrl: this.globalDestinationsObject[destinationIndex].imageUrl,
                 information: this.globalDestinationsObject[destinationIndex].information,
                 latitude: this.globalDestinationsObject[destinationIndex].latitude,
+                placeId: this.globalDestinationsObject[destinationIndex].placeId,
                 longitude: this.globalDestinationsObject[destinationIndex++].longitude,
-                expenditure: calculatedExpenditure
+                expenditure: calculatedExpenditure,
               });
             }
           }
@@ -227,6 +230,7 @@ export class SearchDataService {
             location: applicableLocations,
             position: position
           };
+
           this.setSessionStorage('position.latitude', position.coords.latitude);
           this.setSessionStorage('position.longitude', position.coords.longitude);
           this.setSessionStorage('location', applicableLocations);
@@ -248,5 +252,52 @@ export class SearchDataService {
   setSessionStorage(key: string, value: any) {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
+
+  createLocationObject(location): Location {
+    let formattedLocationData: Location = {
+      name: location.name,
+      formatted_address: location.formatted_address,
+      photos: (() => {
+        if (Array.isArray(location.photos)) {
+          return location.photos.map(o => {
+            return o.getUrl();
+          });
+        }
+        return [];
+      })(),
+      id: location.id,
+      place_id: location.place_id,
+      reference: location.reference,
+      geometry: [
+        location.geometry.location.lat(),
+        location.geometry.location.lng()
+      ]
+    };
+    return formattedLocationData;
+  }
+  /**
+   * @param callback
+   */
+  getPosition(callback) {
+    let manualLocationObject: any = sessionStorage.getItem('manualLocationObject');
+    if (manualLocationObject) {
+      manualLocationObject = JSON.parse(manualLocationObject);
+      const position = {
+        coords: {
+          latitude: parseFloat(manualLocationObject.latitude),
+          longitude: parseFloat(manualLocationObject.longitude)
+        }
+      };
+      callback(position);
+    } else {
+      navigator.geolocation.getCurrentPosition((position) => {
+        callback(position);
+      }, (error) => {
+        console.log('No Location Available :: ' + error);
+        callback(false);
+      });
+    }
+  }
+
 }
 

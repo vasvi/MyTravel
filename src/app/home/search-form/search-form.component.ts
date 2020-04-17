@@ -157,6 +157,7 @@ export class SearchFormComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+    this.userSearchObj = this.formData;
   }
 
   getAvailableLocations = (data: ApplicableLocationObject | any) => {
