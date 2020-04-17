@@ -31,6 +31,7 @@ import { WeatherWidgetComponent } from './location/weather-widget/weather-widget
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import {GoogleLoginProvider, SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
 import { SignInComponent } from './sign-in/sign-in.component';
+import {UserNamePipe} from './user-name.pipe';
 
 let config = new AuthServiceConfig([
   {
@@ -55,7 +56,8 @@ export function provideConfig() {
     MapViewComponent,
     AboutComponent,
     SignInComponent,
-    WeatherWidgetComponent
+    WeatherWidgetComponent,
+    UserNamePipe
   ],
   imports: [
     BrowserModule,
