@@ -12,16 +12,17 @@ export class SearchListComponent implements OnInit, OnChanges {
   @Input() parentComponent: string;
   @Input() locationData: ApplicableLocationObject;
 
-  constructor(){}
+  constructor() {
+  }
 
   ngOnInit() {
     this.destinations = this.locationData && this.locationData.location;
   }
 
-  hideDestination(destination){
+  hideDestination(destination) {
     destination.hideDestination = true;
   }
-  
+
   ngOnChanges() {
     this.destinations = this.locationData && this.locationData.location;
   }
