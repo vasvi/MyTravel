@@ -4,7 +4,11 @@ import {MapService} from './services/map/map.service';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Location} from './model/search-criteria';
+<<<<<<< HEAD
+import { SearchDataService } from './services/search-data.serivce';
+=======
 import {SearchDataService} from './services/search-data.serivce';
+>>>>>>> 1bc30d3bbf8c4a5f0bfb0306dd1dad6467e37eb8
 
 
 @Component({
@@ -21,31 +25,11 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private ngZone: NgZone,
-              private mapService: MapService, private dialog: MatDialog, private searchService: SearchDataService) {
+              private mapService: MapService, 
+              private dialog: MatDialog,
+              private searchService: SearchDataService) {
   }
 
-  private createLocationObject(location): Location {
-    const formattedLocationData: Location = {
-      name: location.name,
-      formatted_address: location.formatted_address,
-      photos: (() => {
-        if (Array.isArray(location.photos)) {
-          return location.photos.map(o => {
-            return o.getUrl();
-          });
-        }
-        return [];
-      })(),
-      id: location.id,
-      place_id: location.place_id,
-      reference: location.reference,
-      geometry: [
-        location.geometry.location.lat(),
-        location.geometry.location.lng()
-      ]
-    };
-    return formattedLocationData;
-  }
 
   onManualLocationClicked() {
 
@@ -86,7 +70,7 @@ export class AppComponent implements OnInit {
 
   onLocationChange(location) {
     this.ngZone.run(() => {
-      let queryParamsObj = this.createLocationObject(location);
+      let queryParamsObj = this.searchService.createLocationObject(location);
       this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
     })
   }

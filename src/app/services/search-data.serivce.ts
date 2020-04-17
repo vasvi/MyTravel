@@ -5,7 +5,8 @@ import {
   CalculatedExpenditure,
   GlobalDestinationsObject,
   Position,
-  UserParameters
+  UserParameters,
+  Location
 } from '../model/search-criteria';
 import LocationData from '../search/location.json';
 import * as constant from '../searchConstants';
@@ -216,8 +217,9 @@ export class SearchDataService {
                 imageUrl: this.globalDestinationsObject[destinationIndex].imageUrl,
                 information: this.globalDestinationsObject[destinationIndex].information,
                 latitude: this.globalDestinationsObject[destinationIndex].latitude,
+                placeId: this.globalDestinationsObject[destinationIndex].placeId,
                 longitude: this.globalDestinationsObject[destinationIndex++].longitude,
-                expenditure: calculatedExpenditure
+                expenditure: calculatedExpenditure,
               });
             }
           }
@@ -251,6 +253,28 @@ export class SearchDataService {
     sessionStorage.setItem(key, JSON.stringify(value));
   }
 
+  createLocationObject(location): Location {
+    let formattedLocationData: Location = {
+      name: location.name,
+      formatted_address: location.formatted_address,
+      photos: (() => {
+        if (Array.isArray(location.photos)) {
+          return location.photos.map(o => {
+            return o.getUrl();
+          });
+        }
+        return [];
+      })(),
+      id: location.id,
+      place_id: location.place_id,
+      reference: location.reference,
+      geometry: [
+        location.geometry.location.lat(),
+        location.geometry.location.lng()
+      ]
+    };
+    return formattedLocationData;
+  }
   /**
    * @param callback
    */
