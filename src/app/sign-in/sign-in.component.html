@@ -6,7 +6,7 @@
         </button>
     </div>
     <div *ngIf="menuOpen" class="userDetail">
-        <div>{{user.name}}</div>
+        <div class="username">Google account: {{user.name}}</div>
         <div>{{user.email}}</div>
         <button class="mdl-button mdl-js-button mdl-button--raised" (click)="signOut()">Sign Out</button>
     </div>
