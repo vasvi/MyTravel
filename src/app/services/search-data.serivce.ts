@@ -70,11 +70,12 @@ export class SearchDataService {
       this.calculatedExpenditure.foodExpenditure = this.getFoodExpenses(userParameters, budget);
       budget = budget - this.calculatedExpenditure.foodExpenditure;
       this.radius = this.calculateRadius(userParameters, budget);
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.getApplicableLocations(this.radius, position, userParameters.duration, byRoad, this.calculatedExpenditure);
-      }, (error) => {
-        console.log('No Location Available :: ' + error);
-        this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
+      this.getPosition((position) => {
+        if (position) {
+          this.getApplicableLocations(this.radius, position, userParameters.duration, byRoad, this.calculatedExpenditure);
+        } else {
+          this.getApplicableLocations(this.radius, defaultPosition, userParameters.duration, byRoad, this.calculatedExpenditure);
+        }
       });
     } catch (e) {
       this.applicableLocationsSubject.next(e);
@@ -229,6 +230,7 @@ export class SearchDataService {
             location: applicableLocations,
             position: position
           };
+
           this.setSessionStorage('position.latitude', position.coords.latitude);
           this.setSessionStorage('position.longitude', position.coords.longitude);
           this.setSessionStorage('location', applicableLocations);
@@ -273,5 +275,29 @@ export class SearchDataService {
     };
     return formattedLocationData;
   }
+  /**
+   * @param callback
+   */
+  getPosition(callback) {
+    let manualLocationObject: any = sessionStorage.getItem('manualLocationObject');
+    if (manualLocationObject) {
+      manualLocationObject = JSON.parse(manualLocationObject);
+      const position = {
+        coords: {
+          latitude: parseFloat(manualLocationObject.latitude),
+          longitude: parseFloat(manualLocationObject.longitude)
+        }
+      };
+      callback(position);
+    } else {
+      navigator.geolocation.getCurrentPosition((position) => {
+        callback(position);
+      }, (error) => {
+        console.log('No Location Available :: ' + error);
+        callback(false);
+      });
+    }
+  }
+
 }
 
