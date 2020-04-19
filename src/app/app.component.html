@@ -9,15 +9,27 @@
         <app-global-search></app-global-search>
       </div>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href=""><i class="material-icons">home</i>
-          <span>Home</span>
+        <a class="mdl-navigation__link" href="">
+          <div class="mdl-button mdl-js-button mdl-js-ripple-effect customButton">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+          </div>
         </a>
-        <a class="mdl-navigation__link" href=""><i class="material-icons">info</i>
-          <span>About</span>
+        <a class="mdl-navigation__link" href="" routerLink="/about">
+          <div class="mdl-button mdl-js-button mdl-js-ripple-effect customButton">
+            <i class="material-icons">info</i>
+            <span>About</span>
+          </div>
         </a>
-        <a class="mdl-navigation__link" href=""><i class="material-icons">gps_fixed</i>
-          <span [style.color]="this.currentLocation ? 'inherit': '#b0b0b0'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}} </span>
-          <i class="material-icons editLocation" (click)="onManualLocationClicked($event)">edit</i>
+        <a class="mdl-navigation__link" href="">
+          <div class="mdl-button mdl-js-button mdl-js-ripple-effect customButton"
+               (click)="onManualLocationClicked($event)">
+            <i class="material-icons">edit_location</i>
+            <span [style.color]="this.currentLocation ? 'inherit': '#b0b0b0'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}} </span>
+          </div>
+        </a>
+        <a>
+          <sign-in></sign-in>
         </a>
       </nav>
 
@@ -33,11 +45,12 @@
   <main class="mdl-layout__content">
     <div class="page-content"><!-- Your content goes here -->
 
-      <nav class="navbar navbar-light fixed-top">
+      <!--<nav class="navbar navbar-light fixed-top">
         <span class="navbar-brand">FindYourGetaway</span>
         <app-global-search (onLocationChange)="onLocationChange($event)"></app-global-search>
         <sign-in></sign-in>
       </nav>
+      -->
       <div class="main">
         <router-outlet></router-outlet>
       </div>

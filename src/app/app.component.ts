@@ -1,11 +1,8 @@
 import {Component, ElementRef, NgZone, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {GlobalVariables} from './globalVariables';
 import {MapService} from './services/map/map.service';
 import {Router} from '@angular/router';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Location} from './model/search-criteria';
-import { SearchDataService } from './services/search-data.serivce';
-
+import {MatDialog} from '@angular/material/dialog';
+import {SearchDataService} from './services/search-data.serivce';
 
 
 @Component({
@@ -69,10 +66,10 @@ export class AppComponent implements OnInit {
   }
 
   onLocationChange(location) {
-   /* this.ngZone.run(() => {
-      let queryParamsObj = this.searchService.createLocationObject(location);
-      this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
-    });*/
+    /* this.ngZone.run(() => {
+       let queryParamsObj = this.searchService.createLocationObject(location);
+       this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
+     });*/
   }
 
   ngOnInit(): void {
