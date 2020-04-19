@@ -39,7 +39,6 @@ export class LocationImagesComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log(this.images);
   }
 
 }

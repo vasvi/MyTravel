@@ -23,28 +23,18 @@
             </div>
         </div>
 
-        <h3>Places of interest</h3>
-        <div class="nearby">
-            <ngx-masonry [useImagesLoaded]="true" [updateLayout]="true">
-                <div ngxMasonryItem class="masonry-item" *ngFor="let place of places">
-                    <div class="b-box" *ngIf="place.imageUrl">
-                        <img [src]="place.imageUrl" alt="">
-                        <div class="text">
-                            <span class="name block">
-                                {{place.name}}
-                            </span>
-                            <span class="rating block">
-                                <span class="material-icons">
-                                    grade
-                                </span>
-                                {{place.rating}}
-                            </span>
+        <div class="mdl-grid" style="padding: 0; margin: 0;">
+            <div class="carousel mdl-cell mdl-cell--12-col">
+                <h3>Places of interest</h3>
+                <div class="nearby">
+                    <div class="mdl-grid">
+                        <div class="carousel mdl-cell mdl-cell--12-col">
+                            <app-places-carousel [places]=places></app-places-carousel>
                         </div>
                     </div>
                 </div>
-            </ngx-masonry>
+            </div>
         </div>
-
 
     </div>
 </div>

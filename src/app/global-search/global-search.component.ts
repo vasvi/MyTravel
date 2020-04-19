@@ -9,14 +9,18 @@ export class GlobalSearchComponent implements OnInit {
   constructor() { }
   @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
   @Output() onLocationChange: EventEmitter<any> = new EventEmitter();
-  
-  ngAfterViewInit(){
+
+  ngAfterViewInit() {
     this.initAutoComplete();
   }
 
-  initAutoComplete(){
+  initAutoComplete() {
     setTimeout(() => {
-      let autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
+      let config = {
+        types: ['(cities)'],
+        componentRestrictions: { country: 'in' }
+      }
+      let autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement, config);
       google.maps.event.addListener(autoComplete, 'place_changed', () => {
         let place = autoComplete.getPlace();
         this.onLocationChange.emit(place);
@@ -24,6 +28,6 @@ export class GlobalSearchComponent implements OnInit {
     }, 300);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

@@ -3,7 +3,7 @@
         <div class="top-panel">
 
             <div class="box mdl-grid">
-                <div class="mdl-cell mdl-cell--6-col">
+                <div class="mdl-cell mdl-cell--8-col">
                     <div class="day">
                         {{weatherDetails.current.dt * 1000 | date: 'EEEE'}}
                     </div>
@@ -14,7 +14,7 @@
                         {{weatherDetails.current.temp}} &#8451;
                     </div>
                 </div>
-                <div class="icon mdl-cell mdl-cell--6-col">
+                <div class="icon mdl-cell mdl-cell--4-col">
                     <img [src]="'http://openweathermap.org/img/wn/'+weatherDetails.current.weather[0].icon+'@2x.png'"
                         alt="">
                     <div class="type">

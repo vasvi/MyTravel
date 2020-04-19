@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
   onLocationChange(location) {
     this.ngZone.run(() => {
       let queryParamsObj = this.searchService.createLocationObject(location);
-      this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: false});
+      this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
     })
   }
 
