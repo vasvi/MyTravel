@@ -1,29 +1,30 @@
+$fontColor: #2e2e2e;
 
-.search-bar::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label{
-    color: #fff;
+.search-bar::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+  color: #fff;
 }
 
-.search-bar{
-    width: 50%;
+.search-bar {
+  width: 50%;
 }
 
-.search-bar::ng-deep .mat-form-field{
-    width: 100%;
+.search-bar::ng-deep .mat-form-field {
+  width: 100%;
 }
+
 ::ng-deep {
-    .mat-toolbar {
-        background-color: #0f4bab;
-        color: #ffffff;
-    }
-    .mat-toolbar-single-row {
-        justify-content: space-between;
-    }
-}
-.main{
-    margin-top: 64px;
-    padding-bottom: 80px;
+  .mat-toolbar {
+    background-color: #0f4bab;
+    color: #ffffff;
+  }
+  .mat-toolbar-single-row {
+    justify-content: space-between;
+  }
 }
 
+.main {
+  padding-bottom: 80px;
+}
 
 .introSection {
   padding: 5px 5%;
@@ -46,11 +47,55 @@
   }
 }
 
-.manualLocationSearchBar{
+.manualLocationSearchBar {
   padding: 20px 0;
   width: 50%;
   font-weight: bold;
-  font-family: 'Montserrat',sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: .8em;
   line-height: 2em;
+}
+
+.mdl-layout-title {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.mdl-layout__header-row .mdl-navigation__link {
+  display: block;
+  color: rgb(255, 255, 255);
+  line-height: 64px;
+  font-weight: bold;
+  padding: 0 24px;
+  font-size: .9em;
+}
+
+.mdl-navigation__link span {
+  margin: 0 5px;
+  font-size: 11px;
+}
+
+.editLocation {
+  font-size: 13px;
+  vertical-align: super;
+  margin: 0px;
+
+}
+
+.customNavTextField {
+  flex-grow: 1;
+  text-align: center;
+
+}
+
+.mdl-layout__header {
+  background: #f9f9f9;
+  box-shadow: none;
+  color: $fontColor;
+}
+
+
+.mdl-navigation__link{
+  color: $fontColor !important;
 }

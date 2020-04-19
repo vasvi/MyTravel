@@ -1,13 +1,51 @@
 
-
 .global-search-bar {
-  width: calc( 100% - 100px) !important;
+  width: calc(100% - 100px) !important;
 }
 
-.mat-icon{
+.mat-icon {
   vertical-align: text-bottom;
   font-size: 26px;
   padding: 0 5px;
 
 }
 
+#waterfall-exp {
+  border: 1.5px solid #e1e1e1;
+  display: block;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: inherit;
+  padding: 4px 10px;
+  width: 100%;
+  height: 32px;
+  background: 0 0;
+  text-align: left;
+  color: inherit;
+}
+
+#waterfall-exp::-webkit-input-placeholder { /* Edge */
+  color: #7e7e7e;
+}
+
+#waterfall-exp:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #7e7e7e;
+}
+
+#waterfall-exp::placeholder {
+  color: #7e7e7e;
+}
+
+.mdl-textfield__expandable-holder {
+  max-width: inherit !important;
+  width: 400px;
+}
+
+.mdl-button--icon {
+  position: absolute;
+  bottom: 20px;
+  margin: 0 -1.5px;
+  width: 53px;
+  border-radius: 0;
+  border: 1.5px solid rgb(225, 225, 225);
+}
