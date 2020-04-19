@@ -1,8 +1,10 @@
-<button type="button" *ngIf="!user" (click)="signInWithGoogle()" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Sign In With Google</button>
+<button type="button" *ngIf="!user" (click)="signInWithGoogle()" class="mdl-button mdl-js-button mdl-js-ripple-effect customButton">
+  <i class="material-icons">person</i>
+  Sign In With Google</button>
 <div *ngIf="user">
     <div>
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" (click)="showUSerInfo()">
-            {{user.name | userName}}    
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" (click)="showUSerInfo()">
+            {{user.name | userName}}
         </button>
     </div>
     <div *ngIf="menuOpen" class="userDetail">

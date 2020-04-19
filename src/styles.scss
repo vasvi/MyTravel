@@ -147,3 +147,23 @@ body [class^='mat-'], body [class*=' mat-'] {
     }
   }
 }
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+  padding-right: 0;
+}
+
+.mdl-textfield.is-focused .mdl-textfield__expandable-holder, .mdl-textfield.is-dirty .mdl-textfield__expandable-holder {
+  max-width: 600px;
+  width: 60%;
+}
+
+.mdl-layout__drawer-button {
+  color: #7e7e7e;
+}
+
+.customButton{
+  text-transform: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  font-size: 11px;
+  color: #303030;
+}
