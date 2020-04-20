@@ -65,8 +65,7 @@ export function provideConfig() {
     SignInComponent,
     WeatherWidgetComponent,
     UserNamePipe,
-    PlacesCarouselComponent
-    UserNamePipe,
+    PlacesCarouselComponent,
     HeaderComponent
   ],
   imports: [
