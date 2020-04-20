@@ -1,5 +1,9 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -10,32 +14,17 @@ import { LocationComponent } from './location/location.component';
 import { SearchFormComponent } from './home/search-form/search-form.component';
 import { GlobalSearchComponent } from './global-search/global-search.component';
 
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDialogModule, MatIconModule, MatToolbarModule} from '@angular/material';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatRadioModule } from '@angular/material/radio';
 import { SearchListComponent } from './search/search-list/search-list.component';
-import { HttpClientModule } from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
 import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
-import { ScrollingModule } from '@angular/cdk/scrolling';
 import { LocationImagesComponent } from './location/location-images/location-images.component';
-import {GoogleLoginProvider, SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
+import { GoogleLoginProvider, SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { SignInComponent } from './sign-in/sign-in.component';
-import {UserNamePipe} from './user-name.pipe';
+import { UserNamePipe } from './user-name.pipe';
 import { PlacesCarouselComponent } from './location/places-carousel/places-carousel.component';
-import { CarouselModule } from 'ngx-owl-carousel-o';
 
-
+import { SharedModule } from './module/shared.module';
 
 let config = new AuthServiceConfig([
   {
@@ -43,7 +32,7 @@ let config = new AuthServiceConfig([
     provider: new GoogleLoginProvider("151161582611-i9fkqu14n7giqluadt174na8nil5qo2r.apps.googleusercontent.com")
   }
 ]);
- 
+
 export function provideConfig() {
   return config;
 }
@@ -70,22 +59,11 @@ export function provideConfig() {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSnackBarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
     ReactiveFormsModule,
-    MatSelectModule,
-    MatStepperModule,
-    MatRadioModule,
-    MatIconModule,
     HttpClientModule,
-    MatIconModule,
     ScrollingModule,
-    MatDialogModule,
     SocialLoginModule,
-    CarouselModule
+    SharedModule
   ],
   providers: [
     {
@@ -95,7 +73,7 @@ export function provideConfig() {
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
- ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
