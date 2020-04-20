@@ -15,5 +15,4 @@ export class HttpService {
     headers = headers ? new HttpHeaders(headers) : null;
     return this._http.get(url, { headers });
   }
-
 }

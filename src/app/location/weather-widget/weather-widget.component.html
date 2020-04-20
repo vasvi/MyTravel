@@ -1,26 +1,31 @@
 <div class="wrapper demo-card-wide mdl-card mdl-shadow--2dp" *ngIf="weatherDetails">
-    <div class="row">
-        <div class="col-4 top-panel">
-            <div class="box">
-                <div class="day">
-                    {{weatherDetails.current.dt * 1000 | date: 'EEEE'}}
+    <div class="">
+        <div class="top-panel">
+
+            <div class="box mdl-grid">
+                <div class="mdl-cell mdl-cell--8-col">
+                    <div class="day">
+                        {{weatherDetails.current.dt * 1000 | date: 'EEEE'}}
+                    </div>
+                    <div class="date">
+                        {{weatherDetails.current.dt * 1000 | date: 'longDate'}}
+                    </div>
+                    <div class="temp">
+                        {{weatherDetails.current.temp}} &#8451;
+                    </div>
                 </div>
-                <div class="date">
-                    {{weatherDetails.current.dt * 1000 | date: 'longDate'}}
-                </div>
-                <div class="icon">
+                <div class="icon mdl-cell mdl-cell--4-col">
                     <img [src]="'http://openweathermap.org/img/wn/'+weatherDetails.current.weather[0].icon+'@2x.png'"
                         alt="">
+                    <div class="type">
+                        {{weatherDetails.current.weather[0].description | titlecase}}
+                    </div>
                 </div>
-                <div class="temp">
-                    {{weatherDetails.current.temp}} &#8451;
-                </div>
-                <div class="type">
-                    {{weatherDetails.current.weather[0].description | titlecase}}
-                </div>
+                
+
             </div>
         </div>
-        <div class="col-8 bottom-panel">
+        <div class="bottom-panel">
             <div class="row">
                 <ng-container *ngFor="let weather of weatherDetails.daily; let i = index">
                     <div class="col-2" *ngIf="i < 7 && i > 0">

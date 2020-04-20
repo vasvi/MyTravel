@@ -1,12 +1,10 @@
 .wrapper{
-    padding: 20px;
-    margin: 60px 0;
+    padding: 20px 22px;
     width: 100%;
 }
 
 .top-panel{
     position: relative;
-    padding: 20px;
     .day{
         font-size: 20px;
     }
@@ -15,11 +13,8 @@
     }
     .icon{
         text-align: center;
-        img{
-            position: absolute;
-            margin-top: -12px;
-            margin-left: -35px;
-        }
+        position: relative;
+        top: -20px;
     }
     .temp{
         font-size: 35px;
@@ -29,6 +24,7 @@
 
 .bottom-panel{
     display: flex;
+    border-top: 1px solid #dadde0;
     .week{
         text-align: center;
         font-size: 12px;
@@ -44,7 +40,8 @@
         text-align: center;
     }
     .row{
-        width: 80%;
+        width: 94%;
         margin: auto;
+        padding: 15px;
     }
 }

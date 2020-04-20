@@ -147,7 +147,11 @@ body [class^='mat-'], body [class*=' mat-'] {
     }
   }
 }
-.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+
+.pac-container{
+  z-index: 1030;
+}
+  .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
   padding-right: 0;
 }
 

@@ -1,0 +1,88 @@
+.mdl-grid {
+    padding: 0;
+    margin: 0;
+    height: 40vh;
+    overflow: hidden;
+
+    img:hover {
+        transform: scale(1.2) translateX(-10px);
+        cursor: pointer;
+    }
+
+    img {
+        transition: all .5s ease;
+    }
+
+    .big {
+        margin: 0;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            min-height: 40vh;
+            border-right: 1px solid #fff;
+        }
+    }
+
+    .small {
+        img {
+            width: 100%;
+            min-height: 20vh;
+        }
+
+        margin: 0;
+
+        .mdl-cell--4-col {
+            margin: 0;
+            border: 1px solid #fff;
+            overflow: hidden;
+            height: 20vh;
+        }
+    }
+}
+
+#dialog {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    overflow: hidden;
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.72);
+    }
+
+    .content {
+        img {
+            position: relative;
+            margin-top: 65px;
+            max-height: 80vh;
+            box-shadow: 0 11px 15px -7px rgba(0, 0, 0, .2), 0 24px 38px 3px rgba(0, 0, 0, .14), 0 9px 46px 8px rgba(0, 0, 0, .12);
+        }
+
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        justify-self: center;
+
+        .btn-grp {
+            position: absolute;
+            top: 80vh;
+
+            .mdl-button {
+                margin: 0 15px;
+                background: #fff;
+                outline: none;
+            }
+        }
+    }
+
+}
