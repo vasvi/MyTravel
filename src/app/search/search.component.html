@@ -1,13 +1,17 @@
 <div class="searchResults" *ngIf="applicableLocations else loading">
-  <details class="searchResults__editSearch">
-    <summary class="searchResults__summary">
-      <ng-container *ngTemplateOutlet="formdata"></ng-container>
-    </summary>
-    <search-form [formData]="searchQuery" (locationDataChange)="refreshSearchView()"></search-form>
-  </details>
+  <dialog #editDialog id="dialog" class="mdl-dialog">
+    <div class="dialogHeader">
+      <h5 class="mdl-dialog__title">Edit your search</h5>
+      <mat-icon (click)="closeModal()">close</mat-icon>
+    </div>
+    <div class="mdl-dialog__content">
+      <search-form [formData]="searchQuery" (locationDataChange)="refreshSearchView()"></search-form>
+    </div>
+  </dialog>
+  <ng-container *ngTemplateOutlet="formdata"></ng-container>
   <div class="searchResults__mapListView">
     <map-view [locationData]="applicableLocations" class="map"></map-view>
-    <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'"></app-search-list>
+    <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'" class="search-table"></app-search-list>
   </div>
 </div>
 <ng-template #loading>
@@ -50,7 +54,7 @@
       </span>
     </div>
     <div>
-      <span class="editIcon">
+      <span class="editIcon" (click)="showEditForm()">
         <mat-icon>create</mat-icon>
       </span>
     </div>
