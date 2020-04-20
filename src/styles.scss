@@ -80,8 +80,8 @@ body [class^='mat-'], body [class*=' mat-'] {
 
 .mat-step-label {
   font-weight: bold;
-  font-size: .7em;
-  color: rgba(227, 227, 227, 0.87) !important;
+  font-size: .75em;
+  color: #333 !important;
 }
 
 .mat-simple-snackbar, .gm-style-iw-d {
@@ -99,7 +99,7 @@ body [class^='mat-'], body [class*=' mat-'] {
 }
 
 .mat-select-value {
-  color: #FFF !important;
+  color: #333 !important;
   padding: 4px 10px;
   font-family: $themeFont;
   font-weight: bold;
@@ -167,3 +167,4 @@ body [class^='mat-'], body [class*=' mat-'] {
   font-size: 11px;
   color: #303030;
 }
+

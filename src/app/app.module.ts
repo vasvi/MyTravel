@@ -32,6 +32,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import {GoogleLoginProvider, SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
 import { SignInComponent } from './sign-in/sign-in.component';
 import {UserNamePipe} from './user-name.pipe';
+import { HeaderComponent } from './header/header.component';
 
 let config = new AuthServiceConfig([
   {
@@ -39,7 +40,7 @@ let config = new AuthServiceConfig([
     provider: new GoogleLoginProvider("151161582611-i9fkqu14n7giqluadt174na8nil5qo2r.apps.googleusercontent.com")
   }
 ]);
- 
+
 export function provideConfig() {
   return config;
 }
@@ -57,7 +58,8 @@ export function provideConfig() {
     AboutComponent,
     SignInComponent,
     WeatherWidgetComponent,
-    UserNamePipe
+    UserNamePipe,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

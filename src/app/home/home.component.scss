@@ -19,7 +19,8 @@
 }
 
 .popularLocations {
-  margin-top: 30px;
+  margin-top: 0px;
+  width: calc(100% + 68px);
 }
 
 .loadingPopular {
@@ -30,4 +31,31 @@
     margin-left: 33%;
     margin-top: 20px;
   }
+}
+
+.infoSection {
+  padding: 5px 5%;
+  background: white;
+  width: 100%;
+  margin: 40px 0 50px;
+  h1 {
+    font-size: 2.4em;
+    padding: 0px 4px 11px;
+    color: #413e47;
+    font-weight: bold;
+    text-align: left;
+    font-family: "Lato", sans-serif;
+  }
+  h4 {
+    font-weight: bold;
+    font-size: .9em;
+    padding: 0 1%;
+    line-height: 1.4em;
+
+  }
+}
+
+.search{
+  margin: 100px 0 0 60px;
+
 }
