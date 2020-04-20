@@ -1,5 +1,4 @@
 import {Component, ElementRef, NgZone, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {GlobalVariables} from './globalVariables';
 import {MapService} from './services/map/map.service';
 import {Router} from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -21,13 +20,16 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private ngZone: NgZone,
-              private mapService: MapService, 
+              private mapService: MapService,
               private dialog: MatDialog,
               private searchService: SearchDataService) {
   }
 
 
-  onManualLocationClicked() {
+  onManualLocationClicked($event: MouseEvent) {
+
+    $event.preventDefault();
+    $event.stopPropagation();
 
     const dialogRef = this.dialog.open(this.dialogRef, {
       height: '350px',
@@ -65,10 +67,10 @@ export class AppComponent implements OnInit {
   }
 
   onLocationChange(location) {
-    this.ngZone.run(() => {
-      let queryParamsObj = this.searchService.createLocationObject(location);
-      this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
-    })
+    /* this.ngZone.run(() => {
+       let queryParamsObj = this.searchService.createLocationObject(location);
+       this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
+     });*/
   }
 
   ngOnInit(): void {
