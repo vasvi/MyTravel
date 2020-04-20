@@ -12,7 +12,6 @@ import { SearchDataService } from '../../services/search-data.serivce';
 
 export class SearchListComponent implements OnInit, OnChanges {
   destinations = [];
-  @Input() parentComponent: string;
   @Input() locationData: ApplicableLocationObject;
 
   constructor(private router: Router,

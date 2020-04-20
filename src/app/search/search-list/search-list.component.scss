@@ -48,28 +48,6 @@ ul {
   font-weight: bold;
 }
 
-/*.leftAlignedContainer {
-  width: 50%;
-  position: absolute;
-  right: 0;
-  max-height: 500px;
-  padding: 0 0 50px;
-}*/
-
-.centerAlignedContainer {
-  text-align: left;
-  padding: 38px 0 0;
-  max-height: 500px;
-  overflow-y: auto;
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    li {
-      flex-basis: 50%;
-    }
-  }
-}
-
 h1 {
   font-size: 2em;
   padding: 0px 0 1px;

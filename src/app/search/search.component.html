@@ -11,7 +11,7 @@
   <ng-container *ngTemplateOutlet="formdata"></ng-container>
   <div class="searchResults__mapListView">
     <map-view [locationData]="applicableLocations" class="map"></map-view>
-    <app-search-list [locationData]="applicableLocations" [parentComponent]="'searchComponent'" class="search-table"></app-search-list>
+    <app-search-list [locationData]="applicableLocations" class="search-table"></app-search-list>
   </div>
 </div>
 <ng-template #loading>
