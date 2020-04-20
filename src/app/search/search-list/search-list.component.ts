@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges, NgZone} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, NgZone, ViewEncapsulation} from '@angular/core';
 import {ApplicableLocationObject, Location} from 'src/app/model/search-criteria';
 import { Router } from '@angular/router';
 import { SearchDataService } from '../../services/search-data.serivce';
@@ -7,7 +7,7 @@ import { SearchDataService } from '../../services/search-data.serivce';
 @Component({
   selector: 'app-search-list',
   templateUrl: './search-list.component.html',
-  styleUrls: ['./search-list.component.scss'],
+  styleUrls: ['./search-list.component.scss']
 })
 
 export class SearchListComponent implements OnInit, OnChanges {
@@ -22,12 +22,12 @@ export class SearchListComponent implements OnInit, OnChanges {
     this.destinations = this.locationData && this.locationData.location;
   }
 
-  getPlaces(destination){  
+  getPlaces(destination){
     let map = new google.maps.Map(document.createElement('div'));
     var placesService = new google.maps.places.PlacesService(map);
     placesService.getDetails({placeId:destination.placeId}, (data,status)=> this.navigateToLocation(data,status));
   }
-  
+
   hideDestination(destination){
     destination.hideDestination = true;
   }

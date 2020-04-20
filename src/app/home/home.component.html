@@ -1,17 +1,36 @@
-<div class="fullWidthBackground">
-  <div class="search">
-    <div class="titleText">
+<div class="search">
+  <div class="mdl-grid">
+    <div class="mdl-cell--6-col">
+      <div class="mdl-cell--12-col">
+        <div class="infoSection">
+          <h1>
+            Help us find your getaway!
+          </h1>
+          <h4>
+            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+            some
+            form, by injected humour, or randomised words which don't look even slightly believable.
+          </h4>
+        </div>
+      </div>
+      <div class="mdl-cell--12-col">
+        <search-form></search-form>
+      </div>
     </div>
-    <search-form></search-form>
+    <div class="mdl-cell--6-col">
+      <div class="mdl-cell--12-col"></div>
+      <div class="mdl-cell--12-col">
+        <div class="popularLocations" *ngIf="!loadingPopularLocations else loading">
+          <h4 class="popularDestLabel">
+            Popular destinations around you
+          </h4>
+          <app-search-list [locationData]="popularLocations"></app-search-list>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="popularLocations" *ngIf="!loadingPopularLocations else loading">
-  <h4 class="popularDestLabel">
-    Popular destinations around you
-  </h4>
-  <app-search-list [locationData]="popularLocations" ></app-search-list>
-</div>
 <ng-template #loading>
   <div class="loadingPopular">
     Fetching popular destinations around you..
