@@ -1,7 +1,8 @@
 import {Component, ElementRef, NgZone, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MapService} from './services/map/map.service';
 import {Router} from '@angular/router';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Location} from './model/search-criteria';
 import {SearchDataService} from './services/search-data.serivce';
 
 

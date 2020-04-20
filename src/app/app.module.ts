@@ -22,16 +22,20 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
-import { NgxMasonryModule } from 'ngx-masonry';
 import { SearchListComponent } from './search/search-list/search-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MapViewComponent } from './search/map-view/map-view.component';
 import { AboutComponent } from './about/about.component';
 import { WeatherWidgetComponent } from './location/weather-widget/weather-widget.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { LocationImagesComponent } from './location/location-images/location-images.component';
 import {GoogleLoginProvider, SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
 import { SignInComponent } from './sign-in/sign-in.component';
 import {UserNamePipe} from './user-name.pipe';
+import { PlacesCarouselComponent } from './location/places-carousel/places-carousel.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
+
 
 let config = new AuthServiceConfig([
   {
@@ -55,9 +59,12 @@ export function provideConfig() {
     SearchListComponent,
     MapViewComponent,
     AboutComponent,
+    WeatherWidgetComponent,
+    LocationImagesComponent,
     SignInComponent,
     WeatherWidgetComponent,
-    UserNamePipe
+    UserNamePipe,
+    PlacesCarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -75,10 +82,10 @@ export function provideConfig() {
     MatIconModule,
     HttpClientModule,
     MatIconModule,
-    NgxMasonryModule,
     ScrollingModule,
     MatDialogModule,
-    SocialLoginModule
+    SocialLoginModule,
+    CarouselModule
   ],
   providers: [
     {

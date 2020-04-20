@@ -1,7 +1,8 @@
 .wrapper {
     .container{
-        width: 80%;
+        width: 90%;
         margin: auto;
+        max-width: none;
     }
     .images{
         img{
@@ -22,7 +23,6 @@
         position: relative;
     }
     .carousel{
-        padding-top: 30px;
         .box {
             .img{
                 img{
@@ -70,6 +70,7 @@
             border: 3px solid #fff;
         }
         .b-box{
+            width: 16rem;
             max-width: 17rem;
             position: relative;
             .text{
@@ -93,4 +94,9 @@
         }
         
     }
+}
+
+#map{
+    height: 330px;
+    width: 100%;
 }
