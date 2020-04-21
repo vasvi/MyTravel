@@ -22,6 +22,7 @@ import { LocationImagesComponent } from './location/location-images/location-ima
 import { GoogleLoginProvider, SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { UserNamePipe } from './user-name.pipe';
+import { HeaderComponent } from './header/header.component';
 import { PlacesCarouselComponent } from './location/places-carousel/places-carousel.component';
 
 import { SharedModule } from './module/shared.module';
@@ -53,7 +54,8 @@ export function provideConfig() {
     SignInComponent,
     WeatherWidgetComponent,
     UserNamePipe,
-    PlacesCarouselComponent
+    PlacesCarouselComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

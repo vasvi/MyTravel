@@ -1,78 +1,12 @@
 <div class=" mdl-layout mdl-js-layout">
-  <header class="mdl-layout__header ">
-    <!-- Top row, always visible -->
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title">FindYourGetaway</span>
-      <div
-        class="mdl-textfield mdl-js-textfield  mdl-textfield--floating-label mdl-textfield--align-right customNavTextField has-placeholder is-upgraded">
-        <app-global-search></app-global-search>
-      </div>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="">
-          <div class="mdl-button mdl-js-button mdl-js-ripple-effect customButton">
-            <i class="material-icons">home</i>
-            <span>Home</span>
-          </div>
-        </a>
-        <a class="mdl-navigation__link" href="" routerLink="/about">
-          <div class="mdl-button mdl-js-button mdl-js-ripple-effect customButton">
-            <i class="material-icons">info</i>
-            <span>About</span>
-          </div>
-        </a>
-        <a class="mdl-navigation__link" href="">
-          <div class="mdl-button mdl-js-button mdl-js-ripple-effect customButton"
-               (click)="onManualLocationClicked($event)">
-            <i class="material-icons">edit_location</i>
-            <span [style.color]="this.currentLocation ? 'inherit': '#b0b0b0'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}} </span>
-          </div>
-        </a>
-        <a>
-          <sign-in></sign-in>
-        </a>
-      </nav>
-
-    </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">Title</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" href="">Home</a>
-      <a class="mdl-navigation__link" href="">About Us</a>
-    </nav>
-  </div>
+  <app-header></app-header>
   <main class="mdl-layout__content">
     <div class="page-content"><!-- Your content goes here -->
-
-      <!--<nav class="navbar navbar-light fixed-top">
-        <span class="navbar-brand">FindYourGetaway</span>
-        <app-global-search (onLocationChange)="onLocationChange($event)"></app-global-search>
-        <sign-in></sign-in>
-      </nav>
-      -->
       <div class="main">
         <router-outlet></router-outlet>
       </div>
-      <ng-template #manualLocationEntry>
-        <div class="introSection">
-          <h1>
-            Help us to find where you are
-          </h1>
-          <h4>
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-            some
-            form, by injected humour, or randomised words which don't look even slightly believable.
-          </h4>
-
-          <div class="wrapper">
-            <mat-form-field class="manualLocationSearchBar">
-              <input matInput #manualLocationInput placeholder="Start typing your location ">
-            </mat-form-field>
-            <mat-icon aria-hidden="false" (click)="setManualLocation()" aria-label="Example home icon">check</mat-icon>
-          </div>
-        </div>
-      </ng-template>
     </div>
   </main>
 </div>
+
+
