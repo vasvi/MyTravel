@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import {GlobalDestinationsObject, ApplicableLocationObject, Position, UserParameters} from '../model/search-criteria';
 import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
@@ -11,6 +11,7 @@ import * as constant from '../searchConstants';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  @ViewChild('editDialog', {static: false}) editDialog: ElementRef;
   applicableLocations: ApplicableLocationObject;
   globalDestinationsObject: GlobalDestinationsObject[] = LocationData;
   searchQuery: UserParameters;
@@ -63,5 +64,19 @@ export class SearchComponent implements OnInit {
 
   refreshSearchView = () => {
     this.applicableLocations = this.searchDataService.getApplicableLocationData();
+    this.closeModal();
+  }
+
+  showEditForm = () => {
+    if (this.editDialog) {
+      this.editDialog.nativeElement.showModal();
+    }
+  }
+
+  closeModal = () => {
+    console.log(this.editDialog.nativeElement.open);
+    if (this.editDialog && this.editDialog.nativeElement.open) {
+      this.editDialog.nativeElement.close();
+    }
   }
 }

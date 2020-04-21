@@ -24,7 +24,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { UserNamePipe } from './user-name.pipe';
 import { HeaderComponent } from './header/header.component';
 import { PlacesCarouselComponent } from './location/places-carousel/places-carousel.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { MDL } from './directives/MaterialDesignLiteUpgradeElement';
 import { SharedModule } from './module/shared.module';
 
 let config = new AuthServiceConfig([
@@ -55,7 +56,8 @@ export function provideConfig() {
     WeatherWidgetComponent,
     UserNamePipe,
     PlacesCarouselComponent,
-    HeaderComponent
+    HeaderComponent,
+    MDL
   ],
   imports: [
     BrowserModule,
