@@ -21,13 +21,15 @@
       <div class="mdl-cell--12-col"></div>
       <div class="mdl-cell--12-col">
         <div class="popularLocations" *ngIf="!loadingPopularLocations else loading">
-          <app-search-list [locationData]="popularLocations" [parentComponent]="'homeComponent'"></app-search-list>
+          <h4 class="popularDestLabel">
+            Popular destinations around you
+          </h4>
+          <app-search-list [locationData]="popularLocations"></app-search-list>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 
 <ng-template #loading>
   <div class="loadingPopular">
