@@ -33,10 +33,10 @@
             <img [src]="destination.imageUrl" class="city-img">
           </td>
           <td>
-            <button id="menu-speed" class="mdl-button mdl-js-button mdl-button--icon">
+            <button id="destinationMenu" class="mdl-button mdl-js-button mdl-button--icon">
               <i class="material-icons">more_vert</i>
             </button>
-            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="menu-speed">
+            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="destinationMenu">
               <li class="mdl-menu__item" (click)="getPlaces(destination)">View Detail</li>
               <li class="mdl-menu__item" (click)="hideDestination(destination)">Hide from list</li>
             </ul>
