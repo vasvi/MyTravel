@@ -7,7 +7,7 @@
   </h4>
 </div>
 <div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'" class="container search-list">
-  <div align="center" *ngIf="destinations.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
+  <div align="center" *ngIf="destinations?.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
       Please wait.. You locations are being loaded.
     </h4>
@@ -29,8 +29,8 @@
         <td class="expand"><button class="mdl-button mdl-js-button mdl-button--icon" [attr.data-target]="'#data' + destinationIndex">
           <i class="material-icons" (click)="stopNavigation($event,destination)">{{destination?.showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</i>
         </button></td>
-        <td class="mdl-data-table__cell--non-numeric"> {{destination.location}}</td>
-        <td>{{destination.details.distance.text}}</td>
+        <td class="mdl-data-table__cell--non-numeric"> {{destination?.location}}</td>
+        <td>{{destination?.details?.distance.text}}</td>
         <td><img [src]="destination.imageUrl" class="city-img"></td>
         <td><button class="mdl-button mdl-js-button mdl-button--icon" (click)="hideDestination(destination)">
           <i class="material-icons">close</i>
@@ -38,7 +38,7 @@
       </tr>
       <tr colspan="6" class="hiddenRow"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination && destination?.showDescription">
         <td></td>
-        <div class="description">{{destination.information ? destination.information : 'No Information Available'}} </div>
+        <div class="description">{{destination?.information ? destination?.information : 'No Information Available'}} </div>
       </tr>
       </ng-container>
     <!-- </cdk-virtual-scroll-viewport> -->
