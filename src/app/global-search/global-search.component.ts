@@ -20,8 +20,6 @@ export class GlobalSearchComponent implements AfterViewInit {
   }
 
   @ViewChild('locationInput', {static: false}) locationInputViewChild: ElementRef;
-  @Output() onLocationChange: EventEmitter<any> = new EventEmitter();
-  place: any = '';
 
   ngAfterViewInit() {
     this.initAutoComplete();
@@ -31,18 +29,11 @@ export class GlobalSearchComponent implements AfterViewInit {
     setTimeout(() => {
       const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
       google.maps.event.addListener(autoComplete, 'place_changed', () => {
-        this.place = autoComplete.getPlace();
         //  this.onLocationChange.emit(place);
+        const queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
+        this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: false});
       });
     }, 300);
   }
 
-  routeToLocation() {
-    if (this.place) {
-      this.ngZone.run(() => {
-        const queryParamsObj = this.searchService.createLocationObject(this.place);
-        this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
-      });
-    }
-  }
 }

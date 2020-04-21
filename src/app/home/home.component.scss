@@ -18,11 +18,7 @@
   }
 }
 
-.popularLocations {
-  margin-top: 0px;
-  text-align: center;
-  width: calc(100% + 68px);
-}
+
 
 .loadingPopular {
   margin-top: 50px;
@@ -35,10 +31,10 @@
 }
 
 .infoSection {
-  padding: 5px 5%;
+  padding: 47px 5%;
   background: white;
-  width: 100%;
-  margin: 40px 0 50px;
+  margin: 1px 0 33px 3%;
+  border-radius: 14px;
   h1 {
     font-size: 2.4em;
     padding: 0px 4px 11px;
@@ -57,6 +53,29 @@
 }
 
 .search{
-  margin: 100px 0 0 60px;
+  margin: 100px 0px 0 60px;
+}
 
+
+.popularLocations{
+  margin-top: 30px;
+  text-align: center;
+  font-weight: bold;
+  padding: 1px 0px;
+  background: white;
+  h1 {
+    font-size: 1.8em;
+    padding: 0px 45px 1px;
+    color: #413e47;
+    font-weight: bold;
+    text-align: left;
+    font-family: "Lato", sans-serif;
+  }
+  h4 {
+    font-weight: bold;
+    font-size: 0.9em;
+    padding: 0 45px 0px;
+    text-align: left;
+    line-height: 1.4em;
+  }
 }

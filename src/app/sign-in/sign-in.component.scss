@@ -1,21 +1,32 @@
 .userDetail {
     position: absolute;
-    background-color: #969590;
+    font-size: .8em;
+    background-color: #262626;
     border-radius: 2px;
     right: 10px;
-    opacity: 0.8;
+    /* opacity: 0.8; */
+    padding: 12px;
 
     div.username {
         font-weight: bold;
     }
 
     div, button {
-        margin: 5px;
-        padding: 5px;
+      margin: 5px;
+      padding: 5px;
+      text-align: center;
     }
 
     button {
-        color: #dbdbdb;
+      color: #dbdbdb;
+      margin: 0 auto !important;
+      display: block;
+      text-transform: none;
+      padding: 0px 20px 0px !important;
+      height: 35px;
+      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
+      font-size: .9em;
     }
 }
 
