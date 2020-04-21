@@ -74,6 +74,19 @@ cdk-virtual-scroll-viewport {
   height: 400px;
 }
 
+.centerAlignedContainer {
+  text-align: left;
+  padding: 38px 0 0;
+  max-height: 533px;
+  overflow-y: auto;
+  ul {
+    display: flex;   
+    flex-wrap: wrap;
+    li {
+      flex-basis: 50%;
+    }
+  }
+}
 .search-list {
   tr {
     white-space: normal;
