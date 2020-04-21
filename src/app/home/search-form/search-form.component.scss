@@ -4,19 +4,19 @@ $themeFont: 'Montserrat', sans-serif;
   .mat-icon {
     font-size: 20px;;
   }
-  
+
   mat-form-field {
     margin: 10px 20px 10px 10px;
     font-family: $themeFont;
     font-weight: bold;
     font-size: .8em;
     mat-label {
-      color: #d1cdcd;
+      color: #333;
       font-size: .9em;
     }
   }
   mat-form-field input {
-    color: white;
+    color: #333;
     padding: 3px;
   }
 
@@ -27,7 +27,6 @@ $themeFont: 'Montserrat', sans-serif;
   mat-radio-button {
     .mat-radio-label-content {
     }
-    color: #d1cdcd;
     font-size: .9em;
     font-family: $themeFont !important;
   }
@@ -47,15 +46,14 @@ $themeFont: 'Montserrat', sans-serif;
     }
   }
   .mat-stepper-horizontal, .mat-stepper-vertical {
-    background-color: rgba(0, 0, 0, 0.62);
     font-family: $themeFont;
-    color: #FFF;
+    color: #333;
     text-transform: capitalize;
     font-weight: bold;
   }
 
   .mat-form-field-label {
-    color: white !important;
+    color: #333 !important;
   }
 
   button {
@@ -79,7 +77,5 @@ $themeFont: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 0.78em;
   padding: 19px 15px 0;
-  color: #b8b7b7;
+  color: #333;
 }
-
-
