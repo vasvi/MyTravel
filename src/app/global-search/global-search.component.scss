@@ -11,13 +11,13 @@
 }
 
 #waterfall-exp {
-  border: 1.5px solid #e1e1e1;
+  border-bottom: 2px solid #000938;
   display: block;
   font-weight: bold;
   font-size: 11px;
   font-family: inherit;
-  padding: 4px 10px;
-  width: 100%;
+  padding: 18px 7%;
+  width: 75%;
   height: 32px;
   background: 0 0;
   text-align: left;
@@ -25,15 +25,15 @@
 }
 
 #waterfall-exp::-webkit-input-placeholder { /* Edge */
-  color: #7e7e7e;
+  color: #c6c6c6;
 }
 
 #waterfall-exp:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #7e7e7e;
+  color: #c6c6c6;
 }
 
 #waterfall-exp::placeholder {
-  color: #7e7e7e;
+  color: #c6c6c6;
 }
 
 .mdl-textfield__expandable-holder {
@@ -44,8 +44,8 @@
 .mdl-button--icon {
   position: absolute;
   bottom: 20px;
-  margin: 0 -1.5px;
+  margin: 2px 17.5px;
   width: 53px;
   border-radius: 0;
-  border: 1.5px solid rgb(225, 225, 225);
+  border: 0;
 }
