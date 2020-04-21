@@ -1,4 +1,4 @@
-ul {
+/*ul {
   list-style-type: none;
   padding: 0;
 }
@@ -53,7 +53,7 @@ h1 {
   padding: 0px 0 1px;
   text-align: center;
   font-family: "Lato", sans-serif;
-}
+}*/
 
 h4 {
   font-weight: bold;
@@ -70,52 +70,50 @@ h4 {
 
 }
 
-
-tr {
-  td {
-    img {
-      width: 100px;
-      margin: 10px 0 10px;
-    }
-  }
-}
-
-.full-width{
-  width: 100%;
-  font-weight: bold;
-}
-
-tr{
-  white-space: normal;
-}
-
 cdk-virtual-scroll-viewport {
   height: 400px;
 }
 
-.search-list .name{
-  width:40%;
-  text-align: left;
-}
+.search-list {
+  tr {
+    white-space: normal;
 
-.search-list .dest-image{
-  width:20%;
-}
+    td {
+      img {
+        width: 100px;
+        margin: 10px 0 10px;
+      }
 
-.search-list .close{
-  width:10%;
-}
+      ul.mdl-menu li .mat-icon {
+        font-size: 16px;
+      }
+    }
+  }
 
-.search-list .distance{
-  width:20%;
-}
+  .name {
+    width:40%;
+    text-align: left;
+  }
+  
+  .dest-image {
+    width:20%;
+  }
 
-.search-list .description {
-  width: 190%;
-  margin:24px;
-}
+  .close{
+    width:10%;
+  }
 
-.search-list .expand {
-  width:10%;
-  text-align: left;
+  .distance{
+    width:25%;
+  }
+
+  .description {
+    width: 190%;
+    margin:24px;
+  }
+
+  .expand {
+    width:10%;
+    text-align: left;
+  }
 }

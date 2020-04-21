@@ -35,6 +35,7 @@ import {UserNamePipe} from './user-name.pipe';
 import { HeaderComponent } from './header/header.component';
 import { PlacesCarouselComponent } from './location/places-carousel/places-carousel.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { MDL } from './directives/MaterialDesignLiteUpgradeElement';
 
 
 
@@ -66,7 +67,8 @@ export function provideConfig() {
     WeatherWidgetComponent,
     UserNamePipe,
     PlacesCarouselComponent,
-    HeaderComponent
+    HeaderComponent,
+    MDL
   ],
   imports: [
     BrowserModule,

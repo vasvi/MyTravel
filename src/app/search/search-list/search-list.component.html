@@ -32,13 +32,15 @@
           <td>
             <img [src]="destination.imageUrl" class="city-img">
           </td>
-          <td>
-            <button id="destinationMenu" class="mdl-button mdl-js-button mdl-button--icon">
+          <td mdl>
+            <button id="{{ 'destinationMenu' + destinationIndex }}" class="mdl-button mdl-js-button mdl-button--icon">
               <i class="material-icons">more_vert</i>
             </button>
-            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="destinationMenu">
-              <li class="mdl-menu__item" (click)="getPlaces(destination)">View Detail</li>
-              <li class="mdl-menu__item" (click)="hideDestination(destination)">Hide from list</li>
+            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" [attr.for]="'destinationMenu' + destinationIndex">
+              <li class="mdl-menu__item" (click)="getPlaces(destination)">
+                <mat-icon>open_in_new</mat-icon>View Detail</li>
+              <li class="mdl-menu__item" (click)="hideDestination(destination)">
+                <mat-icon>visibility_off</mat-icon>Hide from list</li>
             </ul>
           </td>
         </tr>
