@@ -76,16 +76,9 @@ cdk-virtual-scroll-viewport {
 
 .centerAlignedContainer {
   text-align: left;
-  padding: 38px 0 0;
+  //padding: 38px 0 0;
   max-height: 533px;
   overflow-y: auto;
-  ul {
-    display: flex;   
-    flex-wrap: wrap;
-    li {
-      flex-basis: 50%;
-    }
-  }
 }
 .search-list {
   tr {
@@ -112,12 +105,12 @@ cdk-virtual-scroll-viewport {
     width:20%;
   }
 
-  .close{
-    width:10%;
+  .close {
+    width:5%;
   }
 
   .distance{
-    width:25%;
+    width:30%;
   }
 
   .description {
@@ -126,7 +119,7 @@ cdk-virtual-scroll-viewport {
   }
 
   .expand {
-    width:10%;
+    width:5%;
     text-align: left;
   }
 }
