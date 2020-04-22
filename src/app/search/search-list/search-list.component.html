@@ -1,11 +1,10 @@
-
-<div [ngClass]="this.parentComponent === 'searchComponent' ? 'leftAlignedContainer': 'centerAlignedContainer'" class="container search-list">
+<div class="container search-list centerAlignedContainer">
   <div align="center" *ngIf="destinations?.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
       Please wait.. You locations are being loaded.
     </h4>
   </div>
-  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp full-width">
+  <table class="mdl-data-table mdl-js-data-table">
     <thead>
       <tr>
         <th class="expand"></th>
@@ -15,24 +14,40 @@
         <th class="close"></th>
       </tr>
     </thead>
-    <tbody class="full-width">
+    <tbody>
       <!-- <cdk-virtual-scroll-viewport [itemSize]="112" style="height:386px"> *cdkVirtualFor -->
-      <ng-container *ngFor= "let destination of destinations; let destinationIndex = index;" class="full-width">
-      <tr *ngIf="!destination?.hideDestination" (click)="getPlaces(destination)">
-        <td class="expand"><button class="mdl-button mdl-js-button mdl-button--icon" [attr.data-target]="'#data' + destinationIndex">
-          <i class="material-icons" (click)="stopNavigation($event,destination)">{{destination?.showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</i>
-        </button></td>
-        <td class="mdl-data-table__cell--non-numeric"> {{destination?.location}}</td>
-        <td>{{destination?.details?.distance.text}}</td>
-        <td><img [src]="destination.imageUrl" class="city-img"></td>
-        <td><button class="mdl-button mdl-js-button mdl-button--icon" (click)="hideDestination(destination)">
-          <i class="material-icons">close</i>
-        </button></td>
-      </tr>
-      <tr colspan="6" class="hiddenRow"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination && destination?.showDescription">
-        <td></td>
-        <div class="description">{{destination?.information ? destination?.information : 'No Information Available'}} </div>
-      </tr>
+      <ng-container *ngFor= "let destination of destinations; let destinationIndex = index;">
+        <tr *ngIf="!destination?.hideDestination">
+          <td class="expand">
+            <button class="mdl-button mdl-js-button mdl-button--icon" [attr.data-target]="'#data' + destinationIndex">
+              <i class="material-icons" (click)="stopNavigation($event,destination)">{{destination?.showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</i>
+            </button>
+          </td>
+          <td class="mdl-data-table__cell--non-numeric">
+            {{destination?.location}}
+          </td>
+          <td>
+            {{destination?.details?.distance?.text}}
+          </td>
+          <td>
+            <img [src]="destination?.imageUrl" class="city-img">
+          </td>
+          <td mdl>
+            <button id="{{ 'destinationMenu' + destinationIndex }}" class="mdl-button mdl-js-button mdl-button--icon">
+              <i class="material-icons">more_vert</i>
+            </button>
+            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" [attr.for]="'destinationMenu' + destinationIndex">
+              <li class="mdl-menu__item" (click)="getPlaces(destination)">
+                <mat-icon>open_in_new</mat-icon>View Detail</li>
+              <li class="mdl-menu__item" (click)="hideDestination(destination)">
+                <mat-icon>visibility_off</mat-icon>Hide from list</li>
+            </ul>
+          </td>
+        </tr>
+        <tr colspan="6" class="hiddenRow"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination && destination?.showDescription">
+          <td></td>
+          <div class="description">{{destination?.information ? destination?.information : 'No Information Available'}} </div>
+        </tr>
       </ng-container>
     <!-- </cdk-virtual-scroll-viewport> -->
     </tbody>

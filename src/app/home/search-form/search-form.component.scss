@@ -49,7 +49,10 @@ $themeFont: 'Montserrat', sans-serif;
     font-family: $themeFont;
     color: #333;
     text-transform: capitalize;
+    margin: 0 0 0 3%;
+    background: white;
     font-weight: bold;
+    box-shadow: 1px 1px 3px 2px #e3e3e3;
   }
 
   .mat-form-field-label {

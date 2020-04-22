@@ -18,27 +18,45 @@
   <div class="mdl-layout__drawer" style="z-index: 999">
     <span class="mdl-layout-title">FindYourGetaway</span>
     <nav class="mdl-navigation customMdlNavigation">
-      <a class="mdl-navigation__link" href="">
+      <a class="mdl-navigation__link" routerLink="/" href="">
         <i class="material-icons">home</i>
         Home</a>
-      <a class="mdl-navigation__link" href="">
+      <a class="mdl-navigation__link" routerLink="/about" href="">
         <i class="material-icons">info</i>
         About Us</a>
       <a class="mdl-navigation__link" (click)="onManualLocationClicked($event)" href="">
         <i class="material-icons">edit_location</i>
         <span [style.color]="this.currentLocation ? 'inherit': '#b0b0b0'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}} </span>
       </a>
+      <a class="mdl-navigation__link" routerLink="/about" href="">
+        <i class="material-icons">calendar_today</i>
+        Add to calendar</a>
+      <a class="mdl-navigation__link" routerLink="/about" href="">
+        <i class="material-icons">share</i>
+        Share </a>
+
     </nav>
   </div>
   <div class="iconHolder">
-    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+    <button routerLink="/" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">home</i>
+      <div >Home</div>
+    </button>
+    <button routerLink="/about" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons" >info</i>
+      <div >About</div>
     </button>
     <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
-      <i class="material-icons">info</i>
+      <i class="material-icons" (click)="onManualLocationClicked($event)">edit_location</i>
+      <div >Location</div>
     </button>
     <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
-      <i class="material-icons">edit_location</i>
+      <i class="material-icons" (click)="onManualLocationClicked($event)">calendar_today</i>
+      <div >Add</div>
+    </button>
+    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons" (click)="onManualLocationClicked($event)">share</i>
+      <div >Share</div>
     </button>
   </div>
 </div>

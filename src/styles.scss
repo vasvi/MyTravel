@@ -16,7 +16,7 @@ html, body {
 body {
   margin: 0;
   font-family: $themeFont;
-
+  background-color: #f6f6f6 !important;
 }
 
 h1, h4 {
@@ -110,7 +110,7 @@ body [class^='mat-'], body [class*=' mat-'] {
   font-weight: bold;
 }
 
-.pac-container{
+.pac-container {
   z-index: 1040;
 }
 
@@ -148,23 +148,24 @@ body [class^='mat-'], body [class*=' mat-'] {
   }
 }
 
-.pac-container{
+.pac-container {
   z-index: 1030;
 }
-  .demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type {
   padding-right: 0;
 }
 
 .mdl-textfield.is-focused .mdl-textfield__expandable-holder, .mdl-textfield.is-dirty .mdl-textfield__expandable-holder {
   max-width: 600px;
-  width: 60%;
+  width: 45%;
 }
 
 .mdl-layout__drawer-button {
-  color: #7e7e7e;
+  color: #ffffff;
 }
 
-.customButton{
+.customButton {
   text-transform: none;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
@@ -172,3 +173,22 @@ body [class^='mat-'], body [class*=' mat-'] {
   color: #303030;
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f6f6f6;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+
+}

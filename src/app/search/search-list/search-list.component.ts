@@ -2,6 +2,7 @@ import {Component, OnInit, Input, OnChanges, NgZone, ViewEncapsulation} from '@a
 import {ApplicableLocationObject, Location} from 'src/app/model/search-criteria';
 import { Router } from '@angular/router';
 import { SearchDataService } from '../../services/search-data.serivce';
+declare var componentHandler: any;
 
 
 @Component({
@@ -12,7 +13,6 @@ import { SearchDataService } from '../../services/search-data.serivce';
 
 export class SearchListComponent implements OnInit, OnChanges {
   destinations = [];
-  @Input() parentComponent: string;
   @Input() locationData: ApplicableLocationObject;
 
   constructor(private router: Router,
