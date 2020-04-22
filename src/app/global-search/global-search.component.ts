@@ -1,6 +1,4 @@
-import {Component, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit, NgZone} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MapService} from '../services/map/map.service';
+import {Component, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import {SearchDataService} from '../services/search-data.serivce';
 import {Router} from '@angular/router';
 
@@ -13,9 +11,6 @@ declare const google;
 })
 export class GlobalSearchComponent implements AfterViewInit {
   constructor(private router: Router,
-              private ngZone: NgZone,
-              private mapService: MapService,
-              private dialog: MatDialog,
               private searchService: SearchDataService) {
   }
 
