@@ -1,5 +1,5 @@
 <div class="container search-list centerAlignedContainer">
-  <div align="center" *ngIf="destinations.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
+  <div align="center" *ngIf="destinations?.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
       Please wait.. You locations are being loaded.
     </h4>
@@ -24,13 +24,13 @@
             </button>
           </td>
           <td class="mdl-data-table__cell--non-numeric">
-            {{destination.location}}
+            {{destination?.location}}
           </td>
           <td>
-            {{destination.details.distance.text}}
+            {{destination?.details?.distance?.text}}
           </td>
           <td>
-            <img [src]="destination.imageUrl" class="city-img">
+            <img [src]="destination?.imageUrl" class="city-img">
           </td>
           <td mdl>
             <button id="{{ 'destinationMenu' + destinationIndex }}" class="mdl-button mdl-js-button mdl-button--icon">
@@ -46,7 +46,7 @@
         </tr>
         <tr colspan="6" class="hiddenRow"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination && destination?.showDescription">
           <td></td>
-          <div class="description">{{destination.information ? destination.information : 'No Information Available'}} </div>
+          <div class="description">{{destination?.information ? destination?.information : 'No Information Available'}} </div>
         </tr>
       </ng-container>
     <!-- </cdk-virtual-scroll-viewport> -->

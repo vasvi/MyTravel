@@ -34,7 +34,7 @@ export class SearchListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.destinations = this.locationData && this.locationData.location;
+    this.destinations = this.locationData && this.locationData.location ? this.locationData.location : this.destinations;
   }
 
   navigateToLocation(results, status){
