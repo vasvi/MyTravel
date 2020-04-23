@@ -10,6 +10,7 @@ export class SignInComponent implements OnInit {
   user;
   loggedIn;
   menuOpen = false;
+  userName = 'userName';
 
   constructor(
     private authService: AuthService

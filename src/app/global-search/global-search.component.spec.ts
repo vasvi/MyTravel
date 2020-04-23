@@ -44,7 +44,7 @@ export class SearchDataServiceMock {
   }
 }
 
-fdescribe('GlobalSearchComponent', () => {
+describe('GlobalSearchComponent', () => {
   let component: GlobalSearchComponent;
   let fixture: ComponentFixture<GlobalSearchComponent>;
   (window as any).google = {
