@@ -8,6 +8,11 @@ import {of} from 'rxjs';
 describe('SearchDataService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
   let distanceMatrix;
+  var init = {
+    callback: function() {
+      console.log("Callback Called")
+    }
+  };
 
   beforeEach(() => {
 
@@ -177,7 +182,87 @@ describe('SearchDataService', () => {
       service.setUserSearchData(userData);
       const userSearchData = service.getUserSearchData();
       expect(userSearchData).toEqual(userData);
+    });
+  });
+  
+  describe('Should test createLocationObject', () => {
+    it('should test createLocationObject to return data', () => {
+      const service: SearchDataService = TestBed.get(SearchDataService);
+      const locationObj ={
+        name: 'Delhi',
+        formatted_address: 'formatted_address',
+        photos: {},
+        id: '2',
+        place_id: '1234',
+        reference: 'ref',
+        geometry: {location: {lat: ()=>{}, lng: ()=>{}}},
+      }
+      const locationData = service.createLocationObject(locationObj);
+      expect(locationData.id).toEqual('2');
+    });
+    it('should test createLocationObject to return data when photos array is present', () => {
+      const service: SearchDataService = TestBed.get(SearchDataService);
+      const locationObj ={
+        name: 'Delhi',
+        formatted_address: 'formatted_address',
+        photos: [{getUrl:()=>{}}],
+        id: '2',
+        place_id: '1234',
+        reference: 'ref',
+        geometry: {location: {lat: ()=>{}, lng: ()=>{}}},
+      }
+      const locationData = service.createLocationObject(locationObj);
+      expect(locationData.id).toEqual('2');
+    });
+  });
 
+  describe('Should test getApplicableLocationData', () => {
+    it('should test getApplicableLocationData to return data', () => {
+      const service: SearchDataService = TestBed.get(SearchDataService);
+      const userSearchData = service.getApplicableLocationData();
+      expect(userSearchData).toEqual(undefined);
+    });
+  }); 
+
+  describe('Should test getApplicableLocationsSubs', () => {
+    it('should test getApplicableLocationsSubs to return data', () => {
+      const service: SearchDataService = TestBed.get(SearchDataService);
+      const userSearchData = service.getApplicableLocationsSubs().subscribe((data)=>{
+        expect(data).toEqual(undefined);
+      }
+      );
+    });
+  }); 
+  describe('Should test getPosition', () => {
+    it('should test getPosition to call geolocation when no sessionstorage found', () => {
+      const service: SearchDataService = TestBed.get(SearchDataService);
+      sessionStorage.setItem('manualLocationObject', null);
+      spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake(function () {
+        var position = {coords: {latitude: 32, longitude: -96}};
+        arguments[0](position);
+      });
+      const userSearchData = service.getPosition(()=>{});
+       expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalled();
+    });
+    it('should test getPosition to return data', () => {
+      const service: SearchDataService = TestBed.get(SearchDataService);
+      spyOn(init, 'callback');
+      spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake(function () {
+        var position = {coords: {latitude: 32, longitude: -96}};
+        arguments[0](position);
+      });
+      const userSearchData = service.getPosition(init.callback);
+       expect(init.callback).toHaveBeenCalled();
+    });
+    it('should test getPosition to call geolocation error when no sessionstorage found', () => {
+      const service: SearchDataService = TestBed.get(SearchDataService);
+      sessionStorage.setItem('manualLocationObject', null);
+      spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake(function () {
+        var position = {coords: {latitude: 32, longitude: -96}};
+        arguments[1](Error);
+      });
+      const userSearchData = service.getPosition(()=>{});
+       expect(navigator.geolocation.getCurrentPosition).toHaveBeenCalled();
     });
   });
 });

@@ -7,15 +7,15 @@
     <owl-carousel-o [options]="customOptions" #owlCar>
 
         <ng-container *ngFor="let place of places">
-            <ng-template class="slide" carouselSlide [id]="place.place_id">
-                <div class="demo-card-wide mdl-card mdl-shadow--2dp" [style.background]="'url('+place.imageUrl+')'">
+            <ng-template class="slide" carouselSlide >
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp" [style.background]="'url('+place?.imageUrl+')'">
                     <div class="mdl-card__supporting-text">
-                        <h2 class="mdl-card__title-text">{{place.name}}</h2>
+                        <h2 class="mdl-card__title-text">{{place?.name}}</h2>
                         <div class="rating">
                             <span class="material-icons">
                                 grade
                             </span>
-                            <span>{{place.rating}}</span>
+                            <span>{{place?.rating}}</span>
                         </div>
                     </div>
                 </div>

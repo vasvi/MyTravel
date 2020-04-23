@@ -1,14 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+// import {AuthService, GoogleLoginProvider} from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig , AuthService , GoogleLoginProvider, SocialUser } from "angularx-social-login";
 import { SignInComponent } from './sign-in.component';
+import { Observable } from 'rxjs';
 
+export class AuthServiceMock {
+  authState (){
+
+  }
+}
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("google id goes here")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 describe('SignInComponent', () => {
   let component: SignInComponent;
   let fixture: ComponentFixture<SignInComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignInComponent ]
+      declarations: [ SignInComponent ],
+      providers: [{provide: AuthService, useClass: AuthService}, 
+                  {provide: AuthServiceConfig, useFactory: provideConfig}]
     })
     .compileComponents();
   }));
@@ -19,7 +38,23 @@ describe('SignInComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should test signInWithGoogle', () => {
+    let authService: AuthService = TestBed.get(AuthService);
+    spyOn(authService, 'signIn');
+    component.signInWithGoogle();
+    expect(authService.signIn).toHaveBeenCalled();
   });
+
+  it('should test signOut', () => {
+    let authService: AuthService = TestBed.get(AuthService);
+    spyOn(authService, 'signOut');
+    component.signOut();
+    expect(authService.signOut).toHaveBeenCalled();
+  }); 
+
+  it('should test showUSerInfo', () => {
+    component.menuOpen = true;
+    component.showUSerInfo();
+    expect(component.menuOpen).toEqual(false);
+  }); 
 });

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Place } from 'src/app/model/search-criteria';
+import { Place } from '../../model/search-criteria';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
@@ -8,7 +8,8 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./places-carousel.component.scss']
 })
 export class PlacesCarouselComponent implements OnInit {
-  @Input('places') places: Place;
+  @Input('places') places: Place[];
+  options: any;
   constructor() { }
   ngOnChanges() {
   }

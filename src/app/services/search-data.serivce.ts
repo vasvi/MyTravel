@@ -279,9 +279,8 @@ export class SearchDataService {
    * @param callback
    */
   getPosition(callback) {
-    let manualLocationObject: any = sessionStorage.getItem('manualLocationObject');
-    if (manualLocationObject) {
-      manualLocationObject = JSON.parse(manualLocationObject);
+    let manualLocationObject: any = JSON.parse(sessionStorage.getItem('manualLocationObject'));
+    if (manualLocationObject !== null) {
       const position = {
         coords: {
           latitude: parseFloat(manualLocationObject.latitude),
