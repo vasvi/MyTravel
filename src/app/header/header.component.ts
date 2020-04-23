@@ -44,6 +44,8 @@ export class HeaderComponent implements OnInit {
       google.maps.event.addListener(autoComplete, 'place_changed', () => {
         const place = autoComplete.getPlace();
         this.newUserLocationObject = place;
+        console.log(place);
+
       });
     }, 300);
   }
@@ -62,13 +64,6 @@ export class HeaderComponent implements OnInit {
     this.mapService.userLocationChangeEmitter.next(manualLocationObject);
   }
 
-  onLocationChange(location) {
-    /* this.ngZone.run(() => {
-       let queryParamsObj = this.searchService.createLocationObject(location);
-       this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
-     });*/
-  }
-
   ngOnInit(): void {
     this.enableLocation();
   }
@@ -78,7 +73,8 @@ export class HeaderComponent implements OnInit {
     this.searchService.getPosition((position) => {
       if (position) {
         this.mapService.reverseGeoCode(position.coords.latitude, position.coords.longitude).subscribe((response: any) => {
-
+          console.log('Hi');
+          console.log(response.status, google.maps.GeocoderStatus.OK);
           const results = response.results;
           if (response.status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
@@ -92,7 +88,7 @@ export class HeaderComponent implements OnInit {
           }
         });
       } else {
-        alert('We Cannot work until you provide us your location. Please allow location or Add it manually')
+        alert('We Cannot work until you provide us your location. Please allow location or Add it manually');
       }
     });
   }

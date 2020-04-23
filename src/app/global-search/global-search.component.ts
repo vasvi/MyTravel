@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit, NgZone } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MapService } from '../services/map/map.service';
 import { SearchDataService } from '../services/search-data.serivce';
