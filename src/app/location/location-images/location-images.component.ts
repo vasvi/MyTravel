@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-location-images',
@@ -7,12 +6,10 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./location-images.component.scss']
 })
 export class LocationImagesComponent implements OnInit {
-  @Input('images') images: Array<string>;
+  @Input('images') images: Array<string> = [];
   displayDialog: boolean = false;
   selectedImageIndex: number = 0;
-  constructor(
-    private matDialog: MatDialog
-  ) { }
+  constructor() { }
 
   openDialog(imageIndex: number) {
     this.selectedImageIndex = imageIndex;
