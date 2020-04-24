@@ -26,7 +26,7 @@ export class LocationComponent implements OnInit {
     this.routerEventSubscription.unsubscribe();
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.initializeGoogleMap();
   }
 
