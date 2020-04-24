@@ -7,11 +7,45 @@ import { By } from '@angular/platform-browser';
 import { SearchDataService } from '../../services/search-data.serivce';
 import { SearchDataServiceMock } from '../../global-search/global-search.component.spec';
 
-describe ('SearchListComponent', ()=>{
+
+
+
+fdescribe ('SearchListComponent', ()=>{
     let component: SearchListComponent;
     let fixture: ComponentFixture<SearchListComponent>
     let locationData ={location: [{}], position:{coords: {latitude: 3,longitude: 4}}};
-
+    (window as any).google = {
+        maps: {
+          Map: ()=>{},
+          places: {
+            Autocomplete: function (element) {
+              this.getPlace = () => {
+          
+              };
+              return this;
+            },
+            PlacesService : function (){
+                return {
+                    getDetails : function (){
+                        
+                    }
+                }
+            },
+            PlacesServiceStatus : {
+                OK : 'OK'
+            }
+          },
+          event: {
+            addListener: (param, eventName, callback) => {
+              callback();
+            }
+          },
+          GeocoderStatus: {
+            OK: 'OK'
+          }
+    
+        }
+      };
     beforeEach(async(()=>{
         TestBed.configureTestingModule({
             declarations: [SearchListComponent],
