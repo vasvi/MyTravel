@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MapViewComponent } from './map-view.component';
+import { ApplicableLocations } from '../../mockData/location-mock-data';
+import { By } from '@angular/platform-browser';
 
 describe('MapViewComponent', () => {
   let component: MapViewComponent;
   let fixture: ComponentFixture<MapViewComponent>;
-  let locationData ={location: [], position:{coords: {latitude: 3,longitude: 4}}};
+  let locationData = ApplicableLocations;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,5 +24,11 @@ describe('MapViewComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render map on data change', () => {
+    spyOn(component, 'mapInitializer');
+    component.ngOnChanges();
+    expect(component.mapInitializer).toHaveBeenCalledTimes(1);
   });
 });
