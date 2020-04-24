@@ -1,24 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapViewComponent } from './map-view.component';
 import { ApplicableLocations } from '../../mockData/location-mock-data';
+import { By } from '@angular/platform-browser';
 
-fdescribe('MapViewComponent', () => {
+describe('MapViewComponent', () => {
   let component: MapViewComponent;
   let fixture: ComponentFixture<MapViewComponent>;
   let locationData = ApplicableLocations;
-
-    /*(window as any).google = {
-    maps: {
-      InfoWindow() {},
-      Map: () => {},
-      event: {
-        addListener: (param, eventName, callback) => {
-          callback();
-        }
-      }
-
-    }
-  };*/
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,7 +26,9 @@ fdescribe('MapViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render map with locations', () => {
-    
-  })
+  it('should render map on data change', () => {
+    spyOn(component, 'mapInitializer');
+    component.ngOnChanges();
+    expect(component.mapInitializer).toHaveBeenCalledTimes(1);
+  });
 });
