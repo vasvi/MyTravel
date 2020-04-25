@@ -1,20 +1,26 @@
 import {SearchListComponent} from './search-list.component';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {ApplicableLocationObject, Location} from 'src/app/model/search-criteria';
 import { By } from '@angular/platform-browser';
-
-
+import { SearchDataService } from '../../services/search-data.serivce';
+import { SearchDataServiceMock } from '../../global-search/global-search.component.spec';
 
 describe ('SearchListComponent', ()=>{
     let component: SearchListComponent;
     let fixture: ComponentFixture<SearchListComponent>
     let locationData ={location: [{}], position:{coords: {latitude: 3,longitude: 4}}};
+
     beforeEach(async(()=>{
         TestBed.configureTestingModule({
             declarations: [SearchListComponent],
-            imports: [RouterTestingModule]
+            providers: [{provide: SearchDataService, useClass: SearchDataServiceMock}],
+            imports: [RouterTestingModule, RouterTestingModule.withRoutes([{
+                path: 'location',
+                component: SearchListComponent
+              }])],
+            schemas: [NO_ERRORS_SCHEMA]
         })
         .compileComponents();
     }))
@@ -23,23 +29,6 @@ describe ('SearchListComponent', ()=>{
         fixture = TestBed.createComponent(SearchListComponent);
         component = fixture.componentInstance;
         component.locationData = locationData;
-        // window['google'] = {maps:{places: {
-        // 	AutocompleteService: function(){
-
-        //     },
-        //     PlacesService: function(obj){
-        //         return {
-        //             PlacesServiceStatus: {
-        //                 OK: true
-        //             },
-        //             textSearch: function(query){
-        //                 return [];
-        //             },
-        //             nearbySearch: function(query){
-        //                 return [];
-        //             }
-        //         };	
-        // }};
         fixture.detectChanges();
     });
 
@@ -81,13 +70,23 @@ describe ('SearchListComponent', ()=>{
         })
     })
 
-    xdescribe('navigateToLocation',()=>{
+    describe('navigateToLocation',()=>{
         it('test destination.navigateToLocation to equal true', ()=>{
             let results = [];
-
-            spyOn(google.maps.places, 'PlacesService');
+            const spy = spyOn(window['google']['maps'], 'Map').and.returnValue(new google.maps.Map(document.createElement('div')));
+            // const spyP = spyOn(window['google']['maps']['places']['PlacesService'], 'getDetails').and.callFake(function(){
+            //     arguments[0](results, 'OK')
+            // })
             component.getPlaces(results);
-            expect(component).toBeTruthy();
+            expect(google.maps.Map).toHaveBeenCalled();
+        })
+        it('test destination.navigateToLocation to equal true', ()=>{
+            const searchService:SearchDataService = TestBed.get(SearchDataService);
+            let results = [];
+            spyOn(searchService, 'createLocationObject');
+            const spy = spyOn(window['google']['maps'], 'Map').and.returnValue(new google.maps.Map(document.createElement('div')));
+            component.navigateToLocation(results, 'OK');
+            expect(searchService.createLocationObject).toHaveBeenCalled();
         })
     })
 
