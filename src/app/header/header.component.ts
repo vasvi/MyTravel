@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
 
   initAutoComplete() {
     setTimeout(() => {
+      console.log(google);
       const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement, {
         types: ['(cities)'],
         componentRestrictions: {country: 'in'}
