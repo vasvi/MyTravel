@@ -25,5 +25,7 @@ export class SearchDataServiceMock {
       getPosition(){
         return {coord: {}}
       }
+
+      initSearch(){}
   
   } 

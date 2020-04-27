@@ -1,21 +1,18 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import * as googleData from './mockData/google-mock-data';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-fdescribe('AppComponent', () => {
-  (window as any).google = googleData.GoogleDataMock;
-
+describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
       ],
-      schemas: [NO_ERRORS_SCHEMA],
       declarations: [
         AppComponent
       ],
+      schemas : [NO_ERRORS_SCHEMA]
     }).compileComponents();
   }));
 

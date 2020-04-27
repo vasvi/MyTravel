@@ -72,10 +72,9 @@ export class MapServiceMock {
 }
 
 
-xdescribe('HeaderComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -111,7 +110,7 @@ xdescribe('HeaderComponent', () => {
     component.onManualLocationClicked(event);
   });
 
-  it('should call initAutoComplete and setLocation Manually', fakeAsync(() => {
+  xit('should call initAutoComplete and setLocation Manually', fakeAsync(() => {
     component.locationInputViewChild = component.locationInputViewChild || {
       nativeElement: null
     };

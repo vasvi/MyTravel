@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+
 import { LocationComponent } from './location.component';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -7,7 +8,6 @@ import { of, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { Location, Place } from '../model/search-criteria';
-import * as googleData from '../mockData/google-mock-data';
 
 class WeatherServiceMock {
   getWeatherDetails(url) {
@@ -48,10 +48,18 @@ class WeatherServiceMock {
   }
 }
 
-fdescribe('LocationComponent', () => {
+describe('LocationComponent', () => {
   let component: LocationComponent;
   let fixture: ComponentFixture<LocationComponent>;
-  const location: Location = googleData.locationObject;
+  let location: Location = {
+    name: 'Chandigarh',
+    formatted_address: 'Chandigarh, India',
+    photos: ['https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sCmRaAAAAdue4G9JNfjp1QfierjRh863zpYxoBuHeoUYTyqtIRq-hIOxzewWO6Uw9PM78EJ2Z6DPPvQbMuMDOvwPausCarBmvm1IoiORhXha5TDxzElesc7zWvioz-NjD3Pcu9aLhEhDVeF2bTkCAta7aR4lx0ngrGhT8CwwjuS9E8lTvUZKU6itmFUJnmw&3u1440&5m1&2e1&callback=none&key=AIzaSyCoyLacmAqoMKFecnjIHN6rOguWXmZfruo&token=82258'],
+    id: '2ff3ad0666fc5f99d36aa80f35cf1e9d61ade100',
+    place_id: 'ChIJa8lu5gvtDzkR_hlzUvln_6U',
+    reference: 'ChIJa8lu5gvtDzkR_hlzUvln_6U',
+    geometry: [30.7333148, 76.7794179]
+  }
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LocationComponent],
@@ -84,6 +92,7 @@ fdescribe('LocationComponent', () => {
   it('should test subscribeToRouterEvents', () => {
     component.subscribeToRouterEvents();
     expect(component.routerEventSubscription instanceof Subscription).toEqual(true);
+    fixture.detectChanges();
     expect(component.targetLocation.id).toEqual(location.id);
   })
 
