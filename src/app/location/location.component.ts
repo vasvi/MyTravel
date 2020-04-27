@@ -4,6 +4,7 @@ import { Location, Place } from '../model/search-criteria';
 import { Subscription } from 'rxjs';
 import { WeatherService } from '../services/weather/weather.service';
 import { WeatherDetails } from '../model/weather.model';
+import { LocationService } from '../services/location/location.service';
 
 @Component({
   selector: 'app-location',
@@ -17,18 +18,25 @@ export class LocationComponent implements OnInit {
   targetLocation: Location;
   places: Array<Place> = [];
   weatherDetails: WeatherDetails;
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private weatherService: WeatherService
+    private weatherService: WeatherService,
+    private locationService: LocationService
   ) { }
 
-  ngOnDestroy() {
-    this.routerEventSubscription.unsubscribe();
+  ngOnInit() {
+    this.subscribeToRouterEvents();
   }
 
   ngAfterViewInit() {
     this.initializeGoogleMap();
   }
+  
+  ngOnDestroy() {
+    this.routerEventSubscription.unsubscribe();
+  }
+
 
   getWeatherDetails() {
     this.weatherService.getWeatherDetails({
@@ -43,6 +51,8 @@ export class LocationComponent implements OnInit {
   subscribeToRouterEvents() {
     this.routerEventSubscription = this.activatedRoute.queryParams.subscribe((params: Location) => {
       if (params) {
+        params = this.locationService.getLocationDetails();
+        console.log(params)
         this.targetLocation = params;
         this.targetLocation.geometry[0] = parseFloat(this.targetLocation.geometry[0]);
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);
@@ -52,43 +62,9 @@ export class LocationComponent implements OnInit {
     })
   }
 
-  createPlaceObj(data): Place {
-    let placeObj: Place = {
-      name: data.name,
-      imageUrl: (() => {
-        return Array.isArray(data.photos) ? data.photos[0].getUrl({
-          maxHeight: 400,
-          maxWidth: 300
-        }) : null;
-      })(),
-      types: data.types,
-      rating: data.rating
-    }
-
-    return placeObj;
-  }
-
-  createMarkerOptions(data) {
-    let markerOptions = {
-      map: this.map,
-      draggable: false,
-      animation: google.maps.Animation.DROP,
-      position: {
-        lat: data.geometry.location.lat(),
-        lng: data.geometry.location.lng()
-      },
-      icon: {
-        url: data.icon,
-        scaledSize: new google.maps.Size(30, 30)
-      },
-      title: data.name
-    }
-    return markerOptions;
-  }
-
   plotNearbyPlaces() {
-    const service = new google.maps.places.PlacesService(this.map);
-    const targetCoordinates = new google.maps.LatLng(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
+    const service = this.locationService.createPlaceService(this.map);
+    const targetCoordinates = this.locationService.createCoordinates(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
     service.nearbySearch({
       location: targetCoordinates,
       radius: 30000,
@@ -96,19 +72,19 @@ export class LocationComponent implements OnInit {
     }, (results, status) => {
       var placesList: Array<Place> = [];
       results.forEach((item) => {
-        let placeObj: Place = this.createPlaceObj(item);
+        let placeObj: Place = this.locationService.createPlaceObj(item);
         placesList.push(placeObj);
-        let markerOptions = this.createMarkerOptions(item);
-        this.createMarker(markerOptions);
+        let markerOptions = this.locationService.createMarkerOptions(this.map, item);
+        this.addMarker(markerOptions);
       })
       this.places = placesList;
     });
   }
 
-  createMarker(options) {
-    let marker = new google.maps.Marker(options);
+  addMarker(options) {
+    let marker = this.locationService.createMarker(options);
     let self = this;
-    var infowindow = new google.maps.InfoWindow({
+    var infowindow = this.locationService.createInfoWindow({
       content: '<div>' + options.title + '</div>'
     });
     marker.addListener('click', function () {
@@ -124,7 +100,7 @@ export class LocationComponent implements OnInit {
   }
 
   initializeGoogleMap() {
-    this.map = new google.maps.Map(this.mapContainerViewChild.nativeElement, {
+    this.map = this.locationService.createMap(this.mapContainerViewChild, {
       center: {
         lat: this.targetLocation.geometry[0],
         lng: this.targetLocation.geometry[1]
@@ -132,11 +108,6 @@ export class LocationComponent implements OnInit {
       zoom: 12
     });
     this.plotNearbyPlaces();
-  }
-
-
-  ngOnInit() {
-    this.subscribeToRouterEvents();
   }
 
 }

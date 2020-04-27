@@ -10,8 +10,12 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class PlacesCarouselComponent implements OnInit {
   @Input('places') places: Place[];
   options: any;
+  currentCarouselIndex: number = 0;
+  itemsPerPage: number = 5;
   constructor() { }
+
   ngOnChanges() {
+    this.setItemsPerPage();
   }
 
   customOptions: OwlOptions = {
@@ -28,7 +32,7 @@ export class PlacesCarouselComponent implements OnInit {
         items: 1
       },
       400: {
-        items: 2
+        items: 1
       },
       740: {
         items: 3
@@ -39,7 +43,33 @@ export class PlacesCarouselComponent implements OnInit {
     },
     nav: false
   }
-  
+
+  setItemsPerPage() {
+    let screenWidth = screen.width;
+    if (screenWidth <= 400) {
+      this.itemsPerPage = 1;
+    }
+    if (screenWidth > 400 && screenWidth <= 740) {
+      this.itemsPerPage = 3;
+    }
+    if (screenWidth > 740) {
+      this.itemsPerPage = 5;
+    }
+  }
+
+  carouselPrev(): boolean {
+    if (this.currentCarouselIndex === 0) {
+      return false;
+    }
+    this.currentCarouselIndex--;
+  }
+
+  carouselNext() {
+    if (this.currentCarouselIndex >= Math.ceil(this.images.length / this.itemsPerPage)){
+      return false;
+    }
+    this.currentCarouselIndex++;
+  }
 
   opedDialog() {
 
