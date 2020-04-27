@@ -60,7 +60,7 @@ export class MapServiceMock {
 }
 
 
-describe('HomeComponent', () => {
+fdescribe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
