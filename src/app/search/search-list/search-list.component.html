@@ -17,7 +17,7 @@
     <tbody>
       <!-- <cdk-virtual-scroll-viewport [itemSize]="112" style="height:386px"> *cdkVirtualFor -->
       <ng-container *ngFor= "let destination of destinations; let destinationIndex = index;">
-        <tr *ngIf="!destination?.hideDestination">
+        <tr *ngIf="!destination?.hideDestination" style="cursor: pointer;">
           <td class="expand">
             <button class="mdl-button mdl-js-button mdl-button--icon" [attr.data-target]="'#data' + destinationIndex">
               <i class="material-icons" (click)="stopNavigation($event,destination)">{{destination?.showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</i>

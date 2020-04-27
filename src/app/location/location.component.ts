@@ -52,7 +52,6 @@ export class LocationComponent implements OnInit {
     this.routerEventSubscription = this.activatedRoute.queryParams.subscribe((params: Location) => {
       if (params) {
         params = this.locationService.getLocationDetails();
-        console.log(params)
         this.targetLocation = params;
         this.targetLocation.geometry[0] = parseFloat(this.targetLocation.geometry[0]);
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);

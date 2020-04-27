@@ -12,14 +12,14 @@ export class PlacesCarouselComponent implements OnInit {
   options: any;
   currentCarouselIndex: number = 0;
   itemsPerPage: number = 5;
+  disableNext: boolean = false;
   constructor() { }
 
   ngOnChanges() {
-    this.setItemsPerPage();
   }
 
   customOptions: OwlOptions = {
-    loop: false,
+    loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
@@ -44,19 +44,6 @@ export class PlacesCarouselComponent implements OnInit {
     nav: false
   }
 
-  setItemsPerPage() {
-    let screenWidth = screen.width;
-    if (screenWidth <= 400) {
-      this.itemsPerPage = 1;
-    }
-    if (screenWidth > 400 && screenWidth <= 740) {
-      this.itemsPerPage = 3;
-    }
-    if (screenWidth > 740) {
-      this.itemsPerPage = 5;
-    }
-  }
-
   carouselPrev(): boolean {
     if (this.currentCarouselIndex === 0) {
       return false;
@@ -65,10 +52,18 @@ export class PlacesCarouselComponent implements OnInit {
   }
 
   carouselNext() {
-    if (this.currentCarouselIndex >= Math.ceil(this.images.length / this.itemsPerPage)){
+    if (this.currentCarouselIndex >= Math.ceil(this.places.length / this.itemsPerPage)){
       return false;
     }
     this.currentCarouselIndex++;
+  }
+
+  onCarouselChanged(event){
+    if(event.startPosition === 3){
+      this.currentCarouselIndex = 0;
+    }
+    // console.log(event);
+    // console.log(this.places.length);
   }
 
   opedDialog() {
