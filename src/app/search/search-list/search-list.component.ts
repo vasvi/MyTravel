@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, OnChanges, NgZone, ViewEncapsulation } from '@angular/core';
-import { ApplicableLocationObject, Location } from 'src/app/model/search-criteria';
-import { Router } from '@angular/router';
-import { SearchDataService } from '../../services/search-data.serivce';
 import { LocationService } from 'src/app/services/location/location.service';
+import {Component, OnInit, Input, OnChanges, NgZone} from '@angular/core';
+import {ApplicableLocationObject, Location} from 'src/app/model/search-criteria';
+import {Router} from '@angular/router';
+import {SearchDataService} from '../../services/search-data.serivce';
 declare var componentHandler: any;
 
 
