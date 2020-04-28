@@ -32,7 +32,7 @@ import { environment } from '../environments/environment';
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider(environment.GCP.client_id)
+    provider: new GoogleLoginProvider(environment.GCP.TRAVEL.client_id)
   }
 ]);
 

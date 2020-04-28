@@ -13,6 +13,6 @@ export class MapService {
   }
 
   reverseGeoCode(latitude, longitude) {
-    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + (latitude) + ',' + (longitude) + '&types=(cities)&key=' + environment.GCP.apiKey);
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + (latitude) + ',' + (longitude) + '&types=(cities)&key=' + environment.GCP.MY_MAPS.apiKey);
   }
 }
