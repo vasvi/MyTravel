@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SocialLoginModule, AuthServiceConfig , AuthService , GoogleLoginProvider, SocialUser } from "angularx-social-login";
 import { SignInComponent } from './sign-in.component';
 import { Observable } from 'rxjs';
+import { UserNamePipe } from '../user-name.pipe';
 
 export class AuthServiceMock {
   authState (){
@@ -25,7 +26,7 @@ describe('SignInComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SignInComponent ],
+      declarations: [ SignInComponent, UserNamePipe ],
       providers: [{provide: AuthService, useClass: AuthService}, 
                   {provide: AuthServiceConfig, useFactory: provideConfig}]
     })

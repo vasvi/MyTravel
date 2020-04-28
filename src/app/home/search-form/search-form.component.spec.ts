@@ -36,7 +36,7 @@ export class SearchDataServiceMock {
   }
 }
 
-fdescribe('SearchFormComponent', () => {
+describe('SearchFormComponent', () => {
   let component: SearchFormComponent;
   let fixture: ComponentFixture<SearchFormComponent>;
   const dummyData = {
