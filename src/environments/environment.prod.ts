@@ -3,7 +3,7 @@ export const environment = {
   GCP: {
     name: 'My Maps Project',
     apiKey: 'AIzaSyCoyLacmAqoMKFecnjIHN6rOguWXmZfruo',
-    client_id: '151161582611-0skc6qgb656d3o2gs93fgglvjn6unmc1.apps.googleusercontent.com',
+    client_id: '826436261333-0707nbu0o7l49bb2fpg1nokb33gtllia.apps.googleusercontent.com', //'151161582611-0skc6qgb656d3o2gs93fgglvjn6unmc1.apps.googleusercontent.com',
     project_id: 'ivory-lotus-272709',
     auth_uri: 'https://accounts.google.com/o/oauth2/auth',
     token_uri: 'https://oauth2.googleapis.com/token',
