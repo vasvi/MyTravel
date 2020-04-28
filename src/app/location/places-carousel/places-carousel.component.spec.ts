@@ -23,4 +23,5 @@ describe('PlacesCarouselComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

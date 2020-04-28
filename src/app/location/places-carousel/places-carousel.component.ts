@@ -13,11 +13,9 @@ export class PlacesCarouselComponent implements OnInit {
   currentCarouselIndex: number = 0;
   itemsPerPage: number = 5;
   disableNext: boolean = false;
+
   constructor() { }
-
-  ngOnChanges() {
-  }
-
+  
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
@@ -44,37 +42,27 @@ export class PlacesCarouselComponent implements OnInit {
     nav: false
   }
 
-  carouselPrev(): boolean {
-    if (this.currentCarouselIndex === 0) {
-      return false;
-    }
-    this.currentCarouselIndex--;
-  }
+  // carouselPrev(): boolean {
+  //   if (this.currentCarouselIndex === 0) {
+  //     return false;
+  //   }
+  //   this.currentCarouselIndex--;
+  // }
 
-  carouselNext() {
-    if (this.currentCarouselIndex >= Math.ceil(this.places.length / this.itemsPerPage)){
-      return false;
-    }
-    this.currentCarouselIndex++;
-  }
+  // carouselNext() {
+  //   if (this.currentCarouselIndex >= Math.ceil(this.places.length / this.itemsPerPage)){
+  //     return false;
+  //   }
+  //   this.currentCarouselIndex++;
+  //   return true;
+  // }
 
-  onCarouselChanged(event){
-    if(event.startPosition === 3){
-      this.currentCarouselIndex = 0;
-    }
-    // console.log(event);
-    // console.log(this.places.length);
-  }
+  // onCarouselChanged(event){
+  //   if(event.startPosition === 3){
+  //     this.currentCarouselIndex = 0;
+  //   }
+  // }
 
-  opedDialog() {
-
-  }
-
-  ngAfterViewInit() {
-
-  }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }
