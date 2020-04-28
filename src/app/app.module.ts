@@ -27,11 +27,12 @@ import { PlacesCarouselComponent } from './location/places-carousel/places-carou
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MDL } from './directives/MaterialDesignLiteUpgradeElement';
 import { SharedModule } from './module/shared.module';
+import { environment } from '../environments/environment';
 
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("151161582611-i9fkqu14n7giqluadt174na8nil5qo2r.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider(environment.GCP.client_id)
   }
 ]);
 

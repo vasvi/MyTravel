@@ -1,16 +1,20 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild, OnDestroy} from '@angular/core';
+import {Router, NavigationEnd} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {MapService} from '../services/map/map.service';
 import {SearchDataService} from '../services/search-data.serivce';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   currentLocation = '';
   newUserLocationObject: any;
+  currentRoute = '';
+  routerEventSubscription: Subscription;
   @ViewChild('manualLocationEntry', null) dialogRef: TemplateRef<any>;
   @ViewChild('manualLocationInput', {static: false}) locationInputViewChild: ElementRef;
 
@@ -18,7 +22,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private mapService: MapService,
     private dialog: MatDialog,
-    private searchService: SearchDataService) {
+    private searchService: SearchDataService,
+    private router: Router) {
   }
 
 
@@ -44,8 +49,6 @@ export class HeaderComponent implements OnInit {
       google.maps.event.addListener(autoComplete, 'place_changed', () => {
         const place = autoComplete.getPlace();
         this.newUserLocationObject = place;
-        console.log(place);
-
       });
     }, 300);
   }
@@ -66,6 +69,17 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.enableLocation();
+    this.routerEventSubscription = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+    });
+  }
+
+  ngOnDestroy = () => {
+    if (this.routerEventSubscription) {
+      this.routerEventSubscription.unsubscribe();
+    }
   }
 
   enableLocation() {
@@ -73,8 +87,6 @@ export class HeaderComponent implements OnInit {
     this.searchService.getPosition((position) => {
       if (position) {
         this.mapService.reverseGeoCode(position.coords.latitude, position.coords.longitude).subscribe((response: any) => {
-          console.log('Hi');
-          console.log(response.status, google.maps.GeocoderStatus.OK);
           const results = response.results;
           if (response.status === google.maps.GeocoderStatus.OK) {
             if (results[0]) {
