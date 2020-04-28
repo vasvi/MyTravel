@@ -57,19 +57,19 @@ export class LocationService {
     return new google.maps.places.PlacesService(map);
   }
 
-  createCoordinates(lat, lng) {
+  createCoordinates(lat: number, lng: number) {
     return new google.maps.LatLng(lat, lng);
   }
 
-  createMarker(options) {
+  createMarker(options: object) {
     return new google.maps.Marker(options);
   }
 
-  createMap(element: ElementRef, options) {
-    return new google.maps.Map(element.nativeElement, options);
+  createMap(element: HTMLElement, options: object) {
+    return new google.maps.Map(element, options);
   }
 
-  createInfoWindow(options) {
+  createInfoWindow(options: object) {
     return new google.maps.InfoWindow(options);
   }
 

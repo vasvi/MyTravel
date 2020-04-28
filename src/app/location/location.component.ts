@@ -32,7 +32,7 @@ export class LocationComponent implements OnInit {
   ngAfterViewInit() {
     this.initializeGoogleMap();
   }
-  
+
   ngOnDestroy() {
     this.routerEventSubscription.unsubscribe();
   }
@@ -99,7 +99,7 @@ export class LocationComponent implements OnInit {
   }
 
   initializeGoogleMap() {
-    this.map = this.locationService.createMap(this.mapContainerViewChild, {
+    this.map = this.locationService.createMap(this.mapContainerViewChild.nativeElement, {
       center: {
         lat: this.targetLocation.geometry[0],
         lng: this.targetLocation.geometry[1]
