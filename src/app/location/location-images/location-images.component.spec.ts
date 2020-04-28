@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { LocationImagesComponent } from './location-images.component';
 
-describe('LocationImagesComponent', () => {
+fdescribe('LocationImagesComponent', () => {
   let component: LocationImagesComponent;
   let fixture: ComponentFixture<LocationImagesComponent>;
   beforeEach(async(() => {
