@@ -4,7 +4,7 @@
 <div *ngIf="user">
     <div>
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background: rgb(193, 41, 41)" (click)="showUSerInfo()">
-            {{user.name ? user.name : userName}}
+            {{user.name ? (user.name | userName) : userName}}
         </button>
     </div>
     <div *ngIf="menuOpen" class="userDetail">

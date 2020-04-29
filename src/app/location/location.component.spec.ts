@@ -48,7 +48,7 @@ class WeatherServiceMock {
   }
 }
 
-fdescribe('LocationComponent', () => {
+describe('LocationComponent', () => {
   let component: LocationComponent;
   let fixture: ComponentFixture<LocationComponent>;
   let location: Location = {
