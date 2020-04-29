@@ -1,60 +1,81 @@
-.search {
+.fullWidthBackground {
+  width: 100%;
+  background-size: cover !important;
+  background: url("../../assets/images/bg2.jpg") no-repeat center;
+  background-position: bottom;
+  padding: 150px 0;
+
+  .search {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    search-form {
+      width: 60%;
+    }
+  }
+}
+
+
+
+.loadingPopular {
+  margin-top: 50px;
+  text-align: center;
+
+  .mdl-progress {
+    width: 70%;
+    margin: 20px auto 0;
+  }
+}
+
+.infoSection {
+  padding: 47px 5%;
+  background: white;
+  margin: 1px 0 33px 3%;
+  border-radius: 14px;
+  h1 {
+    font-size: 2.4em;
+    padding: 0px 4px 11px;
+    color: #413e47;
+    font-weight: bold;
+    text-align: left;
+    font-family: "Lato", sans-serif;
+  }
+  h4 {
+    font-weight: bold;
+    font-size: .9em;
+    padding: 0 1%;
+    line-height: 1.4em;
+
+  }
+}
+
+.search{
   margin: 100px 0px 0 60px;
+}
 
-  .infoSection {
-    padding: 47px 5%;
-    background: white;
-    margin: 1px 0 33px 3%;
-    border-radius: 14px;
-    h1 {
-      font-size: 2.4em;
-      padding: 0px 4px 11px;
-      color: #413e47;
-      font-weight: bold;
-      text-align: left;
-      font-family: "Lato", sans-serif;
-    }
-    h4 {
-      font-weight: bold;
-      font-size: .9em;
-      padding: 0 1%;
-      line-height: 1.4em;
-  
-    }
+
+.popularLocations{
+  margin-top: 30px;
+  text-align: center;
+  font-weight: bold;
+  padding: 1px 0px;
+  background: white;
+  h1 {
+    font-size: 1.8em;
+    padding: 0px 45px 1px;
+    color: #413e47;
+    font-weight: bold;
+    text-align: left;
+    font-family: "Lato", sans-serif;
   }
-
-  .popularLocations {
-    margin-top: 30px;
-    text-align: center;
-    padding: 1px 0px;
-    background: white;
-    max-height: 500px;
-    overflow-y: auto;
-
-    h1 {
-      font-size: 1.8em;
-      padding: 0px 45px 1px;
-      color: #413e47;
-      font-weight: bold;
-      text-align: left;
-      font-family: "Lato", sans-serif;
-    }
-    h4 {
-      font-weight: bold;
-      font-size: 0.9em;
-      padding: 0 45px 0px;
-      text-align: left;
-      line-height: 1.4em;
-    }
-  }
-
-  .loadingPopular {
-    margin-top: 50px;
-    text-align: center;
-  
-    .mdl-progress {
-      margin-left: 33%;
-      margin-top: 20px;
-    }
+  h4 {
+    font-weight: bold;
+    font-size: 0.9em;
+    padding: 0 45px 0px;
+    text-align: left;
+    line-height: 1.4em;
   }
 }
