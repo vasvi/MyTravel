@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MapService } from '../services/map/map.service';
 import { SearchDataService } from '../services/search-data.serivce';
 import { Router } from '@angular/router';
+import { LocationService } from '../services/location/location.service';
 
 declare const google;
 
@@ -12,12 +13,12 @@ declare const google;
   styleUrls: ['./global-search.component.scss']
 })
 export class GlobalSearchComponent implements AfterViewInit {
-  constructor(private router: Router,
-    private ngZone: NgZone,
-    private mapService: MapService,
-    private dialog: MatDialog,
-    private searchService: SearchDataService) {
-  }
+  constructor(
+    private router: Router,
+    private searchService: SearchDataService,
+    private locationService: LocationService,
+    private ngZone: NgZone
+  ) { }
 
   @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
 
@@ -26,19 +27,15 @@ export class GlobalSearchComponent implements AfterViewInit {
   }
 
   initAutoComplete() {
-    setTimeout(() => {
-      const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement, {
-        types: ['(cities)'],
-        componentRestrictions: {country: 'in'}
-      });
-      google.maps.event.addListener(autoComplete, 'place_changed', () => {
-        //  this.onLocationChange.emit(place);
-        this.ngZone.run(() => {
-          const queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
-          this.router.navigate(['location'], { queryParams: Object.assign({}, queryParamsObj), skipLocationChange: false });
-        })
-      });
-    }, 300);
+    const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
+    google.maps.event.addListener(autoComplete, 'place_changed', () => {
+      //  this.onLocationChange.emit(place);
+      const queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
+      this.locationService.setLocationsDetails(queryParamsObj);
+      this.ngZone.run(() => {
+        this.router.navigate(['location'], { queryParams: Object.assign({}, { name: queryParamsObj.name }), skipLocationChange: false });
+      })
+    });
   }
 
 }

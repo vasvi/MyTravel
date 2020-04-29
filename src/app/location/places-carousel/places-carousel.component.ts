@@ -10,12 +10,14 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class PlacesCarouselComponent implements OnInit {
   @Input('places') places: Place[];
   options: any;
-  constructor() { }
-  ngOnChanges() {
-  }
+  currentCarouselIndex: number = 0;
+  itemsPerPage: number = 5;
+  disableNext: boolean = false;
 
+  constructor() { }
+  
   customOptions: OwlOptions = {
-    loop: false,
+    loop: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
@@ -28,7 +30,7 @@ export class PlacesCarouselComponent implements OnInit {
         items: 1
       },
       400: {
-        items: 2
+        items: 1
       },
       740: {
         items: 3
@@ -39,17 +41,28 @@ export class PlacesCarouselComponent implements OnInit {
     },
     nav: false
   }
-  
 
-  opedDialog() {
+  // carouselPrev(): boolean {
+  //   if (this.currentCarouselIndex === 0) {
+  //     return false;
+  //   }
+  //   this.currentCarouselIndex--;
+  // }
 
-  }
+  // carouselNext() {
+  //   if (this.currentCarouselIndex >= Math.ceil(this.places.length / this.itemsPerPage)){
+  //     return false;
+  //   }
+  //   this.currentCarouselIndex++;
+  //   return true;
+  // }
 
-  ngAfterViewInit() {
+  // onCarouselChanged(event){
+  //   if(event.startPosition === 3){
+  //     this.currentCarouselIndex = 0;
+  //   }
+  // }
 
-  }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

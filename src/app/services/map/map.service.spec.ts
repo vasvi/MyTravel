@@ -535,7 +535,7 @@ describe('MapService', () => {
           }.toString);
       });
 
-      const mockReq = httpMock.expectOne('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + (latLong.lat) + ',' + (latLong.long) + '&types=(cities)&key=' + environment.GCP.apiKey);
+      const mockReq = httpMock.expectOne('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + (latLong.lat) + ',' + (latLong.long) + '&types=(cities)&key=' + environment.GCP.MY_MAPS.apiKey);
       expect(mockReq.cancelled).toBeFalsy();
       expect(mockReq.request.responseType).toEqual('json');
       mockReq.flush(latLong);
