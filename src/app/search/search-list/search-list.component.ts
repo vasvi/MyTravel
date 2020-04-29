@@ -21,8 +21,8 @@ export class SearchListComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.destinations = this.locationData && this.locationData.location;
-    this.destinations = this.destinations.sort((a, b) => a.details.distance.text.replace('km', '').
-    replace(',','') - b.details.distance.text.replace('km', '').replace(',',''));
+    this.destinations = this.destinations ? this.destinations.sort((a, b) => a.details.distance.text.replace('km', '').
+    replace(',','') - b.details.distance.text.replace('km', '').replace(',','')): this.destinations;
   }
 
   getPlaces(destination){
