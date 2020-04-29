@@ -1,5 +1,7 @@
-import {Component, ViewChild, ElementRef, AfterViewInit, Input, OnChanges} from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit, Input, OnChanges, NgZone} from '@angular/core';
 import {ApplicableLocationObject} from '../../model/search-criteria';
+import { SearchDataService } from '../../services/search-data.serivce';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'map-view',
@@ -12,7 +14,9 @@ export class MapViewComponent implements AfterViewInit, OnChanges {
   map: google.maps.Map;
   mapOptions: google.maps.MapOptions;
 
-  constructor() { }
+  constructor(private ngZone: NgZone,
+              private searchService: SearchDataService,
+              private router: Router) { }
 
   ngAfterViewInit() {
     if (this.locationData.location && this.locationData.location.length && this.locationData.position) {
@@ -73,11 +77,44 @@ export class MapViewComponent implements AfterViewInit, OnChanges {
       });
 
       google.maps.event.addListener(destinationMarker, 'click', ((mark, j, destinationsLocations, map) => {
+        let contentString = this.getInfoWindowContent(destinationsLocations, j);
         return () => {
-          infoWindow.setContent(destinationsLocations[j].location);
+          infoWindow.setContent(contentString);
           infoWindow.open(map, mark);
+          google.maps.event.addListener(infoWindow, 'domready', () => {
+            var clickableItem = document.getElementById('view-detail-btn');
+            clickableItem.addEventListener('click', () => {
+              this.getPlaces(destinationsLocations[j]);
+            });
+          });
         };
       })(destinationMarker, i, locations, this.map));
+
+
     }
+  }
+
+  getPlaces(destination){
+    let map = new google.maps.Map(document.createElement('div'));
+    var placesService = new google.maps.places.PlacesService(map);
+    placesService.getDetails({placeId:destination.placeId}, (data,status)=> this.navigateToLocation(data,status));
+  }
+
+  navigateToLocation(results, status){
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+      this.ngZone.run(() => {
+        let queryParamsObj = this.searchService.createLocationObject(results);
+        console.log('results--'+ results)
+        this.router.navigate(['location'], {queryParams: Object.assign({}, queryParamsObj), skipLocationChange: true});
+      })
+    }
+  }
+
+  getInfoWindowContent(destinationsLocations, j):string {
+    let contentString = '<div id="iw-container" class="location-info"><img src=' + destinationsLocations[j].imageUrl + '/>' +
+        '<p class="name" >' + destinationsLocations[j].location + '</p>' +
+        '<p >' + destinationsLocations[j].details.distance.text + '</p>'+
+        '<button id="view-detail-btn" class="mdl-button mdl-js-button">View Details</button></div>';
+        return contentString;
   }
 }

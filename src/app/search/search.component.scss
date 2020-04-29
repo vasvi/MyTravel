@@ -4,7 +4,7 @@
   margin: 0;
 
   .mdl-dialog {
-    width: 80%;
+    width: 70%;
 
     .dialogHeader {
       display: flex;
@@ -38,10 +38,17 @@
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+    width: 98%;
 
     .map {
       width: 70%;
       margin-left: 10px;
+    }
+
+    .search-table {
+      max-height: 600px;
+      overflow-y: auto;
+      width: 50%;
     }
   }
 }

@@ -1,11 +1,5 @@
-<!-- <div class="owl-carousel owl-theme" id="carousel">
-    <div class="item" *ngFor="let place of places">
-        <h4>{{place.name}}</h4>
-    </div>
-</div> -->
 <div class="wrapper">
     <owl-carousel-o [options]="customOptions" #owlCar>
-
         <ng-container *ngFor="let place of places">
             <ng-template class="slide" carouselSlide >
                 <div class="demo-card-wide mdl-card mdl-shadow--2dp" [style.background]="'url('+place?.imageUrl+')'">
@@ -21,9 +15,9 @@
                 </div>
             </ng-template>
         </ng-container>
-
     </owl-carousel-o>
-    <button  (click)="owlCar.prev()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab left">
+    
+    <button (click)="owlCar.prev()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab left">
         <i class="material-icons">chevron_left</i>
     </button>
     <button (click)="owlCar.next()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab right">

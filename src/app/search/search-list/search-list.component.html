@@ -1,16 +1,15 @@
 <div class="container search-list centerAlignedContainer">
-  <div align="center" *ngIf="!(destinations.length > 0)" class="spinner">
-    <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+  <div align="center" *ngIf="destinations?.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
       Please wait.. You locations are being loaded.
     </h4>
   </div>
-  <table   class="mdl-data-table mdl-js-data-table">
+  <table class="mdl-data-table mdl-js-data-table">
     <thead>
       <tr>
         <th class="expand"></th>
         <th class="name">Destination</th>
-        <th class="mdl-data-table__header--sorted-ascending distance">Distance</th>
+        <th class="distance">Distance</th>
         <th class="dest-image">Image</th>
         <th class="close"></th>
       </tr>
@@ -18,7 +17,7 @@
     <tbody>
       <!-- <cdk-virtual-scroll-viewport [itemSize]="112" style="height:386px"> *cdkVirtualFor -->
       <ng-container *ngFor= "let destination of destinations; let destinationIndex = index;">
-        <tr *ngIf="!destination?.hideDestination">
+        <tr *ngIf="!destination?.hideDestination" class="destinationRow">
           <td class="expand">
             <button class="mdl-button mdl-js-button mdl-button--icon" [attr.data-target]="'#data' + destinationIndex">
               <i class="material-icons" (click)="stopNavigation($event,destination)">{{destination?.showDescription ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</i>
@@ -45,9 +44,10 @@
             </ul>
           </td>
         </tr>
-        <tr colspan="6" class="hiddenRow"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination && destination?.showDescription">
-          <td></td>
-          <div class="description">{{destination?.information ? destination?.information : 'No Information Available'}} </div>
+        <tr class="hiddenRow"  [attr.id]="'data' + destinationIndex"  *ngIf="!destination?.hideDestination && destination?.showDescription">
+          <td colspan="5">
+              {{destination?.information ? destination?.information : 'No Information Available'}}
+          </td>
         </tr>
       </ng-container>
     <!-- </cdk-virtual-scroll-viewport> -->

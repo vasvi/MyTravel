@@ -190,3 +190,24 @@ body [class^='mat-'], body [class*=' mat-'] {
   background: #555;
 
 }
+.gm-style-iw {
+  width: 200px !important;
+  height: auto;
+  top: 0 !important;
+  left: 0 !important;
+  border-radius: 2px 2px 0 0;
+  text-align: center;
+}
+
+#iw-container {
+    img {
+      width: 200px;
+      height: auto;
+    }
+    p{
+      font-size: 13px;
+      line-height: 15px;
+      margin-bottom: 8px;
+      text-align: left;
+    }
+  }

@@ -1,6 +1,6 @@
 <div class="wrapper">
     <div class="container">
-        <div class="main-lc mdl-grid">
+        <div class="main-lc mdl-grid" *ngIf="targetLocation">
             <div class="info mdl-cell mdl-cell--12-col">
                 <div class="title">
                     <h3>
@@ -18,12 +18,12 @@
             <div class="mdl-cell mdl-cell--6-col weather">
                 <div #mapContainer id="map" class="map-container"></div>
             </div>
-            <div class="mdl-cell mdl-cell--6-col weather">
+            <div class="mdl-cell mdl-cell--6-col weather" *ngIf="targetLocation">
                 <app-weather-widget [weather]="weatherDetails"></app-weather-widget>
             </div>
         </div>
 
-        <div class="mdl-grid" style="padding: 0; margin: 50px 0 0 0;">
+        <div class="mdl-grid" style="padding: 0; margin: 0;" *ngIf="targetLocation && places[0]">
             <div class="carousel mdl-cell mdl-cell--12-col">
                 <h3>Places of interest</h3>
                 <div class="nearby">
