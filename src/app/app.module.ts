@@ -28,6 +28,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MDL } from './directives/MaterialDesignLiteUpgradeElement';
 import { SharedModule } from './module/shared.module';
 import { environment } from '../environments/environment';
+import { gcal } from 'google-calendar';
 
 let config = new AuthServiceConfig([
   {
