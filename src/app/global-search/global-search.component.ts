@@ -1,6 +1,4 @@
 import { Component, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MapService } from '../services/map/map.service';
 import { SearchDataService } from '../services/search-data.serivce';
 import { Router } from '@angular/router';
 import { LocationService } from '../services/location/location.service';
