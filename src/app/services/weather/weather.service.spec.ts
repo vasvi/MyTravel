@@ -51,7 +51,6 @@ describe('WeatherService', () => {
         });
 
         weatherService.getWeatherDetails(GetWeatherDetailsOptions).subscribe((data) => {
-          console.log(data);
           expect(data).toEqual({
             daily: WeatherDataMock.daily,
             current: WeatherDataMock.current

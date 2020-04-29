@@ -1,4 +1,4 @@
-<div class="mdl-grid" *ngIf="images[0]">
+<div class="mdl-grid" *ngIf="images && images[0]">
     <div class="mdl-cell mdl-cell--5-col big">
         <img (click)="openDialog(0)" [src]="images[0]" alt="1">
     </div>
