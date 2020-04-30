@@ -20,6 +20,7 @@
   div.searchParamSummary {
     display: flex;
     flex-direction: row;
+    font-weight: bold;
     justify-content: space-between;
     padding-right: 20px;
 
@@ -32,8 +33,8 @@
         }
       }
     }
-  }  
-  
+  }
+
   &__mapListView {
     display: flex;
     flex-direction: row;
@@ -51,4 +52,33 @@
       width: 50%;
     }
   }
+}
+
+.mdl-dialog__title{
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 8px 36px 8px;
+  color: #484848;
+}
+
+
+@media only screen and (max-width: 1032px) {
+
+  .searchResults{
+    margin-top: 30px;
+
+    dialog{
+      width: 100% !important;
+      padding: 30px 7px;
+    }
+  }
+  .mdl-dialog__content{
+    padding: 24px 8px 0 0 !important;
+  }
+
+  .searchResults__mapListView{
+    display: block !important;
+  }
+
 }
