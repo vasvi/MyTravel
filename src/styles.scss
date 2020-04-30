@@ -161,6 +161,11 @@ body [class^='mat-'], body [class*=' mat-'] {
 
 .mdl-layout__drawer-button {
   color: #ffffff;
+  background-color: #1d275d;
+  margin: 0;
+  padding: 10px;
+  height: 64px;
+  width: 70px;
 }
 
 .customButton {
@@ -190,6 +195,7 @@ body [class^='mat-'], body [class*=' mat-'] {
   background: #555;
 
 }
+
 .gm-style-iw {
   width: 200px !important;
   height: auto;
@@ -200,14 +206,32 @@ body [class^='mat-'], body [class*=' mat-'] {
 }
 
 #iw-container {
-    img {
-      width: 200px;
-      height: auto;
-    }
-    p{
-      font-size: 13px;
-      line-height: 15px;
-      margin-bottom: 8px;
-      text-align: left;
+  img {
+    width: 200px;
+    height: auto;
+  }
+  p {
+    font-size: 13px;
+    line-height: 15px;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 1032px) {
+
+  .mat-horizontal-stepper-header-container {
+    display: block !important;
+    .mat-stepper-horizontal-line {
+      margin: 0 !important;
     }
   }
+
+  .mdl-menu__item{
+    font-weight: bold;
+    font-size: .8em;
+    font-family: 'Lato',sans-serif;
+  }
+
+}
+

@@ -59,10 +59,20 @@ $themeFont: 'Montserrat', sans-serif;
     color: #333 !important;
   }
 
-  button {
+  .mdl-button--colored {
     font-family: $themeFont;
-    font-size: .8em;
+    font-size: 0.8em;
     font-weight: bold;
+    height: 38px !important;
+    width: 38px !important;
+    float: right;
+    min-width: 38px !important;
+    display: block;
+    margin: 5px;
+    i{
+      font-size: 20px;
+      left: 19px;
+    }
   }
 }
 
@@ -81,4 +91,7 @@ $themeFont: 'Montserrat', sans-serif;
   font-size: 0.78em;
   padding: 19px 15px 0;
   color: #333;
+}
+.mdl-button--colored{
+  background-color: #8657db;
 }

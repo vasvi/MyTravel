@@ -35,7 +35,9 @@
         <mat-error>This field is required</mat-error>
       </mat-form-field>
       <div>
-        <button type="button" mat-button matStepperNext>Next</button>
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" matStepperNext>
+          <i class="material-icons">arrow_forward</i>
+        </button>
       </div>
       <div class="stepperInfoSection">
         Necessary details to initiate our search.
@@ -63,8 +65,12 @@
         <mat-error>The field is required</mat-error>
       </mat-form-field>
       <div>
-        <button type="button" mat-button matStepperPrevious>Back</button>
-        <button type="button" mat-button matStepperNext>Next</button>
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" matStepperNext>
+          <i class="material-icons">arrow_forward</i>
+        </button>
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" matStepperPrevious>
+          <i class="material-icons">arrow_back</i>
+        </button>
       </div>
 
       <div class="stepperInfoSection">
@@ -142,8 +148,12 @@
         </div>
       </div>
       <div>
-        <button mat-button [disabled]="!searchForm.valid">Done</button>
-        <button type="button" mat-button (click)="linearHorizontalStepper.reset()">Reset</button>
+        <button (click)="linearHorizontalStepper.reset()" type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <i class="material-icons">clear</i>
+        </button>
+        <button type="button" [disabled]="!searchForm.valid" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <i class="material-icons">send</i>
+        </button>
       </div>
       <div class="stepperInfoSection">
         Almost done!
