@@ -1,10 +1,8 @@
 import { LocationService } from 'src/app/services/location/location.service';
-import {Component, OnInit, Input, OnChanges, NgZone} from '@angular/core';
-import {ApplicableLocationObject, Location} from 'src/app/model/search-criteria';
+import {Component, OnInit, Input, OnChanges, NgZone, ViewChild, ElementRef} from '@angular/core';
+import {ApplicableLocationObject} from 'src/app/model/search-criteria';
 import {Router} from '@angular/router';
 import {SearchDataService} from '../../services/search-data.serivce';
-declare var componentHandler: any;
-
 
 @Component({
   selector: 'app-search-list',
@@ -13,14 +11,16 @@ declare var componentHandler: any;
 })
 
 export class SearchListComponent implements OnInit, OnChanges {
+  @ViewChild('createEventDialog', {static: false}) createEventDialog: ElementRef;
   destinations = [];
   @Input() locationData: ApplicableLocationObject;
+  selectedLocation = '';
 
   constructor(
     private router: Router,
     private ngZone: NgZone,
     private searchService: SearchDataService,
-    private locationService: LocationService
+    private locationService: LocationService,
   ) { }
 
   ngOnInit() {
@@ -57,4 +57,16 @@ export class SearchListComponent implements OnInit, OnChanges {
     event.stopPropagation();
   }
 
+  createEvent = (destination) => {
+    this.selectedLocation = destination.location;
+    if (this.createEventDialog) {
+      this.createEventDialog.nativeElement.showModal();
+    }
+  }
+
+  closeModal = () => {
+    if (this.createEventDialog && this.createEventDialog.nativeElement.open) {
+      this.createEventDialog.nativeElement.close();
+    }
+  }
 }

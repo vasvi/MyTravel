@@ -21,9 +21,10 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = (user != null);
-      this.menuOpen = false;
+        this.user = user;
+        this.loggedIn = (user != null);
+        this.menuOpen = false;
+        sessionStorage.setItem('user_authToken', this.user && this.user.authToken);
     })
   }
 
@@ -33,6 +34,7 @@ export class SignInComponent implements OnInit {
 
   signOut = (): void => {
     this.authService.signOut();
+    sessionStorage.removeItem('user_authToken');
   }
 
   showUSerInfo = (): void => {

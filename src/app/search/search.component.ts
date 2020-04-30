@@ -74,7 +74,6 @@ export class SearchComponent implements OnInit {
   }
 
   closeModal = () => {
-    console.log(this.editDialog.nativeElement.open);
     if (this.editDialog && this.editDialog.nativeElement.open) {
       this.editDialog.nativeElement.close();
     }
