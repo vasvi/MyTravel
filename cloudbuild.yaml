@@ -6,9 +6,9 @@ steps:
 #   args: ["install", "-g", "@angular/cli" ]
 
 # Install Dependencies
-- name: "node:10.15.1"
-  entrypoint: npm
-  args: ["install"]
+# - name: "node:10.15.1"
+#   entrypoint: npm
+#   args: ["install"]
 
 # build Project in prod mode.
 - name: "node:10.15.1"
