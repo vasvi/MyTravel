@@ -1,15 +1,15 @@
 steps:
 
 # Install Angular
-- name: "gcr.io/cloud-builders/npm:node-12.16.3"
+- name: "gcr.io/cloud-builders/npm:node-10.15.1"
   args: ["install", "-g", "@angular/cli" ]
 
 # Install Dependencies
-- name: "gcr.io/cloud-builders/npm:node-12.16.3"
+- name: "gcr.io/cloud-builders/npm:node-10.15.1"
   args: ["install"]
 
 # build Project in prod mode.
-- name: "gcr.io/cloud-builders/npm:node-12.16.3"
+- name: "gcr.io/cloud-builders/npm:node-10.15.1"
   args: ["run", "ng", "build", "--prod", "--aot"]
 
 - name: "gcr.io/cloud-builders/gcloud"
