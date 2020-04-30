@@ -5,3 +5,12 @@
     height: 600px;
   }
 }
+
+@media only screen and (max-width: 1032px) {
+  #map{
+    height: 312px !important;
+    margin: 36px -2px !important;
+    width: 97% !important;
+    border: 3px solid #828282 !important;
+  }
+}
