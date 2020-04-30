@@ -1,9 +1,9 @@
 steps:
 
 # Install Angular
-- name: "node:10.15.1"
-  entrypoint: npm
-  args: ["install", "-g", "@angular/cli" ]
+# - name: "node:10.15.1"
+#   entrypoint: npm
+#   args: ["install", "-g", "@angular/cli" ]
 
 # Install Dependencies
 - name: "node:10.15.1"
@@ -13,7 +13,7 @@ steps:
 # build Project in prod mode.
 - name: "node:10.15.1"
   entrypoint: npm
-  args: ["run", "ng", "build", "--prod", "--aot"]
+  args: ["run", "build-deploy"]
 
 - name: "gcr.io/cloud-builders/gcloud"
   args: ["app", "deploy", "server/app.yaml", "--project", "travel-272407", "--version", "20200429t180751", "--promote"]
