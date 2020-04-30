@@ -16,6 +16,6 @@ steps:
   args: ["run", "ng", "build", "--prod", "--aot"]
 
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy", "server/app.yaml", "--project", "travel-272407", "--version", "20200429t180751", "--promote"]
+  args: ["app", "deploy", "server/app.yaml"]
 timeout: "1600s"
 
