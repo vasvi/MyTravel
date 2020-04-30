@@ -1,0 +1,18 @@
+steps:
+
+# Install Angular
+- name: "gcr.io/cloud-builders/npm"
+  args: ["install", "-g", "@angular/cli" ]
+
+# Install Dependencies
+- name: "gcr.io/cloud-builders/npm"
+  args: ["install"]
+
+# build Project in prod mode.
+- name: "gcr.io/cloud-builders/npm"
+  args: ["run", "ng", "build", "--prod", "--aot"]
+
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy", "server/app.yaml", "--project", "travel-272407", "--version", "20200429t180751", "--promote"]
+timeout: "1600s"
+
