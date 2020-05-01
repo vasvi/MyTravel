@@ -62,7 +62,7 @@
     <mat-icon (click)="closeModal()">close</mat-icon>
   </div>
   <div class="mdl-dialog__content">
-    <create-new-event [location]="selectedLocation"></create-new-event>
+    <create-new-event [location]="selectedLocation" (closeModal)="closeModal()"></create-new-event>
   </div>
 </dialog>
 

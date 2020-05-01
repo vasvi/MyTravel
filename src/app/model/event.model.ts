@@ -1,4 +1,4 @@
-export interface Event {
+export interface EventObject {
     end: DateObj,
     location?: string;
     start: DateObj;

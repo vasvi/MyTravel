@@ -1,7 +1,7 @@
 <form id="createEventForm" class="createEvent" [formGroup]="createEventForm" (ngSubmit)="onSubmit()" novalidate>
 
     <div class="mdl-textfield mdl-js-textfield">
-        <input class="mdl-textfield__input" type="text" id="title" value="Trip to {{location}}" [formControl]="title">        
+        <input class="mdl-textfield__input" type="text" id="title" [formControl]="title">        
         <label class="mdl-textfield__label" for="title"></label>
     </div>
 
