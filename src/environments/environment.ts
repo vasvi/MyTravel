@@ -9,15 +9,13 @@ export const environment = {
     token_uri: 'https://oauth2.googleapis.com/token',
     client_secret: 'tRS1nGoMFNK-88vAePccX7Gi',
     TRAVEL: {
-      name: 'Travel',
-      apiKey: 'AIzaSyATc4VrAMYW2-Z31TD2hS1Po4-XgtXw8WI',
-      client_id: '826436261333-0707nbu0o7l49bb2fpg1nokb33gtllia.apps.googleusercontent.com',
+      name: 'MyTravelMaps',
+      client_id: '207524266129-eofqorqkgmbduk96ur44rukok58r0pla.apps.googleusercontent.com',
       project_id: 'travel-272407',
     },
     MY_MAPS: {
       name: 'My Maps Project',
       apiKey: 'AIzaSyB19_zfT_vKvOlGa0pz0uQqPh2L_eHleUI',
-      client_id: '151161582611-i9fkqu14n7giqluadt174na8nil5qo2r.apps.googleusercontent.com',
       project_id: 'ivory-lotus-272709'
     }
   },
