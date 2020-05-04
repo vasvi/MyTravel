@@ -3,8 +3,6 @@ import {Component, OnInit, Input, OnChanges, NgZone} from '@angular/core';
 import {ApplicableLocationObject, Location} from 'src/app/model/search-criteria';
 import {Router} from '@angular/router';
 import {SearchDataService} from '../../services/search-data.serivce';
-import { environment } from  '../../../environments/environment';
-import  { PlacesMockService } from '../../mock-services/places-mock/places-mock-service';
 declare var componentHandler: any;
 
 
@@ -22,8 +20,7 @@ export class SearchListComponent implements OnInit, OnChanges {
     private router: Router,
     private ngZone: NgZone,
     private searchService: SearchDataService,
-    private locationService: LocationService,
-    private placesMock: PlacesMockService
+    private locationService: LocationService
   ) { }
 
   ngOnInit() {
@@ -33,14 +30,9 @@ export class SearchListComponent implements OnInit, OnChanges {
   }
 
   getPlaces(destination) {
-    if(environment.demoMode){
-      const placesResp = this.placesMock.getMockData().result;
-      this.navigateToLocation(placesResp, 'OK');
-    }else{
-      let map = new google.maps.Map(document.createElement('div'));
-      var placesService = new google.maps.places.PlacesService(map);
-      placesService.getDetails({ placeId: destination.placeId }, (data, status) => this.navigateToLocation(data, status));
-    }
+    let map = new google.maps.Map(document.createElement('div'));
+    var placesService = new google.maps.places.PlacesService(map);
+    placesService.getDetails({ placeId: destination.placeId }, (data, status) => this.navigateToLocation(data, status));
   }
 
   hideDestination(destination) {
