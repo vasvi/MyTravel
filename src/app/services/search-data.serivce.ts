@@ -10,6 +10,9 @@ import {
 } from '../model/search-criteria';
 import LocationData from '../search/location.json';
 import * as constant from '../searchConstants';
+import {environment} from '../../environments/environment';
+import {DistanceMatrixMockService} from '../mock-services/distanceMatrixMock/distance-matrix-mock.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +32,9 @@ export class SearchDataService {
   /**Returns userSearchObject  */
   getUserSearchData = (): UserParameters => {
     return this.userSearchObject;
+  }
+
+  constructor(private distanceMatrixMock: DistanceMatrixMockService) {
   }
 
   /** Search Logic goes below this */
@@ -190,9 +196,18 @@ export class SearchDataService {
 
     let currentUserLocation;
     let destinationIndex = 0;
+    let service;
 
     currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
-    const service = new google.maps.DistanceMatrixService();
+    if (environment.demoMode) {
+      service = {
+        getDistanceMatrix: (request, callback) => {
+          callback(this.distanceMatrixMock.getMockData());
+        }
+      };
+    } else {
+      service = new google.maps.DistanceMatrixService();
+    }
     service.getDistanceMatrix(
       {
         origins: [currentUserLocation],
@@ -275,6 +290,7 @@ export class SearchDataService {
     };
     return formattedLocationData;
   }
+
   /**
    * @param callback
    */

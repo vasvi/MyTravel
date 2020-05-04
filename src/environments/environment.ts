@@ -24,7 +24,8 @@ export const environment = {
   OPENWEATHER: {
     appid: '24aac48b2c5f1c06ed90d17dc31ae21c',
     api_endpoint: 'https://api.openweathermap.org/data/2.5/'
-  }
+  },
+  demoMode: true
 };
 
 /*
