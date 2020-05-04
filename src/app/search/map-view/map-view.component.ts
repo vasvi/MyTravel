@@ -2,6 +2,8 @@ import {Component, ViewChild, ElementRef, AfterViewInit, Input, OnChanges, NgZon
 import {ApplicableLocationObject} from '../../model/search-criteria';
 import { SearchDataService } from '../../services/search-data.serivce';
 import { Router } from '@angular/router';
+import { environment } from  '../../../environments/environment';
+import  { PlacesMockService } from '../../mock-services/places-mock/places-mock-service';
 
 @Component({
   selector: 'map-view',
@@ -16,7 +18,8 @@ export class MapViewComponent implements AfterViewInit, OnChanges {
 
   constructor(private ngZone: NgZone,
               private searchService: SearchDataService,
-              private router: Router) { }
+              private router: Router,
+              private placesMock: PlacesMockService) { }
 
   ngAfterViewInit() {
     if (this.locationData.location && this.locationData.location.length && this.locationData.position) {
@@ -95,9 +98,14 @@ export class MapViewComponent implements AfterViewInit, OnChanges {
   }
 
   getPlaces(destination){
+    if(environment.demoMode){
+      const placesResp = this.placesMock.getMockData().result;
+      this.navigateToLocation(placesResp, 'OK');
+    }else{
     let map = new google.maps.Map(document.createElement('div'));
     var placesService = new google.maps.places.PlacesService(map);
     placesService.getDetails({placeId:destination.placeId}, (data,status)=> this.navigateToLocation(data,status));
+   }
   }
 
   navigateToLocation(results, status){
