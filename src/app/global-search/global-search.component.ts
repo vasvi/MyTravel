@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angula
 import { SearchDataService } from '../services/search-data.serivce';
 import { Router } from '@angular/router';
 import { LocationService } from '../services/location/location.service';
+import { environment } from  '../../environments/environment';
+import  { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
 
 declare const google;
 
@@ -15,7 +17,8 @@ export class GlobalSearchComponent implements AfterViewInit {
     private router: Router,
     private searchService: SearchDataService,
     private locationService: LocationService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private placesMock: PlacesMockService
   ) { }
 
   @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
@@ -28,7 +31,12 @@ export class GlobalSearchComponent implements AfterViewInit {
     const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
     google.maps.event.addListener(autoComplete, 'place_changed', () => {
       //  this.onLocationChange.emit(place);
-      const queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
+      let queryParamsObj;
+      if(environment.demoMode){
+       queryParamsObj = this.searchService.createLocationObject(this.placesMock.getMockData().result);
+      }else{
+       queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
+      }
       this.locationService.setLocationsDetails(queryParamsObj);
       this.ngZone.run(() => {
         this.router.navigate(['location'], { queryParams: Object.assign({}, { name: queryParamsObj.name }), skipLocationChange: false });
