@@ -76,6 +76,8 @@ cdk-virtual-scroll-viewport {
 
 .centerAlignedContainer {
   text-align: left;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 .search-list {
   tr {
@@ -100,7 +102,7 @@ cdk-virtual-scroll-viewport {
 
   tr.hiddenRow {
     font-weight: normal;
-    
+
     td {
       text-align: justify;
     }

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WeatherWidgetComponent } from './weather-widget.component';
 
-describe('WeatherWidgetComponent', () => {
+fdescribe('WeatherWidgetComponent', () => {
   let component: WeatherWidgetComponent;
   let fixture: ComponentFixture<WeatherWidgetComponent>;
 
