@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs';
 import { WeatherService } from '../services/weather/weather.service';
 import { WeatherDetails } from '../model/weather.model';
 import { LocationService } from '../services/location/location.service';
-
+import { environment } from '../../environments/environment';
+import { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
@@ -22,7 +23,8 @@ export class LocationComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private weatherService: WeatherService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private placesMock: PlacesMockService
   ) { }
 
   ngOnInit() {
@@ -61,7 +63,23 @@ export class LocationComponent implements OnInit {
     })
   }
 
+  plotMockPlaces() {
+    var results: Array<any> = this.placesMock.getNearbyPlaces(this.targetLocation.place_id);
+    var placesList: Array<Place> = [];
+    results.forEach(item => {
+      let placeObj: Place = this.locationService.createPlaceObj(item);
+      placesList.push(placeObj);
+      let markerOptions = this.locationService.createMarkerOptions(this.map, item);
+      this.addMarker(markerOptions);
+    });
+    this.places = placesList;
+  }
+
   plotNearbyPlaces() {
+    if (environment.demoMode) {
+      this.plotMockPlaces();
+      return;
+    }
     const service = this.locationService.createPlaceService(this.map);
     const targetCoordinates = this.locationService.createCoordinates(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
     service.nearbySearch({
