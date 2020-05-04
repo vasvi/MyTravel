@@ -16,7 +16,7 @@ export const environment = {
     },
     MY_MAPS: {
       name: 'My Maps Project',
-      apiKey: 'AIzaSyCoyLacmAqoMKFecnjIHN6rOguWXmZfruo',
+      apiKey: 'AIzaSyB19_zfT_vKvOlGa0pz0uQqPh2L_eHleUI',
       client_id: '151161582611-i9fkqu14n7giqluadt174na8nil5qo2r.apps.googleusercontent.com',
       project_id: 'ivory-lotus-272709'
     }
