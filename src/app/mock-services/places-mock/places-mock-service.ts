@@ -150,6 +150,82 @@ export class PlacesMockService {
 			"user_ratings_total": 1157,
 			"vicinity": "D1-2A, Behind Collectorate, Via Bank Road, Bani Park, Jaipur",
 			"html_attributions": []
+		}
+		, {
+			"business_status": "OPERATIONAL",
+			"geometry": {
+				"location": {
+					"lat": () => 26.928435,
+					"lng": () => 75.792362
+				},
+				"viewport": {
+					"south": 26.9270203697085,
+					"west": 75.79097951970849,
+					"north": 26.9297183302915,
+					"east": 75.79367748029149
+				}
+			},
+			"icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+			"id": "5859d13c9a8ebbbb19d322c6954285cbaecc9479",
+			"name": "Umaid Bhawan Hotel",
+			"opening_hours": {
+				"open_now": true
+			},
+			"photos": [{
+				"height": 500,
+				"html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/103132451980281244350\">Umaid Bhawan Hotel</a>"],
+				"width": 785
+			}],
+			"place_id": "ChIJ5w_4AfGzbTkRQtcJSYEZtVw",
+			"plus_code": {
+				"compound_code": "WQHR+9W Jaipur, Rajasthan, India",
+				"global_code": "7JRQWQHR+9W"
+			},
+			"rating": 4.3,
+			"reference": "ChIJ5w_4AfGzbTkRQtcJSYEZtVw",
+			"scope": "GOOGLE",
+			"types": ["lodging", "point_of_interest", "establishment"],
+			"user_ratings_total": 1157,
+			"vicinity": "D1-2A, Behind Collectorate, Via Bank Road, Bani Park, Jaipur",
+			"html_attributions": []
+		},
+		, {
+			"business_status": "OPERATIONAL",
+			"geometry": {
+				"location": {
+					"lat": () => 26.928435,
+					"lng": () => 75.792362
+				},
+				"viewport": {
+					"south": 26.9270203697085,
+					"west": 75.79097951970849,
+					"north": 26.9297183302915,
+					"east": 75.79367748029149
+				}
+			},
+			"icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+			"id": "5859d13c9a8ebbbb19d322c6954285cbaecc9479",
+			"name": "Umaid Bhawan Hotel",
+			"opening_hours": {
+				"open_now": true
+			},
+			"photos": [{
+				"height": 500,
+				"html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/103132451980281244350\">Umaid Bhawan Hotel</a>"],
+				"width": 785
+			}],
+			"place_id": "ChIJ5w_4AfGzbTkRQtcJSYEZtVw",
+			"plus_code": {
+				"compound_code": "WQHR+9W Jaipur, Rajasthan, India",
+				"global_code": "7JRQWQHR+9W"
+			},
+			"rating": 4.3,
+			"reference": "ChIJ5w_4AfGzbTkRQtcJSYEZtVw",
+			"scope": "GOOGLE",
+			"types": ["lodging", "point_of_interest", "establishment"],
+			"user_ratings_total": 1157,
+			"vicinity": "D1-2A, Behind Collectorate, Via Bank Road, Bani Park, Jaipur",
+			"html_attributions": []
 		}]
 
 	private placesMockData = {

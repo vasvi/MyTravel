@@ -2,8 +2,8 @@ import { Component, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angula
 import { SearchDataService } from '../services/search-data.serivce';
 import { Router } from '@angular/router';
 import { LocationService } from '../services/location/location.service';
-import { environment } from  '../../environments/environment';
-import  { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
+import { environment } from '../../environments/environment';
+import { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
 
 declare const google;
 
@@ -19,12 +19,18 @@ export class GlobalSearchComponent implements AfterViewInit {
     private locationService: LocationService,
     private ngZone: NgZone,
     private placesMock: PlacesMockService
-  ) { }
+  ) {
+    this.demoMode = environment.demoMode;
+  }
 
   @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
 
   ngAfterViewInit() {
-    this.initAutoComplete();
+    if (this.demoMode) {
+      this.mockLocations.push(this.placesMock.getMockData().result);
+    } else {
+      this.initAutoComplete();
+    }
   }
 
   initAutoComplete() {
@@ -45,4 +51,32 @@ export class GlobalSearchComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * 
+   * Demo Mode
+   * 
+   */
+
+  demoMode: boolean;
+  mockLocations: Array<any> = [];
+  displayLocations: boolean;
+  locationName: string;
+
+  showLocationBox() {
+    this.displayLocations = true;
+  }
+
+  hideLocationBox() {
+    this.displayLocations = false;
+  }
+
+  redirect(location) {
+    this.locationName = location.name;
+    this.displayLocations = false;
+    this.locationService.setLocationsDetails(this.searchService.createLocationObject(location));
+    this.router.navigate(['location'], { queryParams: Object.assign({}, { name: location.name }), skipLocationChange: false });
+  }
+
 }
+
+
