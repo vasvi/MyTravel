@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       autoComplete.setFields(['reference', 'formatted_address', 'geometry.location', 'name','photos','id','place_id']);
       google.maps.event.addListener(autoComplete, 'place_changed', () => {
         let place;
-        if(environment.demoMode){
+        if(environment.useMock){
           place = this.placesMock.getMockData().result;
         }else {
            place = autoComplete.getPlace();

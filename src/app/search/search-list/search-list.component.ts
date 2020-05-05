@@ -1,6 +1,6 @@
 import { LocationService } from 'src/app/services/location/location.service';
-import {Component, OnInit, Input, OnChanges, NgZone} from '@angular/core';
-import {ApplicableLocationObject, Location} from 'src/app/model/search-criteria';
+import {Component, OnInit, Input, OnChanges, NgZone, ViewChild, ElementRef} from '@angular/core';
+import {ApplicableLocationObject} from 'src/app/model/search-criteria';
 import {Router} from '@angular/router';
 import {SearchDataService} from '../../services/search-data.serivce';
 import { environment } from  '../../../environments/environment';
@@ -15,8 +15,10 @@ declare var componentHandler: any;
 })
 
 export class SearchListComponent implements OnInit, OnChanges {
+  @ViewChild('createEventDialog', {static: false}) createEventDialog: ElementRef;
   destinations = [];
   @Input() locationData: ApplicableLocationObject;
+  selectedLocation = '';
 
   constructor(
     private router: Router,
@@ -33,7 +35,7 @@ export class SearchListComponent implements OnInit, OnChanges {
   }
 
   getPlaces(destination) {
-    if(environment.demoMode){
+    if(environment.useMock){
       const placesResp = this.placesMock.getMockData().result;
       this.navigateToLocation(placesResp, 'OK');
     }else{
@@ -71,4 +73,16 @@ export class SearchListComponent implements OnInit, OnChanges {
     event.stopPropagation();
   }
 
+  createEvent = (destination) => {
+    this.selectedLocation = destination.location;
+    if (this.createEventDialog) {
+      this.createEventDialog.nativeElement.showModal();
+    }
+  }
+
+  closeModal = () => {
+    if (this.createEventDialog && this.createEventDialog.nativeElement.open) {
+      this.createEventDialog.nativeElement.close();
+    }
+  }
 }

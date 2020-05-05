@@ -41,6 +41,8 @@
                 <mat-icon>open_in_new</mat-icon>View Detail</li>
               <li class="mdl-menu__item" (click)="hideDestination(destination)">
                 <mat-icon>visibility_off</mat-icon>Hide from list</li>
+              <li class="mdl-menu__item createEventOption" (click)="createEvent(destination)">
+                <mat-icon>event</mat-icon>Create Event</li>
             </ul>
           </td>
         </tr>
@@ -54,6 +56,15 @@
     </tbody>
   </table>
 </div>
+<dialog #createEventDialog id="createEventDialog" class="mdl-dialog createEvent">
+  <div class="dialogHeader">
+    <h5 class="mdl-dialog__title">Confirm event details</h5>
+    <mat-icon (click)="closeModal()">close</mat-icon>
+  </div>
+  <div class="mdl-dialog__content">
+    <create-new-event [location]="selectedLocation" (closeModal)="closeModal()"></create-new-event>
+  </div>
+</dialog>
 
 
 

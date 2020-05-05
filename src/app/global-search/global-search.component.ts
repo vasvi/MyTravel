@@ -33,7 +33,7 @@ export class GlobalSearchComponent implements AfterViewInit {
     google.maps.event.addListener(autoComplete, 'place_changed', () => {
       //  this.onLocationChange.emit(place);
       let queryParamsObj;
-      if(environment.demoMode){
+      if(environment.useMock){
        queryParamsObj = this.searchService.createLocationObject(this.placesMock.getMockData().result);
       }else{
        queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
