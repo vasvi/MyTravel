@@ -100,3 +100,14 @@
     height: 330px;
     width: 100%;
 }
+
+.placeholder{
+    background: url("../../assets/images/maxresdefault.png") center;
+    background-size: cover;
+}
+
+.weather-container {
+    padding: 0;
+    width: 95%;
+    margin-left: 20px;
+}
