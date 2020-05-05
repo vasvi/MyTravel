@@ -13,6 +13,18 @@ declare const google;
   styleUrls: ['./global-search.component.scss']
 })
 export class GlobalSearchComponent implements AfterViewInit {
+  /**
+   *
+   * Demo Mode
+   *
+   */
+
+  useMock: boolean;
+  mockLocations: Array<any> = [];
+  displayLocations: boolean;
+  locationName: string;
+
+
   constructor(
     private router: Router,
     private searchService: SearchDataService,
@@ -20,13 +32,13 @@ export class GlobalSearchComponent implements AfterViewInit {
     private ngZone: NgZone,
     private placesMock: PlacesMockService
   ) {
-    this.demoMode = environment.useMock;
+    this.useMock = environment.useMock;
   }
 
   @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
 
   ngAfterViewInit() {
-    if (this.demoMode) {
+    if (this.useMock) {
       this.mockLocations.push(this.placesMock.getMockData().result);
     } else {
       this.initAutoComplete();
@@ -35,32 +47,22 @@ export class GlobalSearchComponent implements AfterViewInit {
 
   initAutoComplete() {
     const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
-    autoComplete.setFields(['reference', 'formatted_address', 'geometry.location', 'name','photos','id','place_id']);
+    autoComplete.setFields(['reference', 'formatted_address', 'geometry.location', 'name', 'photos', 'id', 'place_id']);
     google.maps.event.addListener(autoComplete, 'place_changed', () => {
       //  this.onLocationChange.emit(place);
       let queryParamsObj;
-      if(environment.useMock){
-       queryParamsObj = this.searchService.createLocationObject(this.placesMock.getMockData().result);
-      }else{
-       queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
+      if (this.useMock) {
+        queryParamsObj = this.searchService.createLocationObject(this.placesMock.getMockData().result);
+      } else {
+        queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
       }
       this.locationService.setLocationsDetails(queryParamsObj);
       this.ngZone.run(() => {
         this.router.navigate(['location'], { queryParams: Object.assign({}, { name: queryParamsObj.name }), skipLocationChange: false });
-      })
+      });
     });
   }
 
-  /**
-   * 
-   * Demo Mode
-   * 
-   */
-
-  demoMode: boolean;
-  mockLocations: Array<any> = [];
-  displayLocations: boolean;
-  locationName: string;
 
   showLocationBox() {
     this.displayLocations = true;
