@@ -36,6 +36,7 @@
 
 .wrapper {
     position: relative;
+    width: 97%;
     button{
         position: absolute;
         outline: none;
@@ -44,9 +45,9 @@
         background-color: #fff;
     }
     .left{
-        left: -45px;
+        left: -35px;
     }
     .right{
-        right: -45px;
+        right: -35px;
     }
 }

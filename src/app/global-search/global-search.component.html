@@ -1,12 +1,21 @@
-
 <label class="mdl-button mdl-js-button mdl-button--icon">
   <i class="material-icons">search</i>
 </label>
 <span class="search-bar">
-  <div class="mdl-textfield__expandable-holder">
-    <input class="mdl-textfield__input" #locationInput type="text" placeholder="Search through destinations"
-           name="sample"
-           id="waterfall-exp">
+  <div class="mdl-textfield__expandable-holder" [ngClass]="demoMode ? 'demo' : ''" >
+    <input *ngIf="!demoMode" class="mdl-textfield__input" #locationInput type="text"
+      placeholder="Search through destinations" name="sample" id="waterfall-exp">
+      <ng-container *ngIf="demoMode">
+        <input [(ngModel)]="locationName" (keydown)="showLocationBox()" class="mdl-textfield__input" type="text"
+        placeholder="Search through destinations" name="sample" id="waterfall-exp">
+        <div class="locations-box" *ngIf="displayLocations">
+        <div (click)="hideLocationBox()" class="overlay"></div>
+
+          <div class="location" (click)="redirect(location)" *ngFor="let location of mockLocations">
+            {{location.formatted_address}}
+          </div>
+        </div>
+      </ng-container>
   </div>
 </span>
 
