@@ -29,6 +29,7 @@ export class GlobalSearchComponent implements AfterViewInit {
 
   initAutoComplete() {
     const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
+    autoComplete.setFields(['reference', 'formatted_address', 'geometry.location', 'name','photos','id','place_id']);
     google.maps.event.addListener(autoComplete, 'place_changed', () => {
       //  this.onLocationChange.emit(place);
       let queryParamsObj;
