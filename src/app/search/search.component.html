@@ -10,10 +10,7 @@
   </dialog>
   <ng-container *ngTemplateOutlet="formdata"></ng-container>
   <div class="searchResults__mapListView">
-    <div *ngIf="!this.useMap else loading" id="dummyMap"></div>
-    <ng-template #loading>
-      <map-view *ngIf="this.useMap" [locationData]="applicableLocations" class="map"></map-view>
-    </ng-template>
+    <map-view *ngIf="useMap else hideMap" [locationData]="applicableLocations" class="map"></map-view>
     <app-search-list [locationData]="applicableLocations" class="search-table"></app-search-list>
   </div>
 </div>
@@ -62,4 +59,7 @@
       </span>
     </div>
   </div>
+</ng-template>
+<ng-template #hideMap>
+  <div id="dummyMap"></div>
 </ng-template>
