@@ -10,8 +10,10 @@
   </dialog>
   <ng-container *ngTemplateOutlet="formdata"></ng-container>
   <div class="searchResults__mapListView">
-    <map-view *ngIf="this.useMap" [locationData]="applicableLocations" class="map"></map-view>
-    <div *ngIf="!this.useMap" id="dummyMap"></div>
+    <div *ngIf="!this.useMap else loading" id="dummyMap"></div>
+    <ng-template #loading>
+      <map-view *ngIf="this.useMap" [locationData]="applicableLocations" class="map"></map-view>
+    </ng-template>
     <app-search-list [locationData]="applicableLocations" class="search-table"></app-search-list>
   </div>
 </div>

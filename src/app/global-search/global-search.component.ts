@@ -19,7 +19,7 @@ export class GlobalSearchComponent implements AfterViewInit {
    *
    */
 
-  demoMode: boolean;
+  useMock: boolean;
   mockLocations: Array<any> = [];
   displayLocations: boolean;
   locationName: string;
@@ -32,13 +32,13 @@ export class GlobalSearchComponent implements AfterViewInit {
     private ngZone: NgZone,
     private placesMock: PlacesMockService
   ) {
-    this.demoMode = environment.useMock;
+    this.useMock = environment.useMock;
   }
 
   @ViewChild('locationInput', {static: false}) locationInputViewChild: ElementRef;
 
   ngAfterViewInit() {
-    if (this.demoMode) {
+    if (this.useMock) {
       this.mockLocations.push(this.placesMock.getMockData().result);
     } else {
       this.initAutoComplete();
@@ -51,7 +51,7 @@ export class GlobalSearchComponent implements AfterViewInit {
     google.maps.event.addListener(autoComplete, 'place_changed', () => {
       //  this.onLocationChange.emit(place);
       let queryParamsObj;
-      if (environment.useMock) {
+      if (this.useMock) {
         queryParamsObj = this.searchService.createLocationObject(this.placesMock.getMockData().result);
       } else {
         queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
@@ -59,7 +59,7 @@ export class GlobalSearchComponent implements AfterViewInit {
       this.locationService.setLocationsDetails(queryParamsObj);
       this.ngZone.run(() => {
         this.router.navigate(['location'], {queryParams: Object.assign({}, {name: queryParamsObj.name}), skipLocationChange: false});
-      })
+      });
     });
   }
 
