@@ -1,10 +1,11 @@
-import { LocationService } from 'src/app/services/location/location.service';
+import {LocationService} from 'src/app/services/location/location.service';
 import {Component, OnInit, Input, OnChanges, NgZone, ViewChild, ElementRef} from '@angular/core';
 import {ApplicableLocationObject} from 'src/app/model/search-criteria';
 import {Router} from '@angular/router';
 import {SearchDataService} from '../../services/search-data.serivce';
-import { environment } from  '../../../environments/environment';
-import  { PlacesMockService } from '../../mock-services/places-mock/places-mock-service';
+import {environment} from '../../../environments/environment';
+import {PlacesMockService} from '../../mock-services/places-mock/places-mock-service';
+
 declare var componentHandler: any;
 
 
@@ -26,26 +27,26 @@ export class SearchListComponent implements OnInit, OnChanges {
     private searchService: SearchDataService,
     private locationService: LocationService,
     private placesMock: PlacesMockService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.destinations = this.locationData && this.locationData.location;
-    this.destinations = this.destinations.sort((a, b) => a.details.distance.text.replace('km', '').
-    replace(',','') - b.details.distance.text.replace('km', '').replace(',',''));
+    this.destinations = this.destinations.sort((a, b) => a.details.distance.text.replace('km', '').replace(',', '') - b.details.distance.text.replace('km', '').replace(',', ''));
   }
 
   getPlaces(destination) {
-    if(environment.useMock){
+    if (environment.useMock) {
       const placesResp = this.placesMock.getMockData().result;
       this.navigateToLocation(placesResp, 'OK');
-    }else{
+    } else {
       let map = new google.maps.Map(document.createElement('div'));
       var placesService = new google.maps.places.PlacesService(map);
       placesService.getDetails(
-        { 
+        {
           placeId: destination.placeId,
-          fields:['reference', 'formatted_address', 'geometry.location', 'name','photos','id','place_id']
-       }, (data, status) => this.navigateToLocation(data, status));
+          fields: ['reference', 'formatted_address', 'geometry.location', 'name', 'photos', 'id', 'place_id']
+        }, (data, status) => this.navigateToLocation(data, status));
     }
   }
 
@@ -62,7 +63,7 @@ export class SearchListComponent implements OnInit, OnChanges {
       this.ngZone.run(() => {
         let queryParamsObj = this.searchService.createLocationObject(results);
         this.locationService.setLocationsDetails(queryParamsObj);
-        this.router.navigate(['location'], { queryParams: Object.assign({}, { name: queryParamsObj.name }), skipLocationChange: false });
+        this.router.navigate(['location'], {queryParams: Object.assign({}, {name: queryParamsObj.name}), skipLocationChange: false});
       })
     }
   }

@@ -3,9 +3,9 @@ import {Router, NavigationEnd} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {MapService} from '../services/map/map.service';
 import {SearchDataService} from '../services/search-data.serivce';
-import { Subscription } from 'rxjs';
-import { environment } from  '../../environments/environment';
-import  { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
+import {Subscription} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {PlacesMockService} from '../mock-services/places-mock/places-mock-service';
 
 @Component({
   selector: 'app-header',
@@ -49,13 +49,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         types: ['(cities)'],
         componentRestrictions: {country: 'in'}
       });
-      autoComplete.setFields(['reference', 'formatted_address', 'geometry.location', 'name','photos','id','place_id']);
+      autoComplete.setFields(['reference', 'formatted_address', 'geometry.location', 'name', 'photos', 'id', 'place_id']);
       google.maps.event.addListener(autoComplete, 'place_changed', () => {
         let place;
-        if(environment.useMock){
+        if (environment.useMock) {
           place = this.placesMock.getMockData().result;
-        }else {
-           place = autoComplete.getPlace();
+        } else {
+          place = autoComplete.getPlace();
         }
         this.newUserLocationObject = place;
       });

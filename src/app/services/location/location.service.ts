@@ -36,7 +36,7 @@ export class LocationService {
   }
 
   createMarkerOptions(map: google.maps.Map, data) {
-    let markerOptions = {
+    const markerOptions = {
       map,
       draggable: false,
       animation: google.maps.Animation.DROP,

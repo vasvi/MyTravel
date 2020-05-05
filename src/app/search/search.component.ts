@@ -4,6 +4,7 @@ import LocationData from './location.json';
 import {SearchDataService} from '../services/search-data.serivce';
 import {MapService} from '../services/map/map.service';
 import * as constant from '../searchConstants';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -15,9 +16,11 @@ export class SearchComponent implements OnInit {
   applicableLocations: ApplicableLocationObject;
   globalDestinationsObject: GlobalDestinationsObject[] = LocationData;
   searchQuery: UserParameters;
+  useMap: any = false;
 
   constructor(
     private searchDataService: SearchDataService, private mapService: MapService) {
+    this.useMap = environment.useMap;
   }
 
   ngOnInit() {
