@@ -27,7 +27,8 @@ export const environment = {
   EVENT: {
     api_endpoint: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
   },
-  useMock: true
+  useMock: true,
+  useMap: false
 };
 
 /*

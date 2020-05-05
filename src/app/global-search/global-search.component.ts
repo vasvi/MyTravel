@@ -20,7 +20,7 @@ export class GlobalSearchComponent implements AfterViewInit {
     private ngZone: NgZone,
     private placesMock: PlacesMockService
   ) {
-    this.demoMode = environment.demoMode;
+    this.demoMode = environment.useMock;
   }
 
   @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
