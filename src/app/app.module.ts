@@ -28,6 +28,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MDL } from './directives/MaterialDesignLiteUpgradeElement';
 import { SharedModule } from './module/shared.module';
 import { environment } from '../environments/environment';
+import { CreateNewEventComponent } from './create-new-event/create-new-event.component';
 
 let config = new AuthServiceConfig([
   {
@@ -58,7 +59,8 @@ export function provideConfig() {
     UserNamePipe,
     PlacesCarouselComponent,
     HeaderComponent,
-    MDL
+    MDL,
+    CreateNewEventComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ export function provideConfig() {
     HttpClientModule,
     ScrollingModule,
     SocialLoginModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   providers: [
     {

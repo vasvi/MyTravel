@@ -14,7 +14,7 @@ export class MapService {
   }
 
   reverseGeoCode(latitude, longitude) {
-    if (environment.demoMode) {
+    if (environment.useMock) {
       return new BehaviorSubject(this.geoCodeMock.getReverseGeoCodeData(latitude, longitude));
     } else {
       return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + (latitude) + ',' + (longitude) + '&types=(cities)&key=' + environment.GCP.MY_MAPS.apiKey);
