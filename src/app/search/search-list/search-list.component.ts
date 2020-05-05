@@ -41,7 +41,11 @@ export class SearchListComponent implements OnInit, OnChanges {
     }else{
       let map = new google.maps.Map(document.createElement('div'));
       var placesService = new google.maps.places.PlacesService(map);
-      placesService.getDetails({ placeId: destination.placeId }, (data, status) => this.navigateToLocation(data, status));
+      placesService.getDetails(
+        { 
+          placeId: destination.placeId,
+          fields:['reference', 'formatted_address', 'geometry.location', 'name','photos','id','place_id']
+       }, (data, status) => this.navigateToLocation(data, status));
     }
   }
 
