@@ -35,7 +35,7 @@ export class SearchListComponent implements OnInit, OnChanges {
   }
 
   getPlaces(destination) {
-    if(environment.demoMode){
+    if(environment.useMock){
       const placesResp = this.placesMock.getMockData().result;
       this.navigateToLocation(placesResp, 'OK');
     }else{

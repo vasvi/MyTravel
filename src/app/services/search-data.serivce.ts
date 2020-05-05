@@ -199,7 +199,7 @@ export class SearchDataService {
     let service;
 
     currentUserLocation = position.coords.latitude + ',' + position.coords.longitude;
-    if (environment.demoMode) {
+    if (environment.useMock) {
       service = {
         getDistanceMatrix: (request, callback) => {
           callback(this.distanceMatrixMock.getMockData());

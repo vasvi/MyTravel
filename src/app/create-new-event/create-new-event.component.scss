@@ -1,6 +1,9 @@
 .createEvent {
-    .mdl-textfield.dateField {
-        padding-top: 0;
+    .dateField {
+        text-align: left;
+        .mdl-textfield{
+            padding-top: 0;
+        }
     }
     .mdl-textfield {
         width: 100%;

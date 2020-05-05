@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventObject } from '../model/event.model';
-import { HttpService } from '../services/http/http.service';
 import { MatSnackBar } from '@angular/material';
+import { EventsService } from '../services/events/events.service';
 
 @Component({
   selector: 'create-new-event',
@@ -18,7 +18,7 @@ export class CreateNewEventComponent implements OnInit, OnChanges {
   end = new FormControl('', Validators.required)
 
   constructor(
-    private httpService: HttpService,
+    private eventsService: EventsService,
     private snackbar: MatSnackBar
   ) { 
   }
@@ -44,9 +44,12 @@ export class CreateNewEventComponent implements OnInit, OnChanges {
       summary: this.title.value
     });
 
-    this.httpService.createEvent(eventData).subscribe((data) => {
+    this.eventsService.create(eventData).subscribe((data) => {
+      console.log(data);
         if (data.status === 'confirmed') {
           this.snackbar.open('Event created successfully!', '', {duration: 5000})
+        } else if (data.message) {
+          this.snackbar.open('User is not signed in or Auth token is expired', '', {duration: 10000})
         }
         this.closeModal.emit();
     })

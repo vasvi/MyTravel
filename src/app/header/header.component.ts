@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
       google.maps.event.addListener(autoComplete, 'place_changed', () => {
         let place;
-        if(environment.demoMode){
+        if(environment.useMock){
           place = this.placesMock.getMockData().result;
         }else {
            place = autoComplete.getPlace();

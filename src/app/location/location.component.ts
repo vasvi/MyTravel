@@ -76,7 +76,7 @@ export class LocationComponent implements OnInit {
   }
 
   plotNearbyPlaces() {
-    if (environment.demoMode) {
+    if (environment.useMock) {
       this.plotMockPlaces();
       return;
     }

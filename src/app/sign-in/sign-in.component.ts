@@ -12,7 +12,7 @@ export class SignInComponent implements OnInit {
   menuOpen = false;
   userName = 'userName';
   scope: LoginOpt = {
-    scope: 'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar.events.readonly https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/spreadsheets.readonly '
+    scope: 'https://www.googleapis.com/auth/calendar'
   }
 
   constructor(
@@ -24,7 +24,9 @@ export class SignInComponent implements OnInit {
         this.user = user;
         this.loggedIn = (user != null);
         this.menuOpen = false;
-        sessionStorage.setItem('user_authToken', this.user && this.user.authToken);
+        if (this.user) {
+          sessionStorage.setItem('user_authToken', this.user.authToken);
+        }
     })
   }
 
