@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs';
 import { WeatherService } from '../services/weather/weather.service';
 import { WeatherDetails } from '../model/weather.model';
 import { LocationService } from '../services/location/location.service';
-
+import { environment } from '../../environments/environment';
+import { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
@@ -18,19 +19,26 @@ export class LocationComponent implements OnInit {
   targetLocation: Location;
   places: Array<Place> = [];
   weatherDetails: WeatherDetails;
-
+  useMap: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private weatherService: WeatherService,
-    private locationService: LocationService
-  ) { }
+    private locationService: LocationService,
+    private placesMock: PlacesMockService
+  ) {
+    this.useMap = environment.useMap
+  }
 
   ngOnInit() {
     this.subscribeToRouterEvents();
   }
 
   ngAfterViewInit() {
-    this.initializeGoogleMap();
+    if (this.useMap) {
+      this.initializeGoogleMap();
+    } else {
+      this.plotMockPlaces();
+    }
   }
 
   ngOnDestroy() {
@@ -55,10 +63,24 @@ export class LocationComponent implements OnInit {
         this.targetLocation = params;
         this.targetLocation.geometry[0] = parseFloat(this.targetLocation.geometry[0]);
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);
-        this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
+        if (this.useMap) {
+          this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
+        }
         this.getWeatherDetails();
       }
     })
+  }
+
+  plotMockPlaces() {
+    var results: Array<any> = this.placesMock.getNearbyPlaces(this.targetLocation.place_id);
+    var placesList: Array<Place> = [];
+    results.forEach(item => {
+      let placeObj: Place = this.locationService.createPlaceObj(item);
+      placesList.push(placeObj);
+      let markerOptions = this.locationService.createMarkerOptions(this.map, item);
+      this.addMarker(markerOptions);
+    });
+    this.places = placesList;
   }
 
   plotNearbyPlaces() {

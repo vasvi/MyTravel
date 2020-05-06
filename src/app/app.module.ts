@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -28,7 +28,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { MDL } from './directives/MaterialDesignLiteUpgradeElement';
 import { SharedModule } from './module/shared.module';
 import { environment } from '../environments/environment';
-import { gcal } from 'google-calendar';
+import { CreateNewEventComponent } from './create-new-event/create-new-event.component';
 
 let config = new AuthServiceConfig([
   {
@@ -59,17 +59,20 @@ export function provideConfig() {
     UserNamePipe,
     PlacesCarouselComponent,
     HeaderComponent,
-    MDL
+    MDL,
+    CreateNewEventComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     ScrollingModule,
     SocialLoginModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   providers: [
     {

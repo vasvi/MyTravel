@@ -14,9 +14,9 @@
             </div>
         </div>
 
-        <div class="mdl-grid" style="padding: 0;">
+        <div class="mdl-grid weather-container">
             <div class="mdl-cell mdl-cell--6-col weather">
-                <div #mapContainer id="map" class="map-container"></div>
+                <div #mapContainer [ngClass]="useMap ? '' : 'placeholder'" id="map" class="map-container"></div>
             </div>
             <div class="mdl-cell mdl-cell--6-col weather" *ngIf="targetLocation">
                 <app-weather-widget [weather]="weatherDetails"></app-weather-widget>

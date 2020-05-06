@@ -151,9 +151,11 @@
         <button (click)="linearHorizontalStepper.reset()" type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
           <i class="material-icons">clear</i>
         </button>
-        <button type="button" [disabled]="!searchForm.valid" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <button mat-button [disabled]="!searchForm.valid" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <i class="material-icons">send</i></button><!--
+        <button type="button" [disabled]="!searchForm.valid" class="mdl-button mdl-js-button mdl-button&#45;&#45;fab mdl-button&#45;&#45;colored">
           <i class="material-icons">send</i>
-        </button>
+        </button>-->
       </div>
       <div class="stepperInfoSection">
         Almost done!

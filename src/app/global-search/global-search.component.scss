@@ -1,4 +1,3 @@
-
 .global-search-bar {
   width: calc(100% - 100px) !important;
 }
@@ -24,11 +23,13 @@
   color: inherit;
 }
 
-#waterfall-exp::-webkit-input-placeholder { /* Edge */
+#waterfall-exp::-webkit-input-placeholder {
+  /* Edge */
   color: #c6c6c6;
 }
 
-#waterfall-exp:-ms-input-placeholder { /* Internet Explorer 10-11 */
+#waterfall-exp:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: #c6c6c6;
 }
 
@@ -48,4 +49,46 @@
   width: 53px;
   border-radius: 0;
   border: 0;
+}
+
+.demo {
+  position: relative;
+  .overlay{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .locations-box {
+    position: absolute;
+    width: 78%;
+
+    .location {
+      padding: 0 4px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      line-height: 30px;
+      text-align: left;
+      border-top: 1px solid #e6e6e6;
+      font-size: 14px;
+      color: #999;
+      cursor: pointer;
+      position: relative;
+    }
+
+    background-color: #fff;
+    z-index: 1000;
+    border-radius: 2px;
+    border-top: 1px solid #d9d9d9;
+    font-family: Arial,
+    sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+
+  }
 }

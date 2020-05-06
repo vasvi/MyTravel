@@ -2,6 +2,8 @@ import { Component, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angula
 import { SearchDataService } from '../services/search-data.serivce';
 import { Router } from '@angular/router';
 import { LocationService } from '../services/location/location.service';
+import { environment } from '../../environments/environment';
+import { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
 
 declare const google;
 
@@ -11,29 +13,72 @@ declare const google;
   styleUrls: ['./global-search.component.scss']
 })
 export class GlobalSearchComponent implements AfterViewInit {
+  /**
+   *
+   * Demo Mode
+   *
+   */
+
+  useMock: boolean;
+  mockLocations: Array<any> = [];
+  displayLocations: boolean;
+  locationName: string;
+
+
   constructor(
     private router: Router,
     private searchService: SearchDataService,
     private locationService: LocationService,
-    private ngZone: NgZone
-  ) { }
+    private ngZone: NgZone,
+    private placesMock: PlacesMockService
+  ) {
+    this.useMock = environment.useMock;
+  }
 
   @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
 
   ngAfterViewInit() {
-    this.initAutoComplete();
+    if (this.useMock) {
+      this.mockLocations.push(this.placesMock.getMockData().result);
+    } else {
+      this.initAutoComplete();
+    }
   }
 
   initAutoComplete() {
     const autoComplete = new google.maps.places.Autocomplete(this.locationInputViewChild.nativeElement);
+    autoComplete.setFields(['reference', 'formatted_address', 'geometry.location', 'name', 'photos', 'id', 'place_id']);
     google.maps.event.addListener(autoComplete, 'place_changed', () => {
       //  this.onLocationChange.emit(place);
-      const queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
+      let queryParamsObj;
+      if (this.useMock) {
+        queryParamsObj = this.searchService.createLocationObject(this.placesMock.getMockData().result);
+      } else {
+        queryParamsObj = this.searchService.createLocationObject(autoComplete.getPlace());
+      }
       this.locationService.setLocationsDetails(queryParamsObj);
       this.ngZone.run(() => {
         this.router.navigate(['location'], { queryParams: Object.assign({}, { name: queryParamsObj.name }), skipLocationChange: false });
-      })
+      });
     });
   }
 
+
+  showLocationBox() {
+    this.displayLocations = true;
+  }
+
+  hideLocationBox() {
+    this.displayLocations = false;
+  }
+
+  redirect(location) {
+    this.locationName = location.name;
+    this.displayLocations = false;
+    this.locationService.setLocationsDetails(this.searchService.createLocationObject(location));
+    this.router.navigate(['location'], { queryParams: Object.assign({}, { name: location.name }), skipLocationChange: false });
+  }
+
 }
+
+
