@@ -1,29 +1,31 @@
 <div class="mdl-grid" *ngIf="images && images[0]">
-    <div class="mdl-cell mdl-cell--5-col big">
-        <img (click)="openDialog(0)" [src]="images[0]" alt="1">
-    </div>
-    <div class="mdl-cell mdl-cell--7-col small">
-        <div class="mdl-grid">
-            <ng-container *ngFor="let image of images; let i = index">
-                <div class="mdl-cell mdl-cell--4-col" *ngIf="i > 0 && i < 7">
-                    <img (click)="openDialog(i)" [src]="image" alt="1">
-                </div>
-            </ng-container>
+  <div class="mdl-cell mdl-cell--5-col big">
+    <img (click)="openDialog(0)" [src]="images[0]" alt="1">
+  </div>
+  <div class="mdl-cell mdl-cell--7-col small">
+    <div class="mdl-grid">
+      <ng-container *ngFor="let image of images; let i = index">
+        <div class="mdl-cell mdl-cell--4-col" *ngIf="i > 0 && i < 7">
+          <img (click)="openDialog(i)" [src]="image" alt="1">
         </div>
+      </ng-container>
     </div>
+  </div>
 </div>
 
 <div id="dialog" *ngIf="displayDialog">
-    <div class="overlay" (click)="closeDialog()"></div>
-    <div class="content container">
-        <img [src]="images[selectedImageIndex]" alt="">
-        <div class="btn-grp">
-            <button (click)="navigatePrev()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect">
-                <i class="material-icons">chevron_left</i>
-              </button>
-              <button (click)="navigateNext()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect">
-                <i class="material-icons">chevron_right</i>
-              </button>
-        </div>
+  <div class="overlay" (click)="closeDialog()"></div>
+  <div class="content container">
+    <img [src]="images[selectedImageIndex]" alt="">
+    <div class="btn-grp">
+      <button (click)="navigatePrev()"
+              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect">
+        <i class="material-icons">chevron_left</i>
+      </button>
+      <button (click)="navigateNext()"
+              class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect">
+        <i class="material-icons">chevron_right</i>
+      </button>
     </div>
+  </div>
 </div>
