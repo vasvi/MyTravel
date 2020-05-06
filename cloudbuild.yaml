@@ -16,7 +16,7 @@ steps:
   args: ["run", "build-deploy"]
 
 - name: "gcr.io/cloud-builders/gcloud"
-  args: ["app", "deploy", "server/app.yaml", "--project", "mytravelmaps", "--promote"]
+  args: ["app", "deploy", "server/app.yaml", "--project", "mytravelmaps", "--version", "20200506t144249", "--promote"]
   # args: ["app", "deploy", "server/app.yaml", "--project", "travel-272407", "--version", "20200429t180751", "--promote"]
 timeout: "1600s"
 
