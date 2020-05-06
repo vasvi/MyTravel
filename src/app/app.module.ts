@@ -71,8 +71,7 @@ export function provideConfig() {
     HttpClientModule,
     ScrollingModule,
     SocialLoginModule,
-    SharedModule,
-    FormsModule
+    SharedModule
   ],
   providers: [
     {
