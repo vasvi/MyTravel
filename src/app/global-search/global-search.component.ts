@@ -1,9 +1,9 @@
-import {Component, ViewChild, ElementRef, AfterViewInit, NgZone} from '@angular/core';
-import {SearchDataService} from '../services/search-data.serivce';
-import {Router} from '@angular/router';
-import {LocationService} from '../services/location/location.service';
-import {environment} from '../../environments/environment';
-import {PlacesMockService} from '../mock-services/places-mock/places-mock-service';
+import { Component, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angular/core';
+import { SearchDataService } from '../services/search-data.serivce';
+import { Router } from '@angular/router';
+import { LocationService } from '../services/location/location.service';
+import { environment } from '../../environments/environment';
+import { PlacesMockService } from '../mock-services/places-mock/places-mock-service';
 
 declare const google;
 
@@ -35,7 +35,7 @@ export class GlobalSearchComponent implements AfterViewInit {
     this.useMock = environment.useMock;
   }
 
-  @ViewChild('locationInput', {static: false}) locationInputViewChild: ElementRef;
+  @ViewChild('locationInput', { static: false }) locationInputViewChild: ElementRef;
 
   ngAfterViewInit() {
     if (this.useMock) {
@@ -58,7 +58,7 @@ export class GlobalSearchComponent implements AfterViewInit {
       }
       this.locationService.setLocationsDetails(queryParamsObj);
       this.ngZone.run(() => {
-        this.router.navigate(['location'], {queryParams: Object.assign({}, {name: queryParamsObj.name}), skipLocationChange: false});
+        this.router.navigate(['location'], { queryParams: Object.assign({}, { name: queryParamsObj.name }), skipLocationChange: false });
       });
     });
   }
@@ -76,7 +76,7 @@ export class GlobalSearchComponent implements AfterViewInit {
     this.locationName = location.name;
     this.displayLocations = false;
     this.locationService.setLocationsDetails(this.searchService.createLocationObject(location));
-    this.router.navigate(['location'], {queryParams: Object.assign({}, {name: location.name}), skipLocationChange: false});
+    this.router.navigate(['location'], { queryParams: Object.assign({}, { name: location.name }), skipLocationChange: false });
   }
 
 }

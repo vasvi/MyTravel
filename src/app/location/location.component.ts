@@ -19,20 +19,26 @@ export class LocationComponent implements OnInit {
   targetLocation: Location;
   places: Array<Place> = [];
   weatherDetails: WeatherDetails;
-
+  useMap: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private weatherService: WeatherService,
     private locationService: LocationService,
     private placesMock: PlacesMockService
-  ) { }
+  ) {
+    this.useMap = environment.useMap
+  }
 
   ngOnInit() {
     this.subscribeToRouterEvents();
   }
 
   ngAfterViewInit() {
-    this.initializeGoogleMap();
+    if (this.useMap) {
+      this.initializeGoogleMap();
+    } else {
+      this.plotMockPlaces();
+    }
   }
 
   ngOnDestroy() {
@@ -57,7 +63,9 @@ export class LocationComponent implements OnInit {
         this.targetLocation = params;
         this.targetLocation.geometry[0] = parseFloat(this.targetLocation.geometry[0]);
         this.targetLocation.geometry[1] = parseFloat(this.targetLocation.geometry[1]);
-        this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
+        if (this.useMap) {
+          this.changeMapCenter(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
+        }
         this.getWeatherDetails();
       }
     })
@@ -76,10 +84,6 @@ export class LocationComponent implements OnInit {
   }
 
   plotNearbyPlaces() {
-    if (environment.useMock) {
-      this.plotMockPlaces();
-      return;
-    }
     const service = this.locationService.createPlaceService(this.map);
     const targetCoordinates = this.locationService.createCoordinates(this.targetLocation.geometry[0], this.targetLocation.geometry[1]);
     service.nearbySearch({
