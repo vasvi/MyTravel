@@ -9,14 +9,16 @@ import {CreateEventMockObj} from '../../mockData/events-mock-data'
   providedIn: 'root'
 })
 export class EventsService {
+  useMock: boolean;
 
   constructor(
     private http: HttpClient
   ) {
+    this.useMock = environment.useMock;
   }
 
   create = (newEvent: EventObject): Observable<any> => {
-    if (environment.useMock) {
+    if (this.useMock) {
       return of(this.createEventMock());
     } else {
       return this.createEvent(newEvent);

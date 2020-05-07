@@ -1,3 +1,15 @@
+import { EventObject } from '../model/event.model';
+
+export const newEventMock: EventObject = Object.assign({}, {
+    location: 'Jaipur, Rajasthan',
+    end: {
+      date: '05/23/2020'
+    },
+    start: {
+      date: '05/25/2020'
+    },
+    summary: 'Trip to Jaipur'
+  });
 export const CreateEventMockObj = {
     "kind": "calendar#event",
     "etag": "\"3177326547495000\"",

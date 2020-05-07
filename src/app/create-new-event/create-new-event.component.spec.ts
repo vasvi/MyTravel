@@ -4,7 +4,8 @@ import { CreateNewEventComponent } from './create-new-event.component';
 import { EventsService } from '../services/events/events.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatSnackBarModule } from '@angular/material';
-import { EventObject} from '../model/event.model';
+import { EventObject } from '../model/event.model';
+import { newEventMock } from '../mockData/events-mock-data';
 
 describe('CreateNewEventComponent', () => {
   let component: CreateNewEventComponent;
@@ -55,22 +56,13 @@ describe('CreateNewEventComponent', () => {
     component.location = 'Jaipur, Rajasthan';
     component.setDefaultValues();
     setFormValue();
-    const eventObj: EventObject = Object.assign({}, {
-      location: 'Jaipur, Rajasthan',
-      end: {
-        date: '05/23/2020'
-      },
-      start: {
-        date: '05/25/2020'
-      },
-      summary: 'Trip to Jaipur'
-    });
+    const newEvent: EventObject = newEventMock;
 
     // act
     component.onSubmit();
 
     // assert
-    expect(component.eventData).toEqual(eventObj);
+    expect(component.eventData).toEqual(newEvent);
     expect(component.onEventCreation).toHaveBeenCalledTimes(1);
   });
 
