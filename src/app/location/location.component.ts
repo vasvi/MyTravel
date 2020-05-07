@@ -77,10 +77,10 @@ export class LocationComponent implements OnInit {
     results.forEach(item => {
       let placeObj: Place = this.locationService.createPlaceObj(item);
       placesList.push(placeObj);
-      let markerOptions = this.locationService.createMarkerOptions(this.map, item);
-      this.addMarker(markerOptions);
     });
-    this.places = placesList;
+    setTimeout(() => {
+      this.places = placesList;
+    }, 0);
   }
 
   plotNearbyPlaces() {
@@ -98,7 +98,9 @@ export class LocationComponent implements OnInit {
         let markerOptions = this.locationService.createMarkerOptions(this.map, item);
         this.addMarker(markerOptions);
       })
-      this.places = placesList;
+      setTimeout(() => {
+        this.places = placesList;
+      }, 0);
     });
   }
 
