@@ -35,9 +35,13 @@
         <mat-error>This field is required</mat-error>
       </mat-form-field>
       <div>
-        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" matStepperNext>
+        <button type="button" id="_firstForwardNav" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" matStepperNext>
           <i class="material-icons">arrow_forward</i>
         </button>
+        <div class="mdl-tooltip" data-mdl-for="_firstForwardNav">
+          Next
+        </div>
+
       </div>
       <div class="stepperInfoSection">
         Necessary details to initiate our search.
@@ -65,12 +69,22 @@
         <mat-error>The field is required</mat-error>
       </mat-form-field>
       <div>
-        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" matStepperNext>
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="_SecondForwardNav" matStepperNext>
           <i class="material-icons">arrow_forward</i>
         </button>
-        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" matStepperPrevious>
+
+        <div class="mdl-tooltip" data-mdl-for="_SecondForwardNav">
+          Next
+        </div>
+
+        <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="_firstBackNav" matStepperPrevious>
           <i class="material-icons">arrow_back</i>
         </button>
+
+        <div class="mdl-tooltip" data-mdl-for="_firstBackNav">
+          Back
+        </div>
+
       </div>
 
       <div class="stepperInfoSection">
@@ -148,14 +162,17 @@
         </div>
       </div>
       <div>
-        <button (click)="linearHorizontalStepper.reset()" type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <button (click)="linearHorizontalStepper.reset()" id="_clearForm" type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
           <i class="material-icons">clear</i>
         </button>
-        <button mat-button [disabled]="!searchForm.valid" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-          <i class="material-icons">send</i></button><!--
-        <button type="button" [disabled]="!searchForm.valid" class="mdl-button mdl-js-button mdl-button&#45;&#45;fab mdl-button&#45;&#45;colored">
-          <i class="material-icons">send</i>
-        </button>-->
+        <div class="mdl-tooltip" data-mdl-for="_clearForm">
+          Clear Form
+        </div>
+        <button mat-button [disabled]="!searchForm.valid" id="_submitForm"  class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <i class="material-icons">send</i></button>
+        <div class="mdl-tooltip" data-mdl-for="_submitForm">
+          Submit your preferences
+        </div>
       </div>
       <div class="stepperInfoSection">
         Almost done!
