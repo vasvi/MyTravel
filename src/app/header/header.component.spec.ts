@@ -7,7 +7,9 @@ import {MapService} from '../services/map/map.service';
 import {MatDialogModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Position} from '../model/search-criteria';
+import {RouterTestingModule} from '@angular/router/testing';
 import * as constant from '../searchConstants';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +65,7 @@ export class MapServiceMock {
       obs.next({
         results: [{
           types: ['locality'],
-          address_components: [{short_name: ''}]
+          address_components: [{short_name: 'Noida'}]
         }],
         status: 'OK',
       });
@@ -72,7 +74,7 @@ export class MapServiceMock {
 }
 
 
-describe('HeaderComponent', () => {
+fdescribe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
@@ -84,12 +86,13 @@ describe('HeaderComponent', () => {
         provide: MapService,
         useClass: MapServiceMock
       }],
-      imports: [MatDialogModule, BrowserAnimationsModule]
+      imports: [MatDialogModule, BrowserAnimationsModule, RouterTestingModule.withRoutes([])]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
+
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -110,23 +113,40 @@ describe('HeaderComponent', () => {
     component.onManualLocationClicked(event);
   });
 
-  it('should call initAutoComplete and setLocation Manually', fakeAsync(() => {
-    component.locationInputViewChild = component.locationInputViewChild || {
-      nativeElement: null
-    };
-    component.initAutoComplete();
-    tick(300);
-    expect(component.newUserLocationObject).toBeTruthy();
-    component.newUserLocationObject.geometry = {
-      location: {
-        lat: () => {
-        },
-        lng: () => {
+  it('should setLocation Manually', fakeAsync(() => {
+    component.newUserLocationObject = {
+      formatted_address: 'Noida',
+      geometry: {
+        location: {
+          lat: () => {
+            return 28;
+          },
+          lng: () => {
+            return 84;
+          }
         }
       }
     };
     component.setManualLocation();
+    tick(1000);
     expect(component.currentLocation).toBeTruthy();
   }));
 
+  it('Should mock google autocomplete', () => {
+    component.locationInputViewChild = component.locationInputViewChild || {
+      nativeElement: null
+    };
+    spyOn(google.maps.event, 'addListener').and.callFake((param1, param2, callback) => {
+      /**
+       * ::TODO
+       */
+      callback();
+      return null;
+    });
+    component.initAutoComplete();
+  });
+
+  it('Should Call ngDestroy', () => {
+    component.ngOnDestroy();
+  });
 });
