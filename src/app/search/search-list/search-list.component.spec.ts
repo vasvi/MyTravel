@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { SearchDataService } from '../../services/search-data.serivce';
 import { SearchDataServiceMock } from '../../global-search/global-search.component.spec';
 
-xdescribe ('SearchListComponent', ()=>{
+describe ('SearchListComponent', ()=>{
     let component: SearchListComponent;
     let fixture: ComponentFixture<SearchListComponent>
     let locationData ={location: [{}], position:{coords: {latitude: 3,longitude: 4}}};

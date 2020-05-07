@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateNewEventComponent } from './create-new-event.component';
 
-xdescribe('CreateNewEventComponent', () => {
+describe('CreateNewEventComponent', () => {
   let component: CreateNewEventComponent;
   let fixture: ComponentFixture<CreateNewEventComponent>;
 
