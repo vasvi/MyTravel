@@ -18,6 +18,7 @@ export class CreateNewEventComponent implements OnInit, OnChanges, OnDestroy {
   title = new FormControl('', Validators.required);
   start = new FormControl('', Validators.required);
   end = new FormControl('', Validators.required)
+  eventData: EventObject;
 
   constructor(
     private eventsService: EventsService,
@@ -29,12 +30,11 @@ export class CreateNewEventComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    console.log(this.location);
     this.createEventForm = this.createForm();
   }
   
   onSubmit = () => {
-    const eventData: EventObject = Object.assign({}, {
+    this.eventData = Object.assign({}, {
       location: this.location,
       end: {
         date: this.end.value
@@ -45,15 +45,16 @@ export class CreateNewEventComponent implements OnInit, OnChanges, OnDestroy {
       summary: this.title.value
     });
 
-    this.createEventSubs = this.eventsService.create(eventData).subscribe((data) => {
-      console.log(data);
-        if (data.status === 'confirmed') {
-          this.snackbar.open('Event created successfully!', '', {duration: 5000})
-        } else if (data.message) {
-          this.snackbar.open('User is not signed in or Auth token is expired', '', {duration: 10000})
-        }
-        this.closeModal.emit();
-    })
+    this.createEventSubs = this.eventsService.create(this.eventData).subscribe((data) => this.onEventCreation(data))
+  }
+
+  onEventCreation = (data) => {
+    if (data.status === 'confirmed') {
+      this.snackbar.open('Event created successfully!', '', {duration: 5000})
+    } else if (data.message) {
+      this.snackbar.open('User is not signed in or Auth token is expired', '', {duration: 10000})
+    }
+    this.closeModal.emit();
   }
 
   createForm = () => {
