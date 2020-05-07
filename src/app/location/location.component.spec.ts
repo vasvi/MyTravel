@@ -78,4 +78,15 @@ describe('LocationComponent', () => {
     expect(component.weatherDetails.current.pressure).toEqual(1014);
   })
 
+  it('should test plotMockPlaces', fakeAsync(() => {
+    expect(component.places.length).toEqual(0);
+    component.plotMockPlaces();
+    tick(100);
+    expect(component.places.length).toEqual(6);
+  }))
+
+  it('should test initializeGoogleMap', () => {
+    component.initializeGoogleMap();
+  })
+
 });

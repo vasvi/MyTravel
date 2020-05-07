@@ -38,26 +38,42 @@
     </nav>
   </div>
   <div class="iconHolder">
-    <button routerLink="/" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
-      <i class="material-icons">home</i>
+    <button routerLink="/" id="_iconHolderHome" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons" >home</i>
       <div >Home</div>
     </button>
-    <button routerLink="/about" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+    <div class="mdl-tooltip" data-mdl-for="_iconHolderHome">
+      Back to Home
+    </div>
+    <button routerLink="/about" id="_iconHolderInfo" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons" >info</i>
       <div >About</div>
+
     </button>
-    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+    <div class="mdl-tooltip" data-mdl-for="_iconHolderInfo">
+      About this app
+    </div>
+    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderLoc">
       <i class="material-icons" (click)="onManualLocationClicked($event)">edit_location</i>
       <div >Location</div>
     </button>
-    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" *ngIf="'/search' === currentRoute">
+    <div class="mdl-tooltip" data-mdl-for="_iconHolderLoc">
+      Edit Current Location
+    </div>
+    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderCal" *ngIf="'/search' === currentRoute">
       <i class="material-icons">calendar_today</i>
       <div >Add</div>
     </button>
-    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" *ngIf="'/search' === currentRoute">
+    <div class="mdl-tooltip" data-mdl-for="_iconHolderCal">
+      Add to Calendar
+    </div>
+    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderShare" *ngIf="'/search' === currentRoute">
       <i class="material-icons">share</i>
       <div >Share</div>
     </button>
+    <div class="mdl-tooltip" data-mdl-for="_iconHolderShare">
+      Share as a ppt
+    </div>
   </div>
 </div>
 
