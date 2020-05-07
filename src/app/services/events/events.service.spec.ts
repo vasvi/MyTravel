@@ -1,10 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TestBed, inject } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { EventsService } from './events.service';
 import { newEventMock, CreateEventMockObj } from '../../mockData/events-mock-data';
 import { of } from 'rxjs';
 
-fdescribe('EventsService', () => {
+describe('EventsService', () => {
   beforeEach(() => TestBed.configureTestingModule({imports: [HttpClientTestingModule]}));
 
   it(`should be created`, () => {
@@ -27,20 +27,38 @@ fdescribe('EventsService', () => {
     // setup
     const service: EventsService = TestBed.get(EventsService);
     service.useMock = false;
+    spyOn(service, 'createEvent');
 
-    spyOn(service, 'createEvent').and.callFake(() => {
-      const authToken = sessionStorage.getItem('user_authToken');
-
-      if (authToken)
-        return of(CreateEventMockObj);
-      else 
-        return of(new Error('User is not signed in'));
-    });
-    
-    // act & assert
-    service.create(newEventMock).subscribe((data) => {
-      expect(data).toEqual(new Error('User is not signed in'));
-    })
+    service.create(newEventMock);
+    expect(service.createEvent).toHaveBeenCalledTimes(1);
   });
 
+  it(`should test createEvent with Auth token`, inject([HttpTestingController], (httpMock: HttpTestingController)=> {
+    // setup
+    const service: EventsService = TestBed.get(EventsService);
+    sessionStorage.setItem('user_authToken', '1');
+
+    service.createEvent(newEventMock).subscribe((data) => {
+      expect(data).toEqual(CreateEventMockObj)
+    });
+
+    const req = httpMock.expectOne('https://content.googleapis.com/calendar/v3/calendars/primary/events?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE')
+    expect(req.request.method).toEqual('POST');
+
+  }) );
+
+  it(`should test createEvent without Auth token`, inject([HttpTestingController],
+    (httpMock: HttpTestingController)=> {
+    // setup
+    const service: EventsService = TestBed.get(EventsService);
+    if (sessionStorage.getItem('user_authToken')) {
+      sessionStorage.removeItem('user_authToken');
+    }
+
+    service.createEvent(newEventMock).subscribe((data) => {
+      expect(data).toEqual(new Error('User is not signed in'))
+    });
+
+    const req = httpMock.expectNone('https://content.googleapis.com/calendar/v3/calendars/primary/events?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE');
+  }) );
 });
