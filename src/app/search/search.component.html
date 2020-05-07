@@ -54,9 +54,12 @@
       </span>
     </div>
     <div>
-      <span class="editIcon" (click)="showEditForm()">
+      <span class="editIcon" id="_editForm" (click)="showEditForm()">
         <mat-icon>create</mat-icon>
       </span>
+      <div class="mdl-tooltip" data-mdl-for="_editForm">
+        Edit your preferences
+      </div>
     </div>
   </div>
 </ng-template>

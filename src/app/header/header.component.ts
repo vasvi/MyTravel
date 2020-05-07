@@ -71,6 +71,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     manualLocationObject.latitude = this.newUserLocationObject.geometry.location.lat();
     manualLocationObject.longitude = this.newUserLocationObject.geometry.location.lng();
     sessionStorage.setItem('manualLocationObject', JSON.stringify(manualLocationObject));
+    console.log(manualLocationObject);
     this.currentLocation = manualLocationObject.address;
     this.dialog.closeAll();
     this.mapService.userLocationChangeEmitter.next(manualLocationObject);
@@ -89,7 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.routerEventSubscription) {
       this.routerEventSubscription.unsubscribe();
     }
-  }
+  };
 
   enableLocation() {
 
@@ -102,6 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
               for (const i in results) {
                 if (results[i].types[0] === 'locality') {
                   const city = results[i].address_components[0].short_name;
+                  console.log(results[i].address_components[0]);
                   this.currentLocation = city;
                 }
               }
