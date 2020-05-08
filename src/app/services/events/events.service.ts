@@ -34,7 +34,7 @@ export class EventsService {
 
       return this.http.post(url, newEvent, {headers});
     } else {
-      return of(new Error('User is not signed in'))
+      return of(new Error('User is not signed in or Auth token is expired'));
     }
   }
 

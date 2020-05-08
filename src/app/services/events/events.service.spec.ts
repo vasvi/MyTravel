@@ -44,7 +44,6 @@ describe('EventsService', () => {
 
     const req = httpMock.expectOne('https://content.googleapis.com/calendar/v3/calendars/primary/events?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE')
     expect(req.request.method).toEqual('POST');
-
   }) );
 
   it(`should test createEvent without Auth token`, inject([HttpTestingController],

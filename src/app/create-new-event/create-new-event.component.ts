@@ -49,11 +49,11 @@ export class CreateNewEventComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onEventCreation = (data) => {
-    if (data.status === 'confirmed') {
+    if (data.status === 'confirmed')
       this.snackbar.open('Event created successfully!', '', {duration: 5000})
-    } else if (data.message) {
-      this.snackbar.open('User is not signed in or Auth token is expired', '', {duration: 10000})
-    }
+    else if (data.status !== 'confirmed' && data.message)
+      this.snackbar.open(data.message, '', {duration: 10000})
+
     this.closeModal.emit();
   }
 
