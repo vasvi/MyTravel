@@ -20,7 +20,7 @@ let config = new AuthServiceConfig([
 export function provideConfig() {
   return config;
 }
-fdescribe('SignInComponent', () => {
+describe('SignInComponent', () => {
   let component: SignInComponent;
   let fixture: ComponentFixture<SignInComponent>;
 

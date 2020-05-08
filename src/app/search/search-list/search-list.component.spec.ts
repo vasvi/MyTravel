@@ -9,7 +9,7 @@ import { SearchDataServiceMock } from '../../global-search/global-search.compone
 import {environment} from '../../../environments/environment';
 import { PlacesMockService } from 'src/app/mock-services/places-mock/places-mock-service';
 
-fdescribe ('SearchListComponent', ()=>{
+describe ('SearchListComponent', ()=>{
     let component: SearchListComponent;
     let fixture: ComponentFixture<SearchListComponent>
     let locationData ={location: [{ name: 'Chandigarh',details:{distance:{text:"500km"}}},{ name: 'Chandigarh',details: {distance:{text:"50km"}}}], position:{coords: {latitude: 3,longitude: 4}}};
