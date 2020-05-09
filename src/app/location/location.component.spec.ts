@@ -19,7 +19,7 @@ class WeatherServiceMock {
   }
 }
 
-describe('LocationComponent', () => {
+fdescribe('LocationComponent', () => {
   let component: LocationComponent;
   let fixture: ComponentFixture<LocationComponent>;
   let location: Location = {
@@ -31,6 +31,7 @@ describe('LocationComponent', () => {
     reference: 'ChIJa8lu5gvtDzkR_hlzUvln_6U',
     geometry: [30.7333148, 76.7794179]
   }
+  let service;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LocationComponent],
@@ -59,6 +60,8 @@ describe('LocationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LocationComponent);
     component = fixture.componentInstance;
+    service = TestBed.get(LocationServiceMock);
+    // service = fixture.debugElement.injector.get(LocationServiceMock);
     fixture.detectChanges();
   });
 
@@ -168,92 +171,62 @@ describe('LocationComponent', () => {
     let service: LocationServiceMock;
     beforeEach(() => {
       service = fixture.debugElement.injector.get(LocationServiceMock);
+      component.plotNearbyPlaces();
       fixture.detectChanges();
     })
 
-    it('should call locationServiceMock.createPlaceService once', () => {
+    it('should call locationServiceMock.createPlaceService', () => {
       spyOn(service, 'createPlaceService');
-      component.plotNearbyPlaces();
-      expect(service.createPlaceService).toHaveBeenCalledTimes(0);
+      expect(service.createPlaceService).toHaveBeenCalled();
     })
 
     it('should call locationServiceMock.createPlaceService once', () => {
       spyOn(service, 'createPlaceService');
-      component.plotNearbyPlaces();
-      expect(service.createPlaceService).toHaveBeenCalledTimes(0);
+      expect(service.createPlaceService).toHaveBeenCalled();
     })
 
     it('should call locationServiceMock.createCoordinates once', () => {
       spyOn(service, 'createCoordinates');
-      component.plotNearbyPlaces();
-      expect(service.createCoordinates).toHaveBeenCalledTimes(0);
+      expect(service.createCoordinates).toHaveBeenCalled();
     })
 
     it('should call locationServiceMock.createPlaceObj once', () => {
       spyOn(service, 'createPlaceObj');
-      component.plotNearbyPlaces();
-      expect(service.createPlaceObj).toHaveBeenCalledTimes(0);
+      expect(service.createPlaceObj).toHaveBeenCalled();
     })
 
     it('should call locationServiceMock.createMarkerOptions once', () => {
       spyOn(service, 'createMarkerOptions');
-      component.plotNearbyPlaces();
-      expect(service.createMarkerOptions).toHaveBeenCalledTimes(0);
+      expect(service.createMarkerOptions).toHaveBeenCalled();
     })
 
   })
 
+  it('should test addMarker', () => {
+    spyOn(service, 'createMarker');
+    spyOn(service, 'createInfoWindow');
+    component.addMarker({});
+    expect(service.createMarker).toHaveBeenCalled();
+    expect(service.createInfoWindow).toHaveBeenCalled();
+  })
 
-  // it('should test subscribeToRouterEvents', () => {
-  //   component.subscribeToRouterEvents();
-  //   expect(component.routerEventSubscription instanceof Subscription).toEqual(true);
-  //   fixture.detectChanges();
-  //   expect(component.targetLocation.id).toEqual(location.id);
-  // })
+  it('should test changeMapCenter', () => {
+    spyOn(component, 'changeMapCenter').and.callFake(() => {
 
-  // it('should test getWeatherDetails', () => {
-  //   component.getWeatherDetails();
-  //   fixture.detectChanges();
-  //   expect(component.weatherDetails.daily[0].pressure).toEqual(1014);
-  //   expect(component.weatherDetails.current.pressure).toEqual(1014);
-  // })
+    });
+    
+    expect(component.map).toBeTruthy();
+    component.changeMapCenter(null, null);
+    expect(component.plotNearbyPlaces).toHaveBeenCalled();
+  })
 
-  // it('should test plotMockPlaces', fakeAsync(() => {
-  //   expect(component.places.length).toEqual(0);
-  //   component.plotMockPlaces();
-  //   tick(100);
-  //   expect(component.places.length).toEqual(6);
-  // }))
-
-  // it('should test plotNearbyPlaces', () => {
-  //   spyOn(component, 'plotNearbyPlaces').and.callFake(() => {
-
-  //   })
-  //   expect(component.plotNearbyPlaces).not.toHaveBeenCalled();
-  // })
-
-  // it('should test changeMapCenter', () => {
-  //   spyOn(component, 'changeMapCenter').and.callFake(() => {
-
-  //   });
-  //   expect(component.changeMapCenter).not.toHaveBeenCalled();
-  // })
-
-  // it('should test initializeGoogleMap', () => {
-  //   component.useMap = true;
-  //   spyOn(component, 'initializeGoogleMap').and.callFake(() => {
-
-  //   });
-  //   component.ngAfterViewInit();
-  //   expect(component.initializeGoogleMap).toHaveBeenCalled();
-  // })
-
-  // it('should test addMarker', () => {
-  //   spyOn(component, 'addMarker').and.callFake(() => {
-
-  //   });
-  //   expect(component.addMarker).not.toHaveBeenCalled();
-  // })
-
+  it('should test initializeGoogleMap', () => {
+    component.initializeGoogleMap();
+    spyOn(component, 'plotNearbyPlaces').and.callFake(() => {
+      return { hello: 'world' };
+    })
+    expect(component.map).toBeTruthy();
+    expect(component.plotNearbyPlaces).toHaveBeenCalled();
+  })
 
 });
