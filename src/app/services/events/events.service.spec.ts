@@ -55,7 +55,7 @@ describe('EventsService', () => {
     }
 
     service.createEvent(newEventMock).subscribe((data) => {
-      expect(data).toEqual(new Error('User is not signed in'))
+      expect(data).toEqual(new Error('User is not signed in or Auth token is expired'));
     });
 
     const req = httpMock.expectNone('https://content.googleapis.com/calendar/v3/calendars/primary/events?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE');
