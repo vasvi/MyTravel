@@ -1,22 +1,21 @@
 <div class="wrapper">
     <div class="table-container">
-        <h2>Search History</h2>
+        <h2>Search History: <span style="font-size: 15px;" *ngIf="searchHistory.length > 0">Found
+                {{searchHistory.length}} results</span> </h2>
         <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
                 <tr>
                     <th class="mdl-data-table__cell--non-numeric">Date</th>
-                    <th>Param 1</th>
-                    <th>Param 2</th>
-                    <th>Param 3</th>
-                    <th>Param 4</th>
-                    <th>Param 5</th>
+                    <th>No. of persons</th>
+                    <th>Budget per person (&#8377;)</th>
+                    <th>Days</th>
+                    <th>Travel Mode (grouped)</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of searchHistory; let i = index">
                     <td class="mdl-data-table__cell--non-numeric">{{data.timestamp | date: 'medium'}}</td>
-                    <td>{{data.locationData.param1}}</td>
                     <td>{{data.locationData.param2}}</td>
                     <td>{{data.locationData.param3}}</td>
                     <td>{{data.locationData.param4}}</td>

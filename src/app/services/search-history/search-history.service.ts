@@ -25,7 +25,7 @@ export class SearchHistoryService {
     delete this.searchHistoryCache[id];
   }
 
-  createCloudFunctionFetchObservable(id) {
+  private createCloudFunctionFetchObservable(id) {
     return new Observable((observer: Observer<any>) => {
       if (this.useMock) {
         let data = this.mockData;
@@ -50,7 +50,7 @@ export class SearchHistoryService {
     })
     return data;
   }
-
+  
   getSearchHistory(id) {
     return new Observable((observer: Observer<any>) => {
       let cachedHistory = this.searchHistoryCache[id];

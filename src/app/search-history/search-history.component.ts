@@ -18,7 +18,6 @@ export class SearchHistoryComponent implements OnInit {
     this.searchHistoryService.getSearchHistory(emailId)
     .subscribe(data => {
       this.searchHistory = data;
-      console.log(this.searchHistory)
     })
   }
 
