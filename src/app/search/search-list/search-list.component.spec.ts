@@ -8,11 +8,12 @@ import { SearchDataService } from '../../services/search-data.serivce';
 import { SearchDataServiceMock } from '../../global-search/global-search.component.spec';
 import {environment} from '../../../environments/environment';
 import { PlacesMockService } from 'src/app/mock-services/places-mock/places-mock-service';
+import { ApplicableLocations } from '../../mockData/location-mock-data';
 
 describe ('SearchListComponent', ()=>{
     let component: SearchListComponent;
     let fixture: ComponentFixture<SearchListComponent>
-    let locationData ={location: [{ name: 'Chandigarh',details:{distance:{text:"500km"}}},{ name: 'Chandigarh',details: {distance:{text:"50km"}}}], position:{coords: {latitude: 3,longitude: 4}}};
+    let locationData = ApplicableLocations;
     let location: Location = {
         name: 'Chandigarh',
         formatted_address: 'Chandigarh, India',
