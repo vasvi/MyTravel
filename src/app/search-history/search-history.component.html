@@ -1,0 +1,42 @@
+<div class="wrapper">
+    <div class="table-container">
+        <h2>Search History</h2>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Date</th>
+                    <th>Param 1</th>
+                    <th>Param 2</th>
+                    <th>Param 3</th>
+                    <th>Param 4</th>
+                    <th>Param 5</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of searchHistory; let i = index">
+                    <td class="mdl-data-table__cell--non-numeric">{{data.timestamp | date: 'medium'}}</td>
+                    <td>{{data.locationData.param1}}</td>
+                    <td>{{data.locationData.param2}}</td>
+                    <td>{{data.locationData.param3}}</td>
+                    <td>{{data.locationData.param4}}</td>
+                    <td>{{data.locationData.param5}}</td>
+                    <td>
+                        <button id="{{'item'+i}}" class="mdl-button mdl-js-button mdl-button--icon">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect"
+                            [attr.for]="'item'+i">
+                            <li class="mdl-menu__item">
+                                <mat-icon>open_in_new</mat-icon> {{i}}
+                            </li>
+                            <li class="mdl-menu__item">
+                                <mat-icon>edit</mat-icon> {{i}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -31,6 +31,7 @@ export class SignInComponent implements OnInit {
     this.menuOpen = false;
     if (this.user) {
       sessionStorage.setItem('user_authToken', this.user.authToken);
+      sessionStorage.setItem('user_email', this.user.email);
     }
   }
   signInWithGoogle = (): void => {
