@@ -21,15 +21,18 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-        this.user = user;
-        this.loggedIn = (user != null);
-        this.menuOpen = false;
-        if (this.user) {
-          sessionStorage.setItem('user_authToken', this.user.authToken);
-        }
+      this.setUserProperties(user);
     })
   }
 
+  setUserProperties (user) {
+    this.user = user;
+    this.loggedIn = (user != null);
+    this.menuOpen = false;
+    if (this.user) {
+      sessionStorage.setItem('user_authToken', this.user.authToken);
+    }
+  }
   signInWithGoogle = (): void => {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, this.scope);
   }

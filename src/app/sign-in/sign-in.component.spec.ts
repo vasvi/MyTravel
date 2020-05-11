@@ -33,9 +33,11 @@ describe('SignInComponent', () => {
     .compileComponents();
   }));
 
+  
   beforeEach(() => {
     fixture = TestBed.createComponent(SignInComponent);
     component = fixture.componentInstance;
+    let authService: AuthService = TestBed.get(AuthService);
     fixture.detectChanges();
   });
 
@@ -58,4 +60,12 @@ describe('SignInComponent', () => {
     component.showUSerInfo();
     expect(component.menuOpen).toEqual(false);
   }); 
+
+  it('should test setUserProperties', () => {
+    const user={authToken: 'abcd'};
+    component.setUserProperties(user);
+    expect(component.loggedIn).toEqual(true);
+    expect(component.menuOpen).toEqual(false);
+  }); 
+
 });
