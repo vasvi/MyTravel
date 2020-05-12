@@ -1,5 +1,5 @@
 export const GetUserSignedInState = () => {
-    return GetUserInfo() && GetUserInfo().authToken ? true : false;
+    return GetUserInfo() ? true : false;
 }
 
 export const SetUserInfo = (user) => {
