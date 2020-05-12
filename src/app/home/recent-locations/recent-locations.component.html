@@ -1,34 +1,48 @@
-<div class="mdl-grid parentGrid">
+<div class="wrapper">
+  <owl-carousel-o [options]="customOptions" #owlCar>
 
-  <div class="mdl-cell--12-col" *ngFor="let location of locations">
-    <div class="demo-card-wide mdl-card mdl-shadow--2dp"
-         [ngStyle]="{'background-image': 'url('+location.imageUrl+')' }">
-      <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">{{location.location}}</h2>
-      </div>
-      <div class="mdl-card__supporting-text">
-        {{location.information.substring(0,200)}}...
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">open_in_new</i>
-        </button>
-        <span> Go to location</span>
-        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">visibility_off</i>
-        </button>
-        <span> Remove</span>
-        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">event</i>
-        </button>
-        <span> Add to Calendar</span>
-      </div>
-      <div class="mdl-card__menu">
-        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">share</i>
-        </button>
+    <div class="mdl-grid parentGrid">
+      <div class="" *ngFor="let location of locations">
+        <ng-template carouselSlide class="slide">
+          <div class="slideParent">
+            <div class="demo-card-wide mdl-card mdl-shadow--2dp"
+                 [ngStyle]="{'background-image': 'url('+location.imageUrl+')' }">
+              <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text">{{location.location}}</h2>
+              </div>
+              <div class="mdl-card__supporting-text">
+                {{location.information.substring(0,150)}}...
+              </div>
+              <div class="mdl-card__actions mdl-card--border">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">open_in_new</i>
+                </button>
+                <span> Go</span>
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">visibility_off</i>
+                </button>
+                <span> Remove</span>
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">event</i>
+                </button>
+                <span> Add</span>
+              </div>
+              <div class="mdl-card__menu">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <i class="material-icons">share</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
-  </div>
+  </owl-carousel-o>
 
+  <button (click)="owlCar.prev()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab left">
+    <i class="material-icons">chevron_left</i>
+  </button>
+  <button (click)="owlCar.next()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab right">
+    <i class="material-icons">chevron_right</i>
+  </button>
 </div>
