@@ -1,9 +1,10 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {SearchComponent} from './search/search.component';
-import {LocationComponent} from './location/location.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
+import { LocationComponent } from './location/location.component';
 import { AboutComponent } from './about/about.component';
+import { SearchHistoryComponent } from './search-history/search-history.component';
 
 
 const routes: Routes = [{
@@ -18,6 +19,10 @@ const routes: Routes = [{
 }, {
   path: 'location',
   component: LocationComponent
+},
+{
+  path: 'search-history',
+  component: SearchHistoryComponent
 }];
 
 @NgModule({

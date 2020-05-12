@@ -29,6 +29,7 @@ import { MDL } from './directives/MaterialDesignLiteUpgradeElement';
 import { SharedModule } from './module/shared.module';
 import { environment } from '../environments/environment';
 import { CreateNewEventComponent } from './create-new-event/create-new-event.component';
+import { SearchHistoryComponent } from './search-history/search-history.component';
 import { RecentLocationsComponent } from './home/recent-locations/recent-locations.component';
 
 let config = new AuthServiceConfig([
@@ -62,6 +63,7 @@ export function provideConfig() {
     HeaderComponent,
     MDL,
     CreateNewEventComponent,
+    SearchHistoryComponent,
     RecentLocationsComponent
   ],
   imports: [

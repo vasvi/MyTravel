@@ -26,8 +26,13 @@
         About Us</a>
       <a class="mdl-navigation__link" (click)="onManualLocationClicked($event)" href="">
         <i class="material-icons">edit_location</i>
-        <span [style.color]="this.currentLocation ? 'inherit': '#b0b0b0'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}} </span>
+        <span
+          [style.color]="this.currentLocation ? 'inherit': '#b0b0b0'">{{this.currentLocation ? ''+ this.currentLocation : ''+'Location Disabled'}}
+        </span>
       </a>
+      <a *ngIf="showSearchHistoryRouterLink" class="mdl-navigation__link" routerLink="/search-history" href="">
+        <i class="material-icons">history</i>
+        Search History</a>
       <a class="mdl-navigation__link" *ngIf="'/search' === currentRoute" routerLink="" href="">
         <i class="material-icons">calendar_today</i>
         Add to calendar</a>
@@ -39,37 +44,47 @@
   </div>
   <div class="iconHolder">
     <button routerLink="/" id="_iconHolderHome" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
-      <i class="material-icons" >home</i>
-      <div >Home</div>
+      <i class="material-icons">home</i>
+      <div>Home</div>
     </button>
     <div class="mdl-tooltip" data-mdl-for="_iconHolderHome">
       Back to Home
     </div>
     <button routerLink="/about" id="_iconHolderInfo" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
-      <i class="material-icons" >info</i>
-      <div >About</div>
-
+      <i class="material-icons">info</i>
+      <div>About</div>
     </button>
+
     <div class="mdl-tooltip" data-mdl-for="_iconHolderInfo">
       About this app
     </div>
     <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderLoc">
       <i class="material-icons" (click)="onManualLocationClicked($event)">edit_location</i>
-      <div >Location</div>
+      <div>Location</div>
     </button>
+    <button *ngIf="showSearchHistoryRouterLink" routerLink="/search-history" id="_iconHolderSearchHistory"
+      class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
+      <i class="material-icons">history</i>
+      <div>History</div>
+    </button>
+    <div class="mdl-tooltip" data-mdl-for="_iconHolderSearchHistory">
+      View search history
+    </div>
     <div class="mdl-tooltip" data-mdl-for="_iconHolderLoc">
       Edit Current Location
     </div>
-    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderCal" *ngIf="'/search' === currentRoute">
+    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderCal"
+      *ngIf="'/search' === currentRoute">
       <i class="material-icons">calendar_today</i>
-      <div >Add</div>
+      <div>Add</div>
     </button>
     <div class="mdl-tooltip" data-mdl-for="_iconHolderCal">
       Add to Calendar
     </div>
-    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderShare" *ngIf="'/search' === currentRoute">
+    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderShare"
+      *ngIf="'/search' === currentRoute">
       <i class="material-icons">share</i>
-      <div >Share</div>
+      <div>Share</div>
     </button>
     <div class="mdl-tooltip" data-mdl-for="_iconHolderShare">
       Share as a ppt
