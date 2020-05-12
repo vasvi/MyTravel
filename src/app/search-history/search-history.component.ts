@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { SearchHistoryService } from '../services/search-history/search-history.service';
 import { UserParameters } from '../model/search-criteria';
 import { Router } from '@angular/router';
+import { GetUserInfo } from '../utilities';
 @Component({
   selector: 'app-search-history',
   templateUrl: './search-history.component.html',
@@ -33,9 +34,9 @@ export class SearchHistoryComponent implements OnInit {
   }
 
   getSearchHistory() {
-    let emailId = sessionStorage.getItem('user_email');
-    if(!emailId) return;
-    this.searchHistoryService.getSearchHistory(emailId)
+    let user = GetUserInfo();
+    if(!user) return;
+    this.searchHistoryService.getSearchHistory(user.email)
       .subscribe(data => {
         this.searchHistory = data;
       })
