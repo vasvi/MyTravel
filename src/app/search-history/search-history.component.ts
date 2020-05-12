@@ -4,6 +4,7 @@ import { SearchHistoryService } from '../services/search-history/search-history.
 import { UserParameters } from '../model/search-criteria';
 import { Router } from '@angular/router';
 import { GetUserInfo } from '../utilities';
+declare const componentHandler: any;
 @Component({
   selector: 'app-search-history',
   templateUrl: './search-history.component.html',
@@ -39,6 +40,7 @@ export class SearchHistoryComponent implements OnInit {
     this.searchHistoryService.getSearchHistory(user.email)
       .subscribe(data => {
         this.searchHistory = data;
+        componentHandler.upgradeAllRegistered();
       })
   }
 

@@ -30,6 +30,9 @@ export const environment = {
   },
   useMock: true,
   useMap: false,
+  CLOUDFUNCTIONS: {
+    baseURL: 'https://asia-east2-mytravelmaps.cloudfunctions.net'
+  }
 };
 
 /*
