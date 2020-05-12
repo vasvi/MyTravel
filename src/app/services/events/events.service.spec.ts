@@ -36,7 +36,7 @@ describe('EventsService', () => {
   it(`should test createEvent with Auth token`, inject([HttpTestingController], (httpMock: HttpTestingController)=> {
     // setup
     const service: EventsService = TestBed.get(EventsService);
-    sessionStorage.setItem('user_authToken', '1');
+    sessionStorage.setItem('userinfo', '{"authToken": "1"}');
 
     service.createEvent(newEventMock).subscribe((data) => {
       expect(data).toEqual(CreateEventMockObj)
@@ -50,12 +50,12 @@ describe('EventsService', () => {
     (httpMock: HttpTestingController)=> {
     // setup
     const service: EventsService = TestBed.get(EventsService);
-    if (sessionStorage.getItem('user_authToken')) {
-      sessionStorage.removeItem('user_authToken');
+    if (sessionStorage.getItem('userinfo')) {
+      sessionStorage.removeItem('userinfo');
     }
 
     service.createEvent(newEventMock).subscribe((data) => {
-      expect(data).toEqual(new Error('User is not signed in'))
+      expect(data).toEqual(new Error('User is not signed in or Auth token is expired'));
     });
 
     const req = httpMock.expectNone('https://content.googleapis.com/calendar/v3/calendars/primary/events?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE');
