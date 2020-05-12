@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { SearchHistoryService } from '../services/search-history/search-history.service';
+import { UserParameters } from '../model/search-criteria';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-search-history',
   templateUrl: './search-history.component.html',
@@ -8,17 +10,35 @@ import { SearchHistoryService } from '../services/search-history/search-history.
 })
 export class SearchHistoryComponent implements OnInit {
 
+  selectedSearch: UserParameters;
   searchHistory: Array<any> = [];
-  constructor(
-    private searchHistoryService: SearchHistoryService
-  ) {}
+  @ViewChild('dialog', null) mdlDialog: ElementRef;
 
-  getSearchHistory(){
+  constructor(
+    private searchHistoryService: SearchHistoryService,
+    private router: Router
+  ) { }
+
+  goToSearch(event) {
+    this.router.navigate(['search']);
+  }
+
+  showDialog(history) {
+    this.selectedSearch = history;
+    this.mdlDialog.nativeElement.showModal();
+  }
+
+  closeDialog() {
+    this.mdlDialog.nativeElement.close();
+  }
+
+  getSearchHistory() {
     let emailId = sessionStorage.getItem('user_email');
+    if(!emailId) return;
     this.searchHistoryService.getSearchHistory(emailId)
-    .subscribe(data => {
-      this.searchHistory = data;
-    })
+      .subscribe(data => {
+        this.searchHistory = data;
+      })
   }
 
   ngOnInit() {

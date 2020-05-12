@@ -26,11 +26,8 @@
                         </button>
                         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect"
                             [attr.for]="'item'+i">
-                            <li class="mdl-menu__item">
-                                <mat-icon>open_in_new</mat-icon> {{i}}
-                            </li>
-                            <li class="mdl-menu__item">
-                                <mat-icon>edit</mat-icon> {{i}}
+                            <li class="mdl-menu__item" (click)="showDialog(data)">
+                                <mat-icon style="font-size:18px; vertical-align: middle">edit</mat-icon> Edit Parameters
                             </li>
                         </ul>
                     </td>
@@ -39,3 +36,14 @@
         </table>
     </div>
 </div>
+
+<dialog class="mdl-dialog" #dialog>
+    <div class="mdl-dialog__contet">
+        <button class="mdl-button mdl-js-button mdl-button--icon" (click)="closeDialog()">
+            <span class="material-icons">
+                clear
+            </span>
+        </button>
+        <search-form [formData]="selectedSearch" (locationDataChange)="goToSearch($event)"></search-form>
+    </div>
+</dialog>
