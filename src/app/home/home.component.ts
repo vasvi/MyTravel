@@ -4,6 +4,7 @@ import * as Constant from '../searchConstants';
 import {ApplicableLocationObject} from '../model/search-criteria';
 import {Subscription} from 'rxjs';
 import {MapService} from '../services/map/map.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +17,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   loadingPopularLocations = true;
 
   constructor(
-    private searchDataService: SearchDataService, private mapService: MapService
+    private searchDataService: SearchDataService,
+    private mapService: MapService,
+    private translate: TranslateService
   ) {
+    translate.setDefaultLang('en');
   }
 
   ngOnInit() {
