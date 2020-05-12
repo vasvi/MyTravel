@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, TemplateRef, ViewChild, OnDestroy} from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {MapService} from '../services/map/map.service';
@@ -14,6 +14,7 @@ import { EventsService } from '../services/events/events.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  @Output() stateUpdated = new EventEmitter();
   currentLocation = '';
   newUserLocationObject: any;
   currentRoute = '';
@@ -93,6 +94,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.routerEventSubscription.unsubscribe();
     }
   };
+
+  updateSessionState = () => {
+    this.stateUpdated.emit();
+  }
 
   enableLocation() {
 
