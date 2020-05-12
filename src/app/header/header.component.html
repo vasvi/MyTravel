@@ -31,8 +31,8 @@
       <a class="mdl-navigation__link" *ngIf="'/search' === currentRoute" routerLink="" href="">
         <i class="material-icons">calendar_today</i>
         Add to calendar</a>
-      <a class="mdl-navigation__link" routerLink="" *ngIf="'/search' === currentRoute" href="">
-        <i class="material-icons">share</i>
+      <a class="mdl-navigation__link" routerLink="" *ngIf="'/search' === currentRoute" (click)="shareData()" href="">
+        <i class="material-icons" >share</i>
         Share </a>
 
     </nav>
@@ -67,7 +67,7 @@
     <div class="mdl-tooltip" data-mdl-for="_iconHolderCal">
       Add to Calendar
     </div>
-    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderShare" *ngIf="'/search' === currentRoute">
+    <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderShare" *ngIf="'/search' === currentRoute" (click)="shareData()" >
       <i class="material-icons">share</i>
       <div >Share</div>
     </button>

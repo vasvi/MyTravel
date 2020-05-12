@@ -6,6 +6,7 @@ import {SearchDataService} from '../services/search-data.serivce';
 import {Subscription} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {PlacesMockService} from '../mock-services/places-mock/places-mock-service';
+import { EventsService } from '../services/events/events.service';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private searchService: SearchDataService,
     private router: Router,
-    private placesMock: PlacesMockService) {
+    private placesMock: PlacesMockService,
+    private eventService: EventsService) {
   }
 
 
@@ -114,5 +116,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
         alert('We Cannot work until you provide us your location. Please allow location or Add it manually');
       }
     });
+  }
+
+  shareData(){
+    this.eventService.getSheetData().subscribe((data)=>this.exportData(data))
+  }
+
+  exportData(sheetDetails){
+    this.eventService.exportDataToSheet(sheetDetails).subscribe((data)=>{
+      console.log(data);
+    })
   }
 }

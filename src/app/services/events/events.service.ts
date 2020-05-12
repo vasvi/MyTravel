@@ -41,4 +41,29 @@ export class EventsService {
   createEventMock = () => {
     return CreateEventMockObj;
   }
+
+  getSheetData = () : Observable <any> => {
+    const data ={
+      "range": "Sheet1!A1:D5",
+      "majorDimension": "ROWS",
+      "values": [
+        ["Item", "Cost", "Stocked", "Ship Date"],
+        ["Wheel", "$20.50", "4", "3/1/2016"],
+        ["Door", "$15", "2", "3/15/2016"],
+        ["Engine", "$100", "1", "3/20/2016"],
+        ["Totals", "=SUM(B2:B4)", "=SUM(C2:C4)", "=MAX(D2:D4)"]
+      ],
+    }
+    let authToken = `Bearer ${sessionStorage.getItem('user_authToken')}`
+      let headers = new HttpHeaders({'Authorization': authToken});
+      const url1 ='https://sheets.googleapis.com/v4/spreadsheets?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE';
+      return this.http.post(url1,{},{headers});
+  }
+
+  exportDataToSheet(sheetDetails): Observable<any> {
+    let authToken = `Bearer ${sessionStorage.getItem('user_authToken')}`
+    let headers = new HttpHeaders({'Authorization': authToken});
+    const url1 ='https://sheets.googleapis.com/v4/spreadsheets?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE';
+    return this.http.post(url1,{},{headers});
+  }
 }
