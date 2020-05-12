@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService, GoogleLoginProvider, LoginOpt } from 'angularx-social-login';
+import { SetUserInfo, RemoveUserInfo } from '../utilities';
 
 @Component({
   selector: 'sign-in',
@@ -31,7 +32,7 @@ export class SignInComponent implements OnInit {
     this.loggedIn = (user != null);
     this.menuOpen = false;
     if (this.user) {
-      sessionStorage.setItem('user_authToken', this.user.authToken);
+      SetUserInfo(user);
       this.sessionStatusUpdate.emit();
     }
   }
@@ -41,7 +42,7 @@ export class SignInComponent implements OnInit {
 
   signOut = (): void => {
     this.authService.signOut();
-    sessionStorage.removeItem('user_authToken');
+    RemoveUserInfo();
     this.sessionStatusUpdate.emit();
   }
 
