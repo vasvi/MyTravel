@@ -18,6 +18,6 @@ export class HttpService {
   }
 
   makePostRequest(url, headers = null, data) {
-    return this._http.post(url, data, {headers});
+    return this._http.post(url, data, {headers, responseType: 'text'});
   }
 }

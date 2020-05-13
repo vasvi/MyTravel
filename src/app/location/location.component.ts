@@ -22,7 +22,7 @@ export class LocationComponent implements OnInit {
   targetLocation: Location;
   places: Array<Place> = [];
   weatherDetails: WeatherDetails;
-  useMap: boolean = false;
+  useMap = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -31,12 +31,12 @@ export class LocationComponent implements OnInit {
     private placesMock: PlacesMockService,
     private http: HttpService
   ) {
-    this.useMap = environment.useMap
+    this.useMap = environment.useMap;
   }
 
   ngOnInit() {
     this.subscribeToRouterEvents();
-    this.saveLocationHistory();
+    this.saveLocationHistory(this.targetLocation.place_id);
   }
 
   ngAfterViewInit() {
@@ -59,7 +59,7 @@ export class LocationComponent implements OnInit {
     })
       .subscribe((data: WeatherDetails) => {
         this.weatherDetails = data;
-      })
+      });
   }
 
   subscribeToRouterEvents() {
@@ -74,14 +74,14 @@ export class LocationComponent implements OnInit {
         }
         this.getWeatherDetails();
       }
-    })
+    });
   }
 
   plotMockPlaces() {
-    var results: Array<any> = this.placesMock.getNearbyPlaces(this.targetLocation.place_id);
-    var placesList: Array<Place> = [];
+    const results: Array<any> = this.placesMock.getNearbyPlaces(this.targetLocation.place_id);
+    const placesList: Array<Place> = [];
     results.forEach(item => {
-      let placeObj: Place = this.locationService.createPlaceObj(item);
+      const placeObj: Place = this.locationService.createPlaceObj(item);
       placesList.push(placeObj);
     });
     setTimeout(() => {
@@ -97,13 +97,13 @@ export class LocationComponent implements OnInit {
       radius: 30000,
       type: 'tourist_attraction'
     }, (results, status) => {
-      var placesList: Array<Place> = [];
+      const placesList: Array<Place> = [];
       results.forEach((item) => {
-        let placeObj: Place = this.locationService.createPlaceObj(item);
+        const placeObj: Place = this.locationService.createPlaceObj(item);
         placesList.push(placeObj);
-        let markerOptions = this.locationService.createMarkerOptions(this.map, item);
+        const markerOptions = this.locationService.createMarkerOptions(this.map, item);
         this.addMarker(markerOptions);
-      })
+      });
       setTimeout(() => {
         this.places = placesList;
       }, 0);
@@ -111,9 +111,9 @@ export class LocationComponent implements OnInit {
   }
 
   addMarker(options) {
-    let marker = this.locationService.createMarker(options);
-    let self = this;
-    var infowindow = this.locationService.createInfoWindow({
+    const marker = this.locationService.createMarker(options);
+    const self = this;
+    const infowindow = this.locationService.createInfoWindow({
       content: '<div>' + options.title + '</div>'
     });
     marker.addListener('click', function () {
@@ -139,21 +139,22 @@ export class LocationComponent implements OnInit {
     this.plotNearbyPlaces();
   }
 
-  saveLocationHistory() {
+  saveLocationHistory(placeId: any) {
 
     const userInfo = GetUserInfo();
     if (userInfo.email) {
 
-      const data = '';
-      const authToken = userInfo.idToken;
+      const data = JSON.stringify({
+        action: 'addLocationData',
+        emailId: userInfo.email,
+        locationData: placeId
+      });
       const headers = {
-        'authorization': 'Bearer ' + authToken,
-        'content-type': 'application/json',
-        'cache-control': 'no-cache',
+        'content-type': 'application/json'
       };
 
-      this.http.makePostRequest(environment.CLOUDFUNCTIONS.baseURL + '/postRequests', headers, data).subscribe((response) => {
-
+      this.http.makePostRequest(environment.CLOUDFUNCTIONS.baseURL + '/postApi', headers, data).subscribe((response) => {
+        console.log(response);
       });
     }
   }

@@ -13,8 +13,10 @@ import {OwlOptions} from 'ngx-owl-carousel-o';
 export class RecentLocationsComponent implements OnInit {
 
   locations: any = [];
+  recentLocations: any = [];
   userEmail = 'aayush.singh@gmail.com';
   options: any;
+  recentLocationAvailable = false;
 
   customOptions: OwlOptions = {
     loop: true,
@@ -55,14 +57,33 @@ export class RecentLocationsComponent implements OnInit {
     console.log(this.locations);
   }
 
+  updateSessionState() {
+    this.ngOnInit();
+    this.recentLocationAvailable = false;
+    this.userEmail = undefined;
+    this.recentLocations = [];
+  }
+
   getRecentLocations() {
 
     const userInfo = GetUserInfo();
     if (userInfo) {
       this.userEmail = userInfo.email;
-      this.http.makeGetRequest(environment.CLOUDFUNCTIONS.baseURL + '/getRequests?action=retrieveLocationData&emailId=' + this.userEmail).subscribe((response) => {
-        console.log(response);
+      this.http.makeGetRequest(environment.CLOUDFUNCTIONS.baseURL + '/getApi?action=retrieveLocationData&emailId=' + this.userEmail).subscribe((response) => {
+        if (response && response.length > 0) {
+          this.recentLocationAvailable = true;
+          this.locations.forEach((ele) => {
+            response.forEach((loc) => {
+              if (loc.locationData === ele.placeId) {
+                this.recentLocations.push(ele);
+              }
+            });
+          });
+        } else {
+        }
       });
+    } else {
+      this.userEmail = undefined;
     }
   }
 
