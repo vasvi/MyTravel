@@ -6,6 +6,7 @@ import * as Constants from '../../searchConstants';
 import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'search-form',
@@ -21,7 +22,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     private searchDataService: SearchDataService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private zone: NgZone) {
+    private zone: NgZone,
+    private translate: TranslateService) {
+      translate.setDefaultLang('en');
   }
 
   searchForm: FormGroup;

@@ -6,14 +6,14 @@
     </div>
 
     <diV class="dateField">
-        <label>From</label>
+        <label>{{ 'FromLabel' | translate }}</label>
         <div class="mdl-textfield mdl-js-textfield">
             <input class="mdl-textfield__input" type="date" id="start" [formControl]="start">
             <label class="mdl-textfield__label" for="start"></label>
         </div>
     </diV>
     <div class="dateField">
-        <label>To</label>
+        <label>{{'ToLabel' | translate }}</label>
         <div class="mdl-textfield mdl-js-textfield">
             <input class="mdl-textfield__input" type="date" id="end" [formControl]="end">
             <label class="mdl-textfield__label" for="end"></label>
@@ -21,6 +21,6 @@
     </div>
 
     <button class="mdl-button mdl-js-button mdl-button--raised">
-        Create
+        {{ 'CreateEventButtonText' | translate }}
     </button>
 </form>
