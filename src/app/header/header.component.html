@@ -3,7 +3,7 @@
     <!-- Top row, always visible -->
     <div class="mdl-layout__header-row">
       <!-- Title -->
-      <span class="mdl-layout-title">FindYourGetaway</span>
+      <span class="mdl-layout-title">{{ 'AppTitle' | translate }}</span>
       <div
         class="mdl-textfield mdl-js-textfield  mdl-textfield--floating-label mdl-textfield--align-right customNavTextField has-placeholder is-upgraded">
         <app-global-search></app-global-search>
@@ -16,14 +16,14 @@
     </div>
   </header>
   <div class="mdl-layout__drawer" style="z-index: 999">
-    <span class="mdl-layout-title">FindYourGetaway</span>
+    <span class="mdl-layout-title">{{ 'AppTitle' | translate }}</span>
     <nav class="mdl-navigation customMdlNavigation">
       <a class="mdl-navigation__link" routerLink="/" href="">
         <i class="material-icons">home</i>
-        Home</a>
+        {{ 'NavigationMenu_Home' | translate }}</a>
       <a class="mdl-navigation__link" routerLink="/about" href="">
         <i class="material-icons">info</i>
-        About Us</a>
+        {{ 'NavigationMenu_About' | translate }}</a>
       <a class="mdl-navigation__link" (click)="onManualLocationClicked($event)" href="">
         <i class="material-icons">edit_location</i>
         <span
@@ -32,27 +32,27 @@
       </a>
       <a *ngIf="showSearchHistoryRouterLink" class="mdl-navigation__link" routerLink="/search-history" href="">
         <i class="material-icons">history</i>
-        Search History</a>
+        {{ 'NavigationMenu_History' | translate }}</a>
       <a class="mdl-navigation__link" *ngIf="'/search' === currentRoute" routerLink="" href="">
         <i class="material-icons">calendar_today</i>
-        Add to calendar</a>
+        {{ 'SearchTableAddToCalendar' | translate }}</a>
       <a class="mdl-navigation__link" routerLink="" *ngIf="'/search' === currentRoute" href="">
         <i class="material-icons">share</i>
-        Share </a>
+        {{ 'NavigationMenu_Share' | translate }} </a>
 
     </nav>
   </div>
   <div class="iconHolder">
     <button routerLink="/" id="_iconHolderHome" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">home</i>
-      <div>Home</div>
+      <div>{{ 'NavigationMenu_Home' | translate }}</div>
     </button>
     <div class="mdl-tooltip" data-mdl-for="_iconHolderHome">
       Back to Home
     </div>
     <button routerLink="/about" id="_iconHolderInfo" class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">info</i>
-      <div>About</div>
+      <div>{{ 'NavigationMenu_About' | translate }}</div>
     </button>
 
     <div class="mdl-tooltip" data-mdl-for="_iconHolderInfo">
@@ -60,12 +60,12 @@
     </div>
     <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderLoc">
       <i class="material-icons" (click)="onManualLocationClicked($event)">edit_location</i>
-      <div>Location</div>
+      <div>{{ 'NavigationMenu_Location' | translate }}</div>
     </button>
     <button *ngIf="showSearchHistoryRouterLink" routerLink="/search-history" id="_iconHolderSearchHistory"
       class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon">
       <i class="material-icons">history</i>
-      <div>History</div>
+      <div>{{ 'NavigationMenu_History' | translate }}</div>
     </button>
     <div class="mdl-tooltip" data-mdl-for="_iconHolderSearchHistory">
       View search history
@@ -84,7 +84,7 @@
     <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderShare"
       *ngIf="'/search' === currentRoute">
       <i class="material-icons">share</i>
-      <div>Share</div>
+      <div>{{ 'NavigationMenu_Share' | translate }}</div>
     </button>
     <div class="mdl-tooltip" data-mdl-for="_iconHolderShare">
       Share as a ppt
@@ -95,12 +95,10 @@
 <ng-template #manualLocationEntry>
   <div class="introSection">
     <h1>
-      Help us to find where you are
+      {{ 'LocationChangeHedingText' | translate }}
     </h1>
     <h4>
-      There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-      some
-      form, by injected humour, or randomised words which don't look even slightly believable.
+      {{ 'LocationChangeText' | translate }}
     </h4>
 
     <div class="wrapper">
@@ -113,5 +111,5 @@
 </ng-template>
 
 <div class="lowResolutionTitle">
-  <span class="mdl-layout-title">FindYourGetaway</span>
+  <span class="mdl-layout-title">{{ 'AppTitle' | translate }}</span>
 </div>
