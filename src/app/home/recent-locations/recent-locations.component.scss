@@ -1,66 +1,75 @@
-.parentGrid {
-  margin: -45px 0px 0 25px;
+.wrapper {
   background: white;
-  padding: 0 0;
-  .mdl-cell--12-col {
-    margin: 5px 0px !important;
+  margin-left: 25px;
+  padding: 20px 0;
+  margin-top: -60px;
+  .left{
+    display: none;
+  }
+  .right{
+    display: none;
+  }
+}
+
+.slideParent{
+
+  margin: 0 2px ;
+  .demo-card-wide.mdl-card {
+    background-size: cover;
+    background: no-repeat center;
     width: 100%;
-    .demo-card-wide.mdl-card {
-      background-size: cover;
-      background: no-repeat center;
-      width: 100%;
-    }
-    .demo-card-wide > .mdl-card__title {
-      transition: all 1.2s ease;
-      color: #fff;
-      height: 176px;
-      font-weight: bold !important;
-      background: rgba(0, 0, 0, 0.15);
-      h2 {
-        font-family: "Montserrat", sans-serif;
-        font-weight: bold;
-        color: #d7d7d7;
-        transition: all 1.2s ease;
-        font-size: 1.2em;
-        padding: 0 10px;
-      }
-
-    }
-    .demo-card-wide > .mdl-card__menu {
-      color: #fff;
-    }
-    .demo-card-wide > .mdl-card__supporting-text {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.82);
-      color: #898989;
-      font-size: .75em;
+  }
+  .demo-card-wide > .mdl-card__title {
+    transition: all 1.2s ease;
+    color: #fff;
+    height: 176px;
+    font-weight: bold !important;
+    background: rgba(0, 0, 0, 0.15);
+    h2 {
+      font-family: "Montserrat", sans-serif;
       font-weight: bold;
-      transition: all 1.2s ease;
+      color: #d7d7d7;
+      transition: all 1.5s ease;
+      font-size: 1.2em;
+      padding: 0 10px;
     }
 
-    .demo-card-wide > .mdl-card__actions {
-      background: rgba(0, 0, 0, 0.82);
-      text-align: right;
-      padding: 0px 25px 20px;
-      transition: all 1.2s ease;
+  }
+  .demo-card-wide > .mdl-card__menu {
+    color: #fff;
+  }
+  .demo-card-wide > .mdl-card__supporting-text {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.82);
+    color: #898989;
+    font-size: .75em;
+    font-weight: bold;
+    transition: all 1.8s ease;
+  }
 
-      .mdl-js-button {
-        color: #d7d7d7;
-        font-weight: bold !important;
-        transition: all 1.2s ease;
-      }
-      span {
-        color: #8f8f8f;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold;
-        font-size: .72em;
-        margin-right: 14px;
-        transition: all 1.2s ease;
+  .demo-card-wide > .mdl-card__actions {
+    background: rgba(0, 0, 0, 0.82);
+    text-align: right;
+    padding: 0px 6px 8px;
+    -webkit-transition: all 1.2s ease;
+    transition: all 1.2s ease;
 
-      }
-      i{
-        font-size: 18px;
-      }
+    .mdl-js-button {
+      color: #d7d7d7;
+      font-weight: bold !important;
+      transition: all 1s ease;
+    }
+    span {
+      color: #8f8f8f;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      font-size: .72em;
+      margin-right: 14px;
+      transition: all 2.2s ease;
+
+    }
+    i {
+      font-size: 18px;
     }
   }
 }
@@ -79,7 +88,7 @@
   .mdl-card__actions {
     background: rgba(0, 0, 0, 0.86) !important;
     .mdl-js-button {
-      color: #fefefe !important;
+      color: #218efe !important;
     }
     span {
       color: #fefefe !important;
@@ -87,3 +96,12 @@
   }
 }
 
+
+@media only screen and (max-width: 1032px) {
+
+  .mdl-card__actions {
+    span {
+    display: none;
+    }
+  }
+}
