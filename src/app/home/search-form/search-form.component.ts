@@ -1,12 +1,14 @@
-import {Component, EventEmitter, OnInit, OnDestroy, Input, Output, NgZone} from '@angular/core';
-import {FormGroup, Validators, AbstractControl, FormBuilder} from '@angular/forms';
-import {UserParameters, ApplicableLocationObject} from '../../model/search-criteria';
-import {SearchDataService} from '../../services/search-data.serivce';
+import { Component, EventEmitter, OnInit, OnDestroy, Input, Output, NgZone } from '@angular/core';
+import { FormGroup, Validators, AbstractControl, FormBuilder } from '@angular/forms';
+import { UserParameters, ApplicableLocationObject } from '../../model/search-criteria';
+import { SearchDataService } from '../../services/search-data.serivce';
 import * as Constants from '../../searchConstants';
-import {Subscription} from 'rxjs';
-import {Router} from '@angular/router';
-import {MatSnackBar} from '@angular/material';
-import {TranslateService} from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
+import { TranslateService } from '@ngx-translate/core';
+import { GetUserInfo } from 'src/app/utilities';
+import { SearchHistoryService } from 'src/app/services/search-history/search-history.service';
 
 @Component({
   selector: 'search-form',
@@ -23,8 +25,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
     private zone: NgZone,
-    private translate: TranslateService) {
-      translate.setDefaultLang('en');
+    private translate: TranslateService,
+    private searchHistoryService: SearchHistoryService) {
+    translate.setDefaultLang('en');
   }
 
   searchForm: FormGroup;
@@ -54,42 +57,42 @@ export class SearchFormComponent implements OnInit, OnDestroy {
   }
 
   hotelRatingOptions = [
-    {value: Constants.hotelRatingType.twostar},
-    {value: Constants.hotelRatingType.threestar},
-    {value: Constants.hotelRatingType.fourstar},
-    {value: Constants.hotelRatingType.fivestar},
+    { value: Constants.hotelRatingType.twostar },
+    { value: Constants.hotelRatingType.threestar },
+    { value: Constants.hotelRatingType.fourstar },
+    { value: Constants.hotelRatingType.fivestar },
   ];
 
   travelTypeOptions = [
-    {value: Constants.travelMode.twowheeler},
-    {value: Constants.travelMode.fourwheeler},
-    {value: Constants.travelMode.bus},
-    {value: Constants.travelMode.train},
-    {value: Constants.travelMode.flight}
+    { value: Constants.travelMode.twowheeler },
+    { value: Constants.travelMode.fourwheeler },
+    { value: Constants.travelMode.bus },
+    { value: Constants.travelMode.train },
+    { value: Constants.travelMode.flight }
   ];
 
   busTypeOptions = [
-    {value: Constants.busType.ac},
-    {value: Constants.busType.nonac},
-    {value: Constants.busType.volvo}
+    { value: Constants.busType.ac },
+    { value: Constants.busType.nonac },
+    { value: Constants.busType.volvo }
   ];
 
   engineTypeOptions = [
-    {value: Constants.engineType.petrol},
-    {value: Constants.engineType.diesel}
+    { value: Constants.engineType.petrol },
+    { value: Constants.engineType.diesel }
   ];
 
   trainTypeOptions = [
-    {value: Constants.trainType.firstclass},
-    {value: Constants.trainType.secondclass},
-    {value: Constants.trainType.thirdclass},
-    {value: Constants.trainType.fourthclass}
+    { value: Constants.trainType.firstclass },
+    { value: Constants.trainType.secondclass },
+    { value: Constants.trainType.thirdclass },
+    { value: Constants.trainType.fourthclass }
   ];
 
   carTypeOptions = [
-    {value: Constants.carType.hatchback},
-    {value: Constants.carType.sedan},
-    {value: Constants.carType.suv},
+    { value: Constants.carType.hatchback },
+    { value: Constants.carType.sedan },
+    { value: Constants.carType.suv },
   ];
 
   ngOnInit() {
@@ -171,9 +174,9 @@ export class SearchFormComponent implements OnInit, OnDestroy {
         } else
           this.locationDataChange.emit();
       } else if (this.userSearchObj && data.location && !data.location.length) {
-        this.snackBar.open('Budget too low', '', {duration: 5000});
+        this.snackBar.open('Budget too low', '', { duration: 5000 });
       } else {
-        this.snackBar.open(data, '', {duration: 5000});
+        this.snackBar.open(data, '', { duration: 5000 });
       }
     }
   }
@@ -198,6 +201,22 @@ export class SearchFormComponent implements OnInit, OnDestroy {
     //TODO: Add user data validation before initiating search
     this.searchDataService.setUserSearchData(this.userSearchObj);
     this.searchDataService.initSearch(this.userSearchObj);
+    this.saveUserSearch(this.userSearchObj);
+  }
+
+  saveUserSearch(data) {
+    let user = GetUserInfo();
+    if (!user) return;
+    let payload = {
+      emailId: user.email,
+      locationData: JSON.stringify(data)
+    }
+    this.searchHistoryService.saveSearch(payload)
+    .subscribe(data => {
+      console.log('search record saved !!!');
+    }, err => {
+      console.log(err);
+    })
   }
 
   optionChanged = (event) => {

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http/http.service';
 import { environment } from '../../../environments/environment';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 import { searchHistoryData } from '../../mockData/search-history.data';
 const cloudFunctionAPi = {
-  getUri: environment.GCP.TRAVEL.cloud_function_fetch_uri + '?action=retrieveLocationData&emailId=',
-  postUri: ''
+  getUri: environment.GCP.TRAVEL.cloud_function_uri + 'getApi?action=retrievelocationdata&emailId=',
+  postUri: environment.GCP.TRAVEL.cloud_function_uri + 'postApi'
 }
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class SearchHistoryService {
     this.mockData = searchHistoryData;
   }
 
-  clearSearchHistoryCache(id) {
+  private clearSearchHistoryCache(id) {
     delete this.searchHistoryCache[id];
   }
 
@@ -42,20 +42,29 @@ export class SearchHistoryService {
   }
 
   private parseSearchHistory(data) {
-    data = data.map(o => {
-      return {
-        timestamp: o.timeStamp,
-        locationData: JSON.parse(o.locationData)
+    let result = [];
+    data.forEach(item => {
+      let obj = {
+        timestamp: item.timeStamp,
+        locationData: {}
+      }
+      try{
+        obj.locationData = JSON.parse(item.locationData);
+        if(obj.locationData.hasOwnProperty('person')) result.push(obj);
+      }
+      catch(e){
+
       }
     })
-    return data;
+    return result;
   }
-  
+
   getSearchHistory(id) {
     return new Observable((observer: Observer<any>) => {
       let cachedHistory = this.searchHistoryCache[id];
       if (cachedHistory) {
         observer.next(cachedHistory);
+        observer.complete();
       } else {
         this.createCloudFunctionFetchObservable(id).subscribe(data => {
           data = this.parseSearchHistory(data);
@@ -66,8 +75,17 @@ export class SearchHistoryService {
           observer.error(err);
         })
       }
-      observer.complete();
     })
+  }
+
+  saveSearch(payload) {
+    if(this.useMock){
+      return of('abcmock');
+    }else{
+      this.clearSearchHistoryCache(payload.emailId);
+      payload.action = 'addLocationdata';
+      return this.http.makePostRequest(cloudFunctionAPi.postUri, null, payload);
+    }
   }
 
 }
