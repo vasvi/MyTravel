@@ -144,17 +144,21 @@ export class LocationComponent implements OnInit {
     const userInfo = GetUserInfo();
     if (userInfo.email) {
 
+      const authToken = userInfo.idToken;
+
       const data = JSON.stringify({
         action: 'addLocationData',
         emailId: userInfo.email,
         locationData: placeId
       });
       const headers = {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        Authorization: 'Bearer ' + authToken
       };
 
-      this.http.makePostRequest(environment.CLOUDFUNCTIONS.baseURL + '/postApi', headers, data).subscribe((response) => {
-        console.log(response);
+
+      this.http.makePostRequest(environment.CLOUDFUNCTIONS.baseURL + '/corsEnabledFunctionAuth', headers, data).subscribe((response) => {
+        //console.log(response);
       });
     }
   }

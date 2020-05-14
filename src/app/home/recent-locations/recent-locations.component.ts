@@ -58,10 +58,10 @@ export class RecentLocationsComponent implements OnInit {
   }
 
   updateSessionState() {
-    this.ngOnInit();
     this.recentLocationAvailable = false;
     this.userEmail = undefined;
     this.recentLocations = [];
+    this.ngOnInit();
   }
 
   getRecentLocations() {
