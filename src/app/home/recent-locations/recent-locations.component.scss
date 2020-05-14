@@ -74,6 +74,31 @@
   }
 }
 
+.noDataAvailable{
+  padding: 47px 5%;
+  background: white;
+  margin: 0px 0 20px 3%;
+  h1 {
+    font-size: 1.5em;
+    padding: 0px 4px 4px;
+    color: #3a4893;
+    font-weight: bold;
+    text-align: left;
+    font-family: "Lato", sans-serif;
+  }
+  h4 {
+    font-weight: bold;
+    font-size: .9em;
+    padding: 0 1%;
+    line-height: 1.4em;
+    sign-in{
+      display: block;
+      margin: 15px 0;
+    };
+
+  }
+}
+
 .demo-card-wide:hover {
   .mdl-card__supporting-text {
     background: rgba(0, 0, 0, 0.86) !important;
