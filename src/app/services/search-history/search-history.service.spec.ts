@@ -10,7 +10,7 @@ class HttpServiceMock {
   }
 }
 
-fdescribe('SearchHistoryService', () => {
+describe('SearchHistoryService', () => {
   let service;
   beforeEach(() => {
     TestBed.configureTestingModule({
