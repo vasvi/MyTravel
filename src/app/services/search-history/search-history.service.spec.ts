@@ -58,10 +58,31 @@ describe('SearchHistoryService', () => {
 
     it('should set searchHistoryCache', fakeAsync(() => {
       service.getSearchHistory('gpantbiz@gmail.com').subscribe(data => {
-        expect(service.searchHistoryCache['gpantbiz@gmail.com'].length).toBe(6);
+        expect(service.searchHistoryCache['gpantbiz@gmail.com'].length).toBe(5);
       })
     }))
 
+  })
+
+
+  describe('saveSearch', () => {
+    beforeEach(() => {
+
+    })
+
+    it('should return mock value', () => {
+      if(service.userMock){
+        service.saveSearch({})
+        .subscribe(data => {
+          expect(data).toBe('abcmock');
+        })
+      } else{
+        service.saveSearch({})
+        .subscribe(data => {
+          expect(data).not.toBe('abcmock');
+        })
+      }
+    })
   })
 
 });

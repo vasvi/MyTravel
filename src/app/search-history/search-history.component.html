@@ -20,22 +20,22 @@
                     <td>{{data.locationData.person}}</td>
                     <td>{{data.locationData.budget}}</td>
                     <td>{{data.locationData.duration}}</td>
-                    <td>{{data.locationData.hotel.starrating}}</td>
+                    <td>{{data.locationData.hotel?.starrating}}</td>
                     <td>
-                        <ng-container *ngIf="data.locationData.travel.travelmode=='Two Wheeler'">
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='Two Wheeler'">
                             <mat-icon>directions_bike</mat-icon>
                         </ng-container>
-                        <ng-container *ngIf="data.locationData.travel.travelmode=='Four Wheeler'">
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='Four Wheeler'">
                             <mat-icon>directions_car</mat-icon> {{data.locationData.travel.cartype}}
                             {{data.locationData.travel.enginetype}}
                         </ng-container>
-                        <ng-container *ngIf="data.locationData.travel.travelmode=='train'">
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='train'">
                             <mat-icon>directions_railway</mat-icon> {{data.locationData.travel.trainclass}}
                         </ng-container>
-                        <ng-container *ngIf="data.locationData.travel.travelmode=='bus'">
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='bus'">
                             <mat-icon>directions_bus</mat-icon> {{data.locationData.travel.bustype}}
                         </ng-container>
-                        <ng-container *ngIf="data.locationData.travel.travelmode=='flight'">
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='flight'">
                             <mat-icon>flight</mat-icon>
                         </ng-container>
                     </td>
