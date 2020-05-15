@@ -82,7 +82,7 @@
       Add to Calendar
     </div>
     <button class="mdl-layout-icon mdl-button mdl-js-button mdl-button--icon" id="_iconHolderShare"
-      *ngIf="'/search' === currentRoute">
+      *ngIf="'/search' === currentRoute" (click)="shareData()">
       <i class="material-icons">share</i>
       <div>{{ 'NavigationMenu_Share' | translate }}</div>
     </button>

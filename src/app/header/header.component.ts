@@ -6,6 +6,9 @@ import {SearchDataService} from '../services/search-data.serivce';
 import {Subscription} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {PlacesMockService} from '../mock-services/places-mock/places-mock-service';
+import { EventsService } from '../services/events/events.service';
+import { SetSpreadSheetId, GetSpreadSheetId } from '../utilities';
+import { MatSnackBar } from '@angular/material';
 import { GetUserInfo } from '../utilities';
 
 @Component({
@@ -18,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentLocation = '';
   newUserLocationObject: any;
   currentRoute = '';
+  useMock : boolean;
   routerEventSubscription: Subscription;
   @ViewChild('manualLocationEntry', null) dialogRef: TemplateRef<any>;
   @ViewChild('manualLocationInput', {static: false}) locationInputViewChild: ElementRef;
@@ -28,7 +32,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private searchService: SearchDataService,
     private router: Router,
-    private placesMock: PlacesMockService) {
+    private placesMock: PlacesMockService,
+    private eventService: EventsService,
+    private snackBar: MatSnackBar) {
+      this.useMock = environment.useMock;
   }
 
 
@@ -127,5 +134,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
         alert('We Cannot work until you provide us your location. Please allow location or Add it manually');
       }
     });
+  }
+
+  shareData(){
+    let spreadSheetId = GetSpreadSheetId();
+    if(!spreadSheetId){
+      this.eventService.createSpreadSheet().subscribe((data)=>{
+        spreadSheetId = data.spreadsheetId;
+        SetSpreadSheetId(spreadSheetId);
+        this.createSheet(spreadSheetId);
+      })
+    }else {
+      this.createSheet(spreadSheetId);
+    }
+  }
+
+  createSheet(spreadSheetId){
+    if (this.useMock){
+      this.exportData(spreadSheetId, "Sheet1");
+    }else {
+      this.eventService.createSheet(spreadSheetId).subscribe((res)=>{
+        const sheetName = res.replies[0].addSheet.properties.title;
+        this.exportData(spreadSheetId,sheetName);
+      });
+    }
+  }
+
+  exportData(spreadsheetId, sheetName){
+    if (this.useMock){
+      this.snackBar.open(`Data exported successfully in ${sheetName} of spreadsheet with Id ${spreadsheetId}`,'', {duration: 5000});
+    }else{
+      this.eventService.exportDataToSheet(spreadsheetId,sheetName).subscribe((data)=>{
+        this.snackBar.open(`Data exported successfully in ${sheetName} of spreadsheet with Id ${spreadsheetId}`,'', {duration: 5000});
+      })
+    }
   }
 }

@@ -13,3 +13,11 @@ export const GetUserInfo = () => {
 export const RemoveUserInfo = () => {
     sessionStorage.removeItem('userinfo');
 }
+
+export const SetSpreadSheetId = (spreadSheetId) =>{
+    sessionStorage.setItem('spreadSheetId', spreadSheetId);
+}
+
+export const GetSpreadSheetId = () => {
+    return sessionStorage.getItem('spreadSheetId');
+}

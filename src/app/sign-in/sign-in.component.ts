@@ -14,7 +14,7 @@ export class SignInComponent implements OnInit {
   menuOpen = false;
   userName = 'userName';
   scope: LoginOpt = {
-    scope: 'https://www.googleapis.com/auth/calendar'
+    scope: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/spreadsheets'
   }
 
   constructor(
