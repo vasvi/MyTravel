@@ -27,7 +27,7 @@ export const environment = {
   EVENT: {
     api_endpoint: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
   },
-  SHEET:{
+  SHEETS:{
     api_endpoint:'https://sheets.googleapis.com/v4/spreadsheets',
   },
   useMock: true,

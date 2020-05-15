@@ -5,15 +5,17 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {CreateEventMockObj} from '../../mockData/events-mock-data';
 import {GetUserInfo} from '../../utilities'; 
+import { SearchDataService } from '../search-data.serivce';
+import { SheetDetails } from 'src/app/mockData/sheets-mock-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
   useMock: boolean;
-
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private searchDataService: SearchDataService
   ) {
     this.useMock = environment.useMock;
   }
@@ -43,28 +45,50 @@ export class EventsService {
     return CreateEventMockObj;
   }
 
-  getSheetData = () : Observable <any> => {
-    const data ={
-      "range": "Sheet1!A1:D5",
-      "majorDimension": "ROWS",
-      "values": [
-        ["Item", "Cost", "Stocked", "Ship Date"],
-        ["Wheel", "$20.50", "4", "3/1/2016"],
-        ["Door", "$15", "2", "3/15/2016"],
-        ["Engine", "$100", "1", "3/20/2016"],
-        ["Totals", "=SUM(B2:B4)", "=SUM(C2:C4)", "=MAX(D2:D4)"]
-      ],
-    }
-    let authToken = `Bearer ${sessionStorage.getItem('user_authToken')}`
+  createSpreadSheet = () : Observable <any> => {
+    let authToken = `Bearer ${GetUserInfo().authToken}`;
       let headers = new HttpHeaders({'Authorization': authToken});
-      const url1 ='https://sheets.googleapis.com/v4/spreadsheets?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE';
-      return this.http.post(url1,{},{headers});
+      let url = `${environment.SHEETS.api_endpoint}/?alt=json&key=${environment.GCP.TRAVEL.apiKey}`;
+      return this.http.post(url,{},{headers});
   }
 
-  exportDataToSheet(sheetDetails): Observable<any> {
-    let authToken = `Bearer ${sessionStorage.getItem('user_authToken')}`
+  createSheet(spreadsheetId): Observable<any>{
+    let authToken = `Bearer ${GetUserInfo().authToken}`;
     let headers = new HttpHeaders({'Authorization': authToken});
-    const url1 ='https://sheets.googleapis.com/v4/spreadsheets?alt=json&key=AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE';
-    return this.http.post(url1,{},{headers});
+    const data ={
+      "requests": [{
+        "addSheet": {
+        }
+      }]
+    }
+    let url = `${environment.SHEETS.api_endpoint}/${spreadsheetId}:batchUpdate?alt=json&key=${environment.GCP.TRAVEL.apiKey}`;
+    if (this.useMock){
+      return of(SheetDetails);
+    }else {
+     return this.http.post(url,data,{headers})
+    }
+  }
+
+
+  exportDataToSheet(spreadsheetId, sheetName): Observable<any> {
+    let authToken = `Bearer ${GetUserInfo().authToken}`;
+    let headers = new HttpHeaders({'Authorization': authToken});
+    const data = {
+      "values" : this.getDataToExport(),
+      "range": `${sheetName}!A:B`,
+      "majorDimension": "ROWS"
+    }
+    let url = `${environment.SHEETS.api_endpoint}/${spreadsheetId}/values/${sheetName}!A:B?valueInputOption=USER_ENTERED&alt=json&key=${environment.GCP.TRAVEL.apiKey}`;
+    return this.http.put(url,data,{headers});
+  }
+
+  getDataToExport(){
+    let locationsToExport = []; 
+    const locationsData = this.searchDataService.getApplicableLocationData();
+    locationsToExport.push(["Destination", "Distance"]);
+    locationsData.location.forEach(element => {
+      locationsToExport.push([element.location, element.details.distance.text])
+    });
+    return locationsToExport;
   }
 }
