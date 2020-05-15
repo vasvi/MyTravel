@@ -1,19 +1,19 @@
 <div class="container search-list centerAlignedContainer">
   <div align="center" *ngIf="destinations?.length === 0" class="spinner"><img src="../../../assets/images/151%20(2).gif">
     <h4 align="center">
-      Please wait.. You locations are being loaded.
+      {{ 'SearchListLoadingText' | translate }}
     </h4>
   </div>
   <table class="mdl-data-table mdl-js-data-table">
     <thead>
       <tr *ngIf="destinations">
-        <td class="text-left" colspan="5"> Showing {{destinations.length}} locations </td>
+        <td class="text-left" colspan="5"> {{ 'SearchListCountText' | translate: {'length': destinations.length } }} </td>
       </tr>
       <tr>
         <th class="expand"></th>
-        <th class="name">Destination</th>
-        <th class="distance">Distance</th>
-        <th class="dest-image">Image</th>
+        <th class="name">{{ 'SearchTableDestinationHeading' | translate }}</th>
+        <th class="distance">{{ 'SearchTableDistanceHeading' | translate }}</th>
+        <th class="dest-image">{{ 'SearchTableImageHeading' | translate }}</th>
         <th class="close"></th>
       </tr>
     </thead>
@@ -41,11 +41,11 @@
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" [attr.for]="'destinationMenu' + destinationIndex">
               <li class="mdl-menu__item" (click)="getPlaces(destination)">
-                <mat-icon>open_in_new</mat-icon>View Detail</li>
+                <mat-icon>open_in_new</mat-icon>{{ 'SearchTableViewDetail' | translate }}</li>
               <li class="mdl-menu__item" (click)="hideDestination(destination)">
-                <mat-icon>visibility_off</mat-icon>Hide from list</li>
+                <mat-icon>visibility_off</mat-icon>{{ 'SearchTableHideLocation' | translate }}</li>
               <li class="mdl-menu__item createEventOption" (click)="createEvent(destination)">
-                <mat-icon>event</mat-icon>Add to Calendar</li>
+                <mat-icon>event</mat-icon>{{ 'SearchTableAddToCalendar' | translate }}</li>
             </ul>
           </td>
         </tr>
@@ -61,7 +61,7 @@
 </div>
 <dialog #createEventDialog id="createEventDialog" class="mdl-dialog createEvent">
   <div class="dialogHeader">
-    <h5 class="mdl-dialog__title">Confirm event details</h5>
+    <h5 class="mdl-dialog__title">{{ 'CreateEvenDialogHeading' | translate }}</h5>
     <mat-icon (click)="closeModal()">close</mat-icon>
   </div>
   <div class="mdl-dialog__content">

@@ -4,17 +4,26 @@
       <div class="mdl-cell--12-col">
         <div class="infoSection">
           <h1>
-            Help us find your getaway!
+            {{ 'HomePageInfosectionHeading' | translate }}
           </h1>
           <h4>
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
-            some
-            form, by injected humour, or randomised words which don't look even slightly believable.
+            {{ 'HomePageInfosectionText' | translate }}
           </h4>
         </div>
       </div>
       <div class="mdl-cell--12-col">
         <search-form></search-form>
+      </div>
+      <div class="mdl-cell--12-col" style="margin-top: 30px">
+        <div class="infoSection">
+          <h1>Your most searched locations
+          </h1>
+          <h4 class="popularDestLabel">
+            We compiled a list for you. In case you want to take a look. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in
+            some
+            form, by injected humour, or randomised words which don't look even slightly believable.
+          </h4>
+        </div>
       </div>
       <div class="mdl-cell--12-col">
         <app-recent-locations></app-recent-locations>
@@ -23,10 +32,11 @@
     <div class="mdl-cell--5-col mdl-cell--5-col-phone mdl-cell--5-col-tablet popularDestinationParent" >
       <div class="mdl-cell--12-col">
         <div class="popularLocations">
-          <h1>Popular destinations around you
+          <h1>
+            {{ 'PopularDestinationsHeading' | translate }}
           </h1>
           <h4 class="popularDestLabel">
-            We compiled a list for you. In case you want to take a look
+            {{ 'PopularDestinationsText' | translate }}
           </h4>
         </div>
       </div>
@@ -41,7 +51,7 @@
 
 <ng-template #loading>
   <div class="loadingPopular">
-    Fetching popular destinations around you..
+    {{ 'PopularDestinationsLoadingText' | translate }}
     <div class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
   </div>
 </ng-template>

@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {SearchDataService} from '../../services/search-data.serivce';
 import {environment} from '../../../environments/environment';
 import {PlacesMockService} from '../../mock-services/places-mock/places-mock-service';
+import {TranslateService} from '@ngx-translate/core';
 
 declare var componentHandler: any;
 
@@ -26,7 +27,8 @@ export class SearchListComponent implements OnInit, OnChanges {
     private ngZone: NgZone,
     private searchService: SearchDataService,
     private locationService: LocationService,
-    private placesMock: PlacesMockService
+    private placesMock: PlacesMockService,
+    private translate: TranslateService
   ) {
   }
 

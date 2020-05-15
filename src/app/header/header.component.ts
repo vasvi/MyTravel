@@ -9,6 +9,7 @@ import {PlacesMockService} from '../mock-services/places-mock/places-mock-servic
 import { EventsService } from '../services/events/events.service';
 import { SetSpreadSheetId, GetSpreadSheetId } from '../utilities';
 import { MatSnackBar } from '@angular/material';
+import { GetUserInfo } from '../utilities';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   routerEventSubscription: Subscription;
   @ViewChild('manualLocationEntry', null) dialogRef: TemplateRef<any>;
   @ViewChild('manualLocationInput', {static: false}) locationInputViewChild: ElementRef;
-
+  showSearchHistoryRouterLink: boolean = false;
 
   constructor(
     private mapService: MapService,
@@ -92,6 +93,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.currentRoute = event.url;
       }
     });
+    this.userLoggedInCheck();
   }
 
   ngOnDestroy = () => {
@@ -100,8 +102,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   };
 
+  userLoggedInCheck(){
+    let user = GetUserInfo();
+    this.showSearchHistoryRouterLink = user ? true : false;
+  }
+
   updateSessionState = () => {
     this.stateUpdated.emit();
+    this.userLoggedInCheck();
   }
 
   enableLocation() {

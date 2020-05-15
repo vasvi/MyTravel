@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GetUserSignedInState} from './utilities';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,15 @@ import {GetUserSignedInState} from './utilities';
 export class AppComponent implements OnInit {
   title = 'My Travel';
   signedIn: boolean;
-  showBanner: boolean = true;
+  showBanner: boolean = false;
+
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('en');
+  }
 
   ngOnInit() {
     this.signedIn = GetUserSignedInState();
+    setTimeout(this.showSignInBanner,  2*60*1000);
   }
 
   sessionUpdated = () => {
@@ -21,5 +27,9 @@ export class AppComponent implements OnInit {
 
   closeBanner = () => {
     this.showBanner = false;
+  }
+
+  showSignInBanner = () => {
+    this.showBanner = true;
   }
 }

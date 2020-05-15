@@ -9,6 +9,7 @@ export const environment = {
       client_id: '207524266129-eofqorqkgmbduk96ur44rukok58r0pla.apps.googleusercontent.com',
       apiKey: 'AIzaSyC5-HvS8pMo3xEKtt6SlrC0J7-vfjLP9nE',
       project_id: 'mytravelmaps',
+      cloud_function_fetch_uri: 'https://asia-east2-mytravelmaps.cloudfunctions.net/getRequests'
     },
     MY_MAPS: {
       name: 'My Maps Project',
@@ -21,5 +22,8 @@ export const environment = {
     api_endpoint: 'https://api.openweathermap.org/data/2.5/'
   },
   useMock: true,
-  useMap: true
+  useMap: true,
+  CLOUDFUNCTIONS: {
+    baseURL: 'https://asia-east2-mytravelmaps.cloudfunctions.net'
+  }
 };

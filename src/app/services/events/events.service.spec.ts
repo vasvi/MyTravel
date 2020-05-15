@@ -8,7 +8,7 @@ import { SearchDataService } from '../search-data.serivce';
 import { ApplicableLocations } from 'src/app/mockData/location-mock-data';
 
 
-fdescribe('EventsService', () => {
+describe('EventsService', () => {
   beforeEach(() => TestBed.configureTestingModule({imports: [HttpClientTestingModule]}));
 
   it(`should be created`, () => {
