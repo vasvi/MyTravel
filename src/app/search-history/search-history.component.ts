@@ -25,7 +25,7 @@ export class SearchHistoryComponent implements OnInit {
   }
 
   showDialog(history) {
-    this.selectedSearch = history;
+    this.selectedSearch = history.locationData;
     this.mdlDialog.nativeElement.showModal();
   }
 
