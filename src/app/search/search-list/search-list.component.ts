@@ -6,6 +6,7 @@ import {SearchDataService} from '../../services/search-data.serivce';
 import {environment} from '../../../environments/environment';
 import {PlacesMockService} from '../../mock-services/places-mock/places-mock-service';
 import {TranslateService} from '@ngx-translate/core';
+import {GetUserSignedInState} from '../../utilities';
 
 declare var componentHandler: any;
 
@@ -89,5 +90,9 @@ export class SearchListComponent implements OnInit, OnChanges {
     if (this.createEventDialog && this.createEventDialog.nativeElement.open) {
       this.createEventDialog.nativeElement.close();
     }
+  }
+
+  isUSerSignedIn = () => {
+    return GetUserSignedInState();
   }
 }
