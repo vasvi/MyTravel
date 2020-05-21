@@ -27,8 +27,8 @@ export const environment = {
   SHEETS: {
     api_endpoint: 'https://sheets.googleapis.com/v4/spreadsheets',
   },
-  useMock: true,
-  useMap: false,
+  useMock: false,
+  useMap: true,
   CLOUDFUNCTIONS: {
     baseURL: 'https://asia-east2-mytravelmaps.cloudfunctions.net'
   }
