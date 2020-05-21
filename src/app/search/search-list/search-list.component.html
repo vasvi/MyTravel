@@ -44,7 +44,7 @@
                 <mat-icon>open_in_new</mat-icon>{{ 'SearchTableViewDetail' | translate }}</li>
               <li class="mdl-menu__item" (click)="hideDestination(destination)">
                 <mat-icon>visibility_off</mat-icon>{{ 'SearchTableHideLocation' | translate }}</li>
-              <li class="mdl-menu__item createEventOption" (click)="createEvent(destination)">
+              <li class="mdl-menu__item createEventOption" *ngIf="isUSerSignedIn()" (click)="createEvent(destination)">
                 <mat-icon>event</mat-icon>{{ 'SearchTableAddToCalendar' | translate }}</li>
             </ul>
           </td>
