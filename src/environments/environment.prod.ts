@@ -21,7 +21,7 @@ export const environment = {
     appid: '24aac48b2c5f1c06ed90d17dc31ae21c',
     api_endpoint: 'https://api.openweathermap.org/data/2.5/'
   },
-  useMock: true,
+  useMock: false,
   useMap: true,
   CLOUDFUNCTIONS: {
     baseURL: 'https://asia-east2-mytravelmaps.cloudfunctions.net'
