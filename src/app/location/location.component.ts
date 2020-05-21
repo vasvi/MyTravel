@@ -153,12 +153,12 @@ export class LocationComponent implements OnInit {
       });
       const headers = {
         'content-type': 'application/json',
-        Authorization: 'Bearer ' + authToken
-      };
+   /*     Authorization: 'Bearer ' + authToken
+   */   };
 
 
-      this.http.makePostRequest(environment.CLOUDFUNCTIONS.baseURL + '/corsEnabledFunctionAuth', headers, data).subscribe((response) => {
-        //console.log(response);
+      this.http.makePostRequest(environment.CLOUDFUNCTIONS.baseURL + '/postApi', headers, data).subscribe((response) => {
+        console.log(response);
       });
     }
   }
