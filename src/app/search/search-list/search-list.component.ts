@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {SearchDataService} from '../../services/search-data.serivce';
 import {environment} from '../../../environments/environment';
 import {PlacesMockService} from '../../mock-services/places-mock/places-mock-service';
+import {TranslateService} from '@ngx-translate/core';
 
 declare var componentHandler: any;
 
@@ -26,13 +27,16 @@ export class SearchListComponent implements OnInit, OnChanges {
     private ngZone: NgZone,
     private searchService: SearchDataService,
     private locationService: LocationService,
-    private placesMock: PlacesMockService
+    private placesMock: PlacesMockService,
+    private translate: TranslateService
   ) {
   }
 
   ngOnInit() {
-    this.destinations = this.locationData && this.locationData.location;
-    this.destinations = this.destinations.sort((a, b) => a.details.distance.text.replace('km', '').replace(',', '') - b.details.distance.text.replace('km', '').replace(',', ''));
+    if (this.locationData && this.locationData.location) {
+      this.destinations = this.locationData.location;
+      this.destinations = this.destinations.sort((a, b) => a.details.distance.text.replace('km', '').replace(',', '') - b.details.distance.text.replace('km', '').replace(',', ''));
+    }
   }
 
   getPlaces(destination) {
@@ -55,7 +59,7 @@ export class SearchListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.destinations = this.locationData && this.locationData.location ? this.locationData.location : this.destinations;
+    this.destinations = this.locationData && this.locationData.location ? this.locationData.location : [];
   }
 
   navigateToLocation(results, status) {

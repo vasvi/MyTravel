@@ -1,12 +1,25 @@
 <div class=" mdl-layout mdl-js-layout">
-  <app-header></app-header>
+  <app-header (stateUpdated)="sessionUpdated()"></app-header>
   <main class="mdl-layout__content">
     <div class="page-content"><!-- Your content goes here -->
-      <div class="main">
+      <ng-container *ngTemplateOutlet="signInBanner"></ng-container>
+      <div class="main" [ngClass]="{'signed-in': signedIn}">
         <router-outlet></router-outlet>
       </div>
     </div>
   </main>
 </div>
+
+<ng-template #signInBanner>
+  <div class="not-signed-in" *ngIf="!signedIn && showBanner">
+    <div>
+      <mat-icon>info</mat-icon>
+      <span>
+        {{ 'signInBannerText' | translate }}
+      </span>
+    </div>
+    <mat-icon (click)="closeBanner()">close</mat-icon>
+  </div>
+</ng-template>
 
 

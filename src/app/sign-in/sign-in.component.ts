@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService, GoogleLoginProvider, LoginOpt} from 'angularx-social-login';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AuthService, GoogleLoginProvider, LoginOpt } from 'angularx-social-login';
+import { SetUserInfo, RemoveUserInfo } from '../utilities';
 
 @Component({
   selector: 'sign-in',
@@ -7,12 +8,13 @@ import {AuthService, GoogleLoginProvider, LoginOpt} from 'angularx-social-login'
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+  @Output() sessionStatusUpdate = new EventEmitter();
   user;
   loggedIn;
   menuOpen = false;
   userName = 'userName';
   scope: LoginOpt = {
-    scope: 'https://www.googleapis.com/auth/calendar'
+    scope: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/spreadsheets'
   }
 
   constructor(
@@ -21,22 +23,27 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.authService.authState.subscribe((user) => {
-        this.user = user;
-        this.loggedIn = (user != null);
-        this.menuOpen = false;
-        if (this.user) {
-          sessionStorage.setItem('user_authToken', this.user.authToken);
-        }
+      this.setUserProperties(user);
     })
   }
 
+  setUserProperties (user) {
+    this.user = user;
+    this.loggedIn = (user != null);
+    this.menuOpen = false;
+    if (this.user) {
+      SetUserInfo(user);
+      this.sessionStatusUpdate.emit();
+    }
+  }
   signInWithGoogle = (): void => {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID, this.scope);
   }
 
   signOut = (): void => {
     this.authService.signOut();
-    sessionStorage.removeItem('user_authToken');
+    RemoveUserInfo();
+    this.sessionStatusUpdate.emit();
   }
 
   showUSerInfo = (): void => {

@@ -1,0 +1,68 @@
+<div class="wrapper">
+    <div class="table-container">
+        <h2>Search History: <span style="font-size: 15px;" *ngIf="searchHistory.length > 0">Found
+                {{searchHistory.length}} results</span> </h2>
+        <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" mdl>
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Date</th>
+                    <th>No. of persons</th>
+                    <th>Budget per person (&#8377;)</th>
+                    <th>Days</th>
+                    <th>Hotel</th>
+                    <th>Travel Mode</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of searchHistory; let i = index">
+                    <td class="mdl-data-table__cell--non-numeric">{{data.timestamp | date: 'medium'}}</td>
+                    <td>{{data.locationData.person}}</td>
+                    <td>{{data.locationData.budget}}</td>
+                    <td>{{data.locationData.duration}}</td>
+                    <td>{{data.locationData.hotel?.starrating}}</td>
+                    <td>
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='Two Wheeler'">
+                            <mat-icon>directions_bike</mat-icon>
+                        </ng-container>
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='Four Wheeler'">
+                            <mat-icon>directions_car</mat-icon> {{data.locationData.travel.cartype}}
+                            {{data.locationData.travel.enginetype}}
+                        </ng-container>
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='train'">
+                            <mat-icon>directions_railway</mat-icon> {{data.locationData.travel.trainclass}}
+                        </ng-container>
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='bus'">
+                            <mat-icon>directions_bus</mat-icon> {{data.locationData.travel.bustype}}
+                        </ng-container>
+                        <ng-container *ngIf="data.locationData.travel && data.locationData.travel.travelmode=='flight'">
+                            <mat-icon>flight</mat-icon>
+                        </ng-container>
+                    </td>
+                    <td>
+                        <button id="{{'item'+i}}" class="mdl-button mdl-js-button mdl-button--icon">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect"
+                            [attr.for]="'item'+i">
+                            <li class="mdl-menu__item" (click)="showDialog(data)">
+                                <mat-icon style="font-size:18px; vertical-align: middle">edit</mat-icon> Edit Parameters
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<dialog class="mdl-dialog" #dialog>
+    <div class="mdl-dialog__contet">
+        <button class="mdl-button mdl-js-button mdl-button--icon" (click)="closeDialog()">
+            <span class="material-icons">
+                clear
+            </span>
+        </button>
+        <search-form [formData]="selectedSearch" (locationDataChange)="goToSearch($event)"></search-form>
+    </div>
+</dialog>

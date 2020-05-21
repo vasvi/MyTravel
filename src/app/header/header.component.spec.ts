@@ -2,12 +2,19 @@ import {async, ComponentFixture, fakeAsync, inject, TestBed, tick} from '@angula
 import {HeaderComponent} from './header.component';
 import {Injectable, NO_ERRORS_SCHEMA} from '@angular/core';
 import {SearchDataService} from '../services/search-data.serivce';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, of} from 'rxjs';
 import {MapService} from '../services/map/map.service';
 import {MatDialogModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {Position} from '../model/search-criteria';
+import {RouterTestingModule} from '@angular/router/testing';
 import * as constant from '../searchConstants';
+import {environment} from '../../environments/environment';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { MatSnackBarModule} from '@angular/material';
+import { EventsService } from '../services/events/events.service';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +70,7 @@ export class MapServiceMock {
       obs.next({
         results: [{
           types: ['locality'],
-          address_components: [{short_name: ''}]
+          address_components: [{short_name: 'Noida'}]
         }],
         status: 'OK',
       });
@@ -84,12 +91,13 @@ describe('HeaderComponent', () => {
         provide: MapService,
         useClass: MapServiceMock
       }],
-      imports: [MatDialogModule, BrowserAnimationsModule]
+      imports: [MatSnackBarModule, HttpClientTestingModule,MatDialogModule, BrowserAnimationsModule, RouterTestingModule.withRoutes([])]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
+
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -110,23 +118,51 @@ describe('HeaderComponent', () => {
     component.onManualLocationClicked(event);
   });
 
-  it('should call initAutoComplete and setLocation Manually', fakeAsync(() => {
-    component.locationInputViewChild = component.locationInputViewChild || {
-      nativeElement: null
-    };
-    component.initAutoComplete();
-    tick(300);
-    expect(component.newUserLocationObject).toBeTruthy();
-    component.newUserLocationObject.geometry = {
-      location: {
-        lat: () => {
-        },
-        lng: () => {
+  it('should setLocation Manually', fakeAsync(() => {
+    component.newUserLocationObject = {
+      formatted_address: 'Noida',
+      geometry: {
+        location: {
+          lat: () => {
+            return 28;
+          },
+          lng: () => {
+            return 84;
+          }
         }
       }
     };
     component.setManualLocation();
+    tick(1000);
     expect(component.currentLocation).toBeTruthy();
   }));
 
+  it('Should mock google autocomplete', () => {
+    component.locationInputViewChild = component.locationInputViewChild || {
+      nativeElement: null
+    };
+    spyOn(google.maps.event, 'addListener').and.callFake((param1, param2, callback) => {
+      /**
+       * ::TODO
+       */
+      callback();
+      return null;
+    });
+    component.initAutoComplete();
+  });
+
+  it('Should Call ngDestroy', () => {
+    component.ngOnDestroy();
+  });
+
+  it('should shareData', () => {
+    sessionStorage.setItem('userinfo', '{"authToken": "1"}');
+    const eventService: EventsService = TestBed.get(EventsService);
+    // spyOn(eventService, 'createSpreadSheet').and.returnValue(of({spreadsheetId:"1234"}));
+    spyOn(eventService, 'createSpreadSheet').and.callFake(() => {
+      return of({spreadsheetId:"1234"});
+    });
+    component.shareData();
+    expect(eventService.createSpreadSheet).toHaveBeenCalled();
+  });
 });
