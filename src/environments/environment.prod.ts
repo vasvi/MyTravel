@@ -25,7 +25,7 @@ export const environment = {
     api_endpoint: 'https://content.googleapis.com/calendar/v3/calendars/primary/events',
   },
   useMock: true,
-  useMap: false
+  useMap: false,
   CLOUDFUNCTIONS: {
     baseURL: 'https://asia-east2-mytravelmaps.cloudfunctions.net'
   }
